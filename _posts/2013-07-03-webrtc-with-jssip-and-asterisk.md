@@ -39,23 +39,25 @@ Now you can recompile.
 
 The resulting build might also need a few configuration changes:
 
-	/etc/asterisk/
-	  |-- http.conf
-	  |-- modules.conf
-	  |-- sip.conf
+    /etc/asterisk/
+      |-- http.conf
+      |-- modules.conf
+      |-- sip.conf
 
 - **http.conf**
-	- enabled=yes
-	- bindaddr=0.0.0.0
-	- bindport=8088
+    - enabled=yes
+    - bindaddr=0.0.0.0
+    - bindport=8088
 - **modules.conf**
-	you must load res_http_websocket.so before chan_sip.so
+    you must load res_http_websocket.so before chan_sip.so
 - **sip.conf**
     Any users that you want to allow WebRTC for you need:
-    	- encryption=yes
-    	- avpf=yes
-    	- transport=ws,wss
-    	- icesupport=yes
+
+        - encryption=yes
+        - avpf=yes
+        - transport=ws,wss
+        - icesupport=yes
+
     Adding **encryption=yes** to any non WebRTC phones might make them break, so be careful.
 
 Remember to restart Asterisk once you're done.
@@ -81,13 +83,13 @@ Index: /static/js/jssip-devel.js
          console.log(LOG_PREFIX +'ICE candidate received: '+ e.candidate.candidate);
        } else {
 -        self.onIceCompleted();
-+      	// PATCH: (saevon) Fixes bug with the code crashing at this step.
-+      	// since: neither createOffer nor createAnswer get called if you
++       // PATCH: (saevon) Fixes bug with the code crashing at this step.
++       // since: neither createOffer nor createAnswer get called if you
 +       // had an "Invalid Target"
-+      	// Thus the method doesn't get added yet
-+      	if (self.onIceCompleted) {
-+	        self.onIceCompleted();
-+      	}
++       // Thus the method doesn't get added yet
++       if (self.onIceCompleted) {
++           self.onIceCompleted();
++       }
        }
      };
 
@@ -106,12 +108,12 @@ Unexpectedly the only way to get sound back was in fact throught the remote stre
 
 {% capture text %}
 call.on('started', function(event) {
-	if (call.getRemoteStreams().length > 0) {
-		var remoteView = document.getElementById('remoteView');
-		remoteView.src = window.URL.createObjectUrl(
-			call.getRemoteStreams()[0]
-		);
-	}
+    if (call.getRemoteStreams().length > 0) {
+        var remoteView = document.getElementById('remoteView');
+        remoteView.src = window.URL.createObjectUrl(
+            call.getRemoteStreams()[0]
+        );
+    }
 });
 
 {% endcapture %}
