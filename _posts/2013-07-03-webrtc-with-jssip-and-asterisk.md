@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "WebRTC with JsSIP and Asterisk"
+date: 2013-07-03
 description: "Trying to get leading edge tech to work: WebRTC"
 category: Case-Studies
 tags: [webrtc, jssip, asterisk]
@@ -73,7 +74,7 @@ Afterwards I would also have jssip error out when I tried to type in an invalid 
 I've included the patch below, use it at your own risk.
 
 
-{% capture text %}
+{% hightlight diff %}
 
 Index: /static/js/jssip-devel.js
 ===================================================================
@@ -93,8 +94,7 @@ Index: /static/js/jssip-devel.js
        }
      };
 
-{% endcapture %}
-{% include JB/liquid_raw %}
+{% endhighlight %}
 
 
 #### One-Way Audio
@@ -106,7 +106,8 @@ When the **call_start** event fires you have a few methods you can use to get th
 Unexpectedly the only way to get sound back was in fact throught the remote stream, which I would then attach to a video tag on my html page.
 
 
-{% capture text %}
+{% highlight javascript %}
+
 call.on('started', function(event) {
     if (call.getRemoteStreams().length > 0) {
         var remoteView = document.getElementById('remoteView');
@@ -116,8 +117,7 @@ call.on('started', function(event) {
     }
 });
 
-{% endcapture %}
-{% include JB/liquid_raw %}
+{% endhighlight %}
 
 
 ## Conclusion
