@@ -4,7 +4,7 @@ title: "WebRTC with JsSIP and Asterisk"
 tagline: ""
 date: 2013-07-04
 description: "Trying to get leading edge tech to work: WebRTC"
-category: Case-Studies
+categories: [coding, case-studies]
 tags: [webrtc, jssip, asterisk]
 ---
 {% include JB/setup %}

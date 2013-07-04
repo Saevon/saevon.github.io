@@ -3,17 +3,19 @@ layout: post
 title: "Hello World!"
 tagline: "Welcome to my blog"
 date: 2013-07-03
-category : intro
+categories : [rant, intro]
 tags : []
 ---
 {% include JB/setup %}
 
 Welcome to my Blog!
 
-So I've finally decided to get myself
+So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.
 
-This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
-Directly following the intro we'll learn exactly _how_ Jekyll does what it does.
+
+## Purpose
+
+I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.
 
 ## Overview
 

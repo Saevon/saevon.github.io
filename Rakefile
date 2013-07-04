@@ -66,7 +66,7 @@ task :post do
     posts.puts "tagline: \"\""
     post.puts "date: #{date}"
     post.puts 'description: ""'
-    post.puts "category: "
+    post.puts "categories: "
     post.puts "tags: #{tags}"
     post.puts "---"
     post.puts "{% include JB/setup %}"
