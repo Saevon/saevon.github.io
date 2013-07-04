@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "WebRTC with JsSIP and Asterisk"
-date: 2013-07-03
+tagline: ""
+date: 2013-07-04
 description: "Trying to get leading edge tech to work: WebRTC"
 category: Case-Studies
 tags: [webrtc, jssip, asterisk]
@@ -115,7 +116,7 @@ There was one unexpected problem that seems to have been causing one way audio f
 
 When the **call_start** event fires you have a few methods you can use to get the local and remote streams, which would be quite useful for video, except I wasn't using video at the time. So I ended up ignoring these callbacks.
 
-Unexpectedly the only way to get sound back was in fact throught the remote stream, which I would then attach to a video tag on my html page.
+Unexpectedly the only way to get sound back was in fact through the remote stream, which I would then attach to a video tag on my html page.
 
 
 {% highlight javascript %}

@@ -1,11 +1,16 @@
 ---
 layout: post
-category : lessons
-date: 2011-12-29
-tagline: "Supporting tagline"
-tags : [intro, beginner, jekyll, tutorial]
+title: "Hello World!"
+tagline: "Welcome to my blog"
+date: 2013-07-03
+category : intro
+tags : []
 ---
 {% include JB/setup %}
+
+Welcome to my Blog!
+
+So I've finally decided to get myself
 
 This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
 Directly following the intro we'll learn exactly _how_ Jekyll does what it does.
