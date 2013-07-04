@@ -65,7 +65,12 @@ The resulting build might also need a few configuration changes:
 
     Adding **encryption=yes** to any non WebRTC phones might make them break, so be careful.
 
-Remember to restart Asterisk once you're done.
+
+{% assign level = "info" %}
+{% include alert_start %}
+    Remember to restart Asterisk once you're done.
+{% include alert_end %}
+
 
 ## JsSIP
 
@@ -75,7 +80,10 @@ My main problem was that their script didn't seem to connect with asterisk prope
 
 Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.
 
-I've included the patch below, use it at your own risk.
+{% assign level = "warning" %}
+{% include alert_start %}
+    I've included the patch below, use it at your own risk.
+{% include alert_end %}
 
 
 {% highlight diff %}
