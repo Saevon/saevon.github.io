@@ -8,16 +8,19 @@
     margin: 0;
 }
 
+/* Body */
 .post-body {
     display: -moz-box;
     display: -webkit-flex;
     display: flex;
 }
 .post-date, .post-short {
-    height: 4.5em;
+    height: 5em;
+    display: inline-block;
 }
 .post-short {
     margin-left: 1em;
+    overflow: hidden;
 }
 .post-date {
     width: 4em;
@@ -36,8 +39,20 @@
     padding: 0.2em 0;
 }
 
-.post-date, .post-short {
-    display: inline-block;
+
+/* Footer */
+.post-footer {
+    display: -moz-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.post-tags {
+    -moz-flex: 1;
+    -webkit-flex:1;
+    flex: 1;
+}
+.post-more {
+    width: 85px;
 }
 
 .tag_box.small {

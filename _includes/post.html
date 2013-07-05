@@ -18,11 +18,11 @@
 
         </div>
         <div class="post-short">
-            {{ post.tldr }}
+            {{ post.content |markdownify }}
         </div>
     </div>
     <div class="post-footer">
-        <div class="tags">
+        <div class="post-tags">
             {% unless post.categories == empty %}
               <ul class="tag_box inline small">
                 <li class="tags-icon"><i class="icon-folder-open"> </i></li>
@@ -38,6 +38,9 @@
                 {% include JB/tags_list %}
               </ul>
             {% endunless %}
+        </div>
+        <div class="post-more">
+            <a href="{{ BASE_PATH }}{{ post.url }}">Read More⋙</a>
         </div>
     </div>
 </div>
