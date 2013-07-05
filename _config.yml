@@ -28,6 +28,7 @@ author :
 #
 production_url : www.saevon.ca
 
+destination : .site
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
