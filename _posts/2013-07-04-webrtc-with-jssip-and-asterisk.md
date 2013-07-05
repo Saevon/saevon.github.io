@@ -9,7 +9,7 @@ tags: [webrtc, jssip, asterisk]
 ---
 {% include JB/setup %}
 
-Recently I've been trying to get a web phone up and running, my only real requirement was to use asterisk.
+Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.
 
 
 ## Browsers
