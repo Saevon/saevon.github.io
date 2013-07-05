@@ -2,7 +2,7 @@
 The tags_list include is a listing helper for tags.
 Usage:
 	  {% assign level = "info" %}
-	  {% assign no_icon = false %}
+	  {% assign no_icon = true %}
 	  {% include alert_start %}
       Text
     {% include alert_end %}
@@ -31,3 +31,7 @@ Usage:
 	{% endcase %}
 
 {% endunless %}
+
+
+{% assign level = null %}
+{% assign no_icon = false %}

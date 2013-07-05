@@ -4,7 +4,7 @@ title: "Hello World!"
 tagline: "Welcome to my blog"
 date: 2013-07-03
 categories : [rant, intro]
-tags : []
+tags : [rant]
 ---
 {% include JB/setup %}
 
@@ -29,6 +29,9 @@ This would list any CS related topics, and though the title is "Coding" it would
 
 This would be a conglomeration of any movies, books, and other such topics. Mostly this will compose of reviews.
 
+#### Rant
+
+Miscellaneous talks will go here
 
 
 ## Conclusion

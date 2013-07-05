@@ -25,18 +25,23 @@ The theme should reference these variables whenever needed.
 
 ## Sample Posts
 
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
+Here's a pair of lists, one per parent category
 
-    $ rm -rf _posts/core-samples
-
-Here's a sample "posts list".
-
+#### Coding:
 <ul class="posts">
-  {% for post in site.posts %}
+  {% for post in site.categories.coding %}
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
 </ul>
+
+#### Rants:
+<ul class="posts">
+  {% for post in site.categories.rant %}
+    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+
+
 
 ## To-Do
 
