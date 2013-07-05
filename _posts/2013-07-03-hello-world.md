@@ -5,6 +5,7 @@ tagline: "Welcome to my blog"
 date: 2013-07-03
 categories : [rant, intro]
 tags : [rant]
+tldr: "So I finally get myself a blog, my plan is to use this to post about both coding and my other passions. But mostly I expect to see code related posts."
 ---
 {% include JB/setup %}
 

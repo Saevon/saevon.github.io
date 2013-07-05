@@ -23,15 +23,11 @@ In `_config.yml` remember to specify your own data:
 
 The theme should reference these variables whenever needed.
 
-## Sample Posts
-
-Here's a pair of lists, one per parent category
-
 #### Coding:
 <ul class="posts">
-  {% for post in site.categories.coding %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
+    {% for post in site.categories.rant %}
+        {% include post.html %}
+    {% endfor %}
 </ul>
 
 #### Rants:
