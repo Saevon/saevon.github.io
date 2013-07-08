@@ -26,23 +26,44 @@
       </ul>
     {% endunless %}
 
-    <hr>
-    <div class="pagination">
-      <ul>
-      {% if page.previous %}
-        <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a></li>
-      {% else %}
-        <li class="prev disabled"><a>&larr; Previous</a></li>
-      {% endif %}
-        <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a></li>
-      {% if page.next %}
-        <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &rarr;</a></li>
-      {% else %}
-        <li class="next disabled"><a>Next &rarr;</a>
-      {% endif %}
-      </ul>
+    <div class="paginated btn-group">
+      {% assign previous = page.previous %}
+      <a class="btn prev {% unless previous %}off{% endunless %}"
+        {% unless previous %}disabled{% endunless %}
+        href="{{ BASE_PATH }}{{ previous.url }}"
+        title="{{ previous.title }}"
+      >
+        &laquo;
+        {% if previous %}
+          {{ previous.title }}
+        {% else %}
+          Previous
+        {% endif %}
+      </a>
+
+      <a class="btn archive" href="{{ BASE_PATH }}{{ site.JB.archive_path }}">
+        Archive
+      </a>
+
+      {% assign next = page.next %}
+
+      <a class="btn next {% unless next %}off{% endunless %}"
+        {% unless previous %}disabled{% endunless %}
+        href="{{ BASE_PATH }}{{ next.url }}"
+        title="{{ next.title }}"
+      >
+        {% if next %}
+          {{ next.title }}
+        {% else %}
+          Next
+        {% endif %}
+        &raquo;
+      </a>
     </div>
-    <hr>
-    {% include JB/comments %}
+
+    {% if site.JB.comments.provider %}
+      <hr>
+      {% include JB/comments %}
+    {% endif %}
   </div>
 </div>

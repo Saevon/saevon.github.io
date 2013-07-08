@@ -52,15 +52,7 @@
     flex: 1;
 }
 .post-more {
+    margin: auto;
     width: 85px;
 }
 
-.tag_box.small {
-    font-size: smaller;
-}
-.tag_box.inline {
-    display: inline-block;
-}
-.tags-icon {
-    padding-top: 5px;
-}

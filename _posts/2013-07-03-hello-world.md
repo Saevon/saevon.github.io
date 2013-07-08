@@ -4,7 +4,7 @@ title: "Hello World!"
 tagline: "Welcome to my blog"
 date: 2013-07-03
 categories : [rant, intro]
-tags : []
+tags : [intro]
 ---
 {% include JB/setup %}
 
