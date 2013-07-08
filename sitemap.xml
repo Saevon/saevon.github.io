@@ -1,0 +1,62 @@
+---
+# Remember to set production_url in your _config.yml file!
+#
+# If you want a page listed it needs the following variables
+#
+# sitemap: true
+# OR
+# sitemap:
+#    priority: 0.7
+#    changefreq: monthly
+#    lastmod: 2013-03-29T12:49:30-05:00
+#
+# priority: 0.0 - 1.0
+#       Importance of this page as opposed to any other page on _this_
+#       site. This won't affect relevance in relation to other sites
+# changefreq: always, hourly, daily, weekly, monthly, yearly, never
+#       How often this page should be crawled.
+#       always: for dynamic pages
+#       never:  for archived pages
+# lastmod: YYYY-MM-DD / YYYY-MM-DDTHH:MM:SS+TIMEZONE
+#       last modified date.
+
+
+title : Sitemap
+icon: "sitemap"
+---
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  {% for post in site.posts %}
+  <url>
+    <loc>{{ site.production_url }}{{ post.url }}</loc>
+    {% if post.lastmod == null %}
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    {% else %}
+    <lastmod>{{ post.lastmod | date_to_xmlschema }}</lastmod>
+    {% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  {% endfor %}
+  {% for page in site.pages %}
+  {% if page.sitemap %}
+  <url>
+    <loc>{{ site.production_url }}{{ page.url }}</loc>
+    {% if page.sitemap.lastmod %}
+    <lastmod>{{ page.sitemap.lastmod | date_to_xmlschema }}</lastmod>
+    {% endif %}
+    {% if page.sitemap.changefreq %}
+    <changefreq>{{ page.sitemap.changefreq }}</changefreq>
+    {% endif %}
+    {% if page.sitemap.piority %}
+    <priority>{{ page.sitemap.priority }}</priority>
+    {% endif %}
+  </url>
+  {% endif %}
+  {% endfor %}
+
+</urlset>
+
