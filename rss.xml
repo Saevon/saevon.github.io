@@ -1,6 +1,7 @@
 ---
 layout: nil
 title : RSS Feed
+icon: "rss"
 sitemap: true
 ---
 

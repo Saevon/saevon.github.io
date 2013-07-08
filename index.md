@@ -2,6 +2,7 @@
 layout: page
 title: "Welcome!"
 tagline: "Choose your poison (or honey if you prefer)"
+icon: "home"
 sitemap: true
 ---
 {% include JB/setup %}
