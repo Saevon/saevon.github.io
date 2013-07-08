@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Welcome!"
-tagline: "Choose your poison (or honey if you prefer)"
+tagline: "Choose your poison."
 icon: "home"
 sitemap: true
 ---
@@ -10,15 +10,15 @@ sitemap: true
 
 #### Coding:
 <ul class="posts">
-    {% for post in site.categories.coding %}
-        {% include post.html %}
+    {% for post in site.categories.coding limit:2 %}
+        {% include post_excerpt.html %}
     {% endfor %}
 </ul>
 
 #### Rants:
 <ul class="posts">
-    {% for post in site.categories.rant %}
-        {% include post.html %}
+    {% for post in site.categories.rant | limit:2 %}
+        {% include post_excerpt.html %}
     {% endfor %}
 </ul>
 
