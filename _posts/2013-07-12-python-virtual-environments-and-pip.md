@@ -4,7 +4,7 @@ title: "Python Virtual Environments and PIP"
 tagline: "Keep your projects separate."
 description: ""
 date: 2013-07-12
-categories: [coding, case-studies]
+categories: [coding]
 tags: [python, virtualenv, pip]
 ---
 {% include JB/setup %}

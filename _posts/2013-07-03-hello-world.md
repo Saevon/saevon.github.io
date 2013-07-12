@@ -3,7 +3,7 @@ layout: post
 title: "Hello World!"
 tagline: "Welcome to my blog"
 date: 2013-07-03
-categories : [misc, intro]
+categories : [misc]
 tags : [rant]
 ---
 {% include JB/setup %}

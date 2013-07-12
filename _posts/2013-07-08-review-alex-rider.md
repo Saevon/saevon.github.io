@@ -4,7 +4,7 @@ title: "Review: Alex Rider"
 tagline: ""
 description: ""
 date: 2013-07-08
-categories: [media, review]
+categories: [media]
 tags: [alex rider, book]
 ---
 {% include JB/setup %}
