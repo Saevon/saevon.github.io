@@ -15,16 +15,16 @@ sitemap: true
     {% endfor %}
 </ul>
 
-#### Rants:
+#### Media:
 <ul class="posts">
-    {% for post in site.categories.rant | limit:2 %}
+    {% for post in site.categories.media | limit:2 %}
         {% include post_excerpt.html %}
     {% endfor %}
 </ul>
 
-#### Media:
+#### Misc:
 <ul class="posts">
-    {% for post in site.categories.media | limit:2 %}
+    {% for post in site.categories.rant | limit:2 %}
         {% include post_excerpt.html %}
     {% endfor %}
 </ul>
