@@ -5,7 +5,7 @@ tagline: ""
 date: 2013-07-04
 description: "Trying to get leading edge tech to work: WebRTC"
 categories: [coding, case-studies]
-tags: [webrtc, jssip, asterisk]
+tags: [webrtc, jssip, javascript, asterisk]
 ---
 {% include JB/setup %}
 
