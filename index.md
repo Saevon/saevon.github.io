@@ -22,4 +22,12 @@ sitemap: true
     {% endfor %}
 </ul>
 
+#### Media:
+<ul class="posts">
+    {% for post in site.categories.media | limit:2 %}
+        {% include post_excerpt.html %}
+    {% endfor %}
+</ul>
+
+
 
