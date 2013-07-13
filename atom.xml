@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Saevon</title>
+ <link href="www.saevon.ca/" rel="self"/>
+ <link href="www.saevon.ca"/>
+ <updated>2013-07-12T22:35:39-04:00</updated>
+ <id>www.saevon.ca</id>
+ <author>
+   <name>Saevon</name>
+   <email>dot.saevon@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Python Virtual Environments and PIP</title>
+   <link href="www.saevon.ca/coding/python-virtual-environments-and-pip"/>
+   <updated>2013-07-12T00:00:00-04:00</updated>
+   <id>www.saevon.ca/coding/python-virtual-environments-and-pip</id>
+   <content type="html">&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentaly install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
+
+&lt;h1&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;Jump straight to the &lt;a href=&quot;#Syspip&quot;&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
+
+&lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
+
+&lt;p&gt;This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.&lt;/p&gt;
+
+&lt;p&gt;I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.&lt;/p&gt;
+
+&lt;h3&gt;Changing Environments&lt;/h3&gt;
+
+&lt;p&gt;To change environments is pretty easy, you just use the &lt;code&gt;workon&lt;/code&gt; command. This works whether you have a currently active environment or not.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;workon &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To deactivate the current environment you use the &lt;code&gt;deactivate&lt;/code&gt; command, just like normal. Though personally I though workoff was more obvious.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;deactivate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Tab Completion!&lt;/h3&gt;
+
+&lt;p&gt;When using the &lt;code&gt;workon&lt;/code&gt; command you can tab complete to see the list of all the environments you have.&lt;/p&gt;
+
+&lt;h3&gt;Add/Remove Environments&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Add a new environment&lt;/span&gt;
+mkvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Remove an environment&lt;/span&gt;
+rmvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Syspip&lt;/h1&gt;
+
+&lt;p&gt;Heres where stuff gets interesting. To prevent mistakes while installing packages, I've added the following things to my bash startup scripts (&lt;code&gt;.bashrc&lt;/code&gt;, &lt;code&gt;.bash_aliases&lt;/code&gt;, etc.)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# .bashrc&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /usr/local/bin/virtualenvwrapper.sh
+
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WORKON_HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.environments
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PIP_VIRTUALENV_BASE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;WORKON_HOME
+
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First notice that we set &lt;code&gt;PIP_REQUIRE_VIRTUALENV&lt;/code&gt;, this ensures that pip &lt;em&gt;will not&lt;/em&gt; run without an active virtual environment.&lt;/p&gt;
+
+&lt;p&gt;Second, do remember to set &lt;code&gt;PIP_VIRTUALENV_BASE&lt;/code&gt;, since that is what pip uses to tell if you have an environment active. (AFAIK)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# .bash_aliases&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SYSTEM_PIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which pip&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;syspip &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; sudo &lt;span class=&quot;nv&quot;&gt;$SYSTEM_PIP&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we first find which version of pip we use, then add a new way of using the global pip binary. Now you have 2 ways of installing a package, each of which always installs to the expected location.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pip install $package&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To install &lt;strong&gt;only&lt;/strong&gt; for the currently active environment, (or fail if it doesn't find one)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;&lt;code&gt;syspip install $package&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To install &lt;strong&gt;only&lt;/strong&gt; globally&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;alert alert-block alert-warning&quot;&gt;
+
+
+
+    
+            &lt;i class=&quot;icon-warning-sign&quot; style=&quot;color: #D1BC4A;&quot;&gt; &lt;/i&gt;
+        
+
+
+
+
+
+
+
+    Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise `syspip` might not work as advertised.
+&lt;/div&gt;
+
+
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Review: Alex Rider</title>
+   <link href="www.saevon.ca/media/review-alex-rider"/>
+   <updated>2013-07-08T00:00:00-04:00</updated>
+   <id>www.saevon.ca/media/review-alex-rider</id>
+   <content type="html">&lt;p&gt;Alex Rider is a story about a kid learning the truth about his parent. Having been secretly trained as a spy from birth, he's coerced into working for the MI6 and always ends up saving the world from unknown catastrophy.&lt;/p&gt;
+
+&lt;h2&gt;Review&lt;/h2&gt;
+
+&lt;p&gt;It has been a while since I last read books from the Alex Rider series, but I can tell you they're worth re-reading.&lt;/p&gt;
+
+&lt;p&gt;The general plot follows Alex as he gets into difficult situations and uses his wits, training, and cool gadgets to escape hazards. He often not only triumphs, but comes out ahead, finding some new source of information which helps him uncover the final evil plan.&lt;/p&gt;
+
+&lt;p&gt;The series is quite easy to be immersed in, and nicely portrays the problems and challenges a spy might be facing. Some potential inaccuracy does exist, however it is outshadowed by the greater benefit it usually presents to the overall story. You can see that the author did his research, and consulted experts in quite a few fields when writing his books.&lt;/p&gt;
+
+&lt;p&gt;One of the main characteristics of this series is that Alex does not often wish to follow along with every Secret Service's requests for help. This is very realistic portrayal of the most likely reaction of a kid put in the situation he faces, and while I would prefer not to see him being coerced into these situations, it makes Alex seem much more normal and provides more believability to the story.&lt;/p&gt;
+
+&lt;p&gt;The evil villains of the Alex Rider universe do follow the standard James Bond procedure, but all seem to have unique quirks that make them much more. Not all of them would blab out their evil plan when Alex is caught and about to be killed, though most of them do end up leaving him to die.&lt;/p&gt;
+
+&lt;p&gt;Psychology plays a big part in the series, as we see Alex get hurt mentally with everything he goes through, and even though he seems to get back up a little too resiliently, it makes reading the books all the more accurate and enjoyable.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>WebRTC with JsSIP and Asterisk</title>
+   <link href="www.saevon.ca/coding/webrtc-with-jssip-and-asterisk"/>
+   <updated>2013-07-04T00:00:00-04:00</updated>
+   <id>www.saevon.ca/coding/webrtc-with-jssip-and-asterisk</id>
+   <content type="html">&lt;p&gt;Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.&lt;/p&gt;
+
+&lt;h2&gt;Browsers&lt;/h2&gt;
+
+&lt;p&gt;I've only tried to use chrome so far, though I've read that Firefox is currently WebRTC capable as well.&lt;/p&gt;
+
+&lt;p&gt;Chrome on OSX seems to work fine (version 27.0.1453.116).&lt;/p&gt;
+
+&lt;p&gt;Chrome on Ubuntu had problems until I updated to a &lt;a href=&quot;http://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-beta&quot;&gt;Beta version&lt;/a&gt; (version 28.0.1500.52 beta)&lt;/p&gt;
+
+&lt;h2&gt;Asterisk&lt;/h2&gt;
+
+&lt;p&gt;Asterisk had quite a few requirements before I could get it to work with WebRTC, &lt;a href=&quot;https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support&quot; title=&quot;Asterisk and WebRTC&quot;&gt;see this page for details&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4&gt;Building&lt;/h4&gt;
+
+&lt;p&gt;You will likely need to rebuild Asterisk as WebRTC requires a SRTP libraries, which aren't included by default.&lt;/p&gt;
+
+&lt;p&gt;You will need the following libraries on the machine you use to recompile Asterisk:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;libssl-dev&lt;/li&gt;
+&lt;li&gt;libsrtp0&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Once you have these libraries installed, you will also need to enable two Asterisk resources:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;res_srtp.so&lt;/li&gt;
+&lt;li&gt;res_http_websocket.so&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Now you can recompile.&lt;/p&gt;
+
+&lt;p&gt;The resulting build might also need a few configuration changes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/etc/asterisk/
+  |-- http.conf
+  |-- modules.conf
+  |-- sip.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;http.conf&lt;/code&gt;
+  Ensure the following options are set&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  enabled=yes
+  bindaddr=0.0.0.0
+  bindport=8088
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;modules.conf&lt;/code&gt;
+  you must load res_http_websocket.so before chan_sip.so&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;sip.conf&lt;/code&gt;
+  Any users that you want to allow WebRTC for you need:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  encryption=yes
+  avpf=yes
+  transport=ws,wss
+  icesupport=yes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  Adding &lt;strong&gt;encryption=yes&lt;/strong&gt; to any non WebRTC phones might make them break, so be careful.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;alert alert-block alert-info&quot;&gt;
+
+
+
+    
+            &lt;i class=&quot;icon-info-sign&quot; style=&quot;color: #2A79B8;&quot;&gt; &lt;/i&gt;
+        
+
+
+
+
+
+
+
+    Remember to restart Asterisk once you're done.
+&lt;/div&gt;
+
+
+&lt;h2&gt;JsSIP&lt;/h2&gt;
+
+&lt;p&gt;JsSIP &lt;a href=&quot;http://jssip.net/&quot; title=&quot;JsSip&quot;&gt;JsSIP&lt;/a&gt; was quite easy to use, however it wasn't without its set of problems. If you want to do a quick test yourself, check out the &lt;a href=&quot;https://jssip.tryit.net&quot; title=&quot;JsSip Tryit&quot;&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+
+&lt;p&gt;My main problem was that their script didn't seem to connect with asterisk properly, though I've already forgotten the reason (will update if I do). To solve this I updated to the dev version of JsSIP, which I download from the &lt;a href=&quot;https://jssip.tryit.net&quot; title=&quot;JsSip Tryit&quot;&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+
+&lt;p&gt;Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.&lt;/p&gt;
+
+&lt;div class=&quot;alert alert-block alert-warning&quot;&gt;
+
+
+
+    
+            &lt;i class=&quot;icon-warning-sign&quot; style=&quot;color: #D1BC4A;&quot;&gt; &lt;/i&gt;
+        
+
+
+
+
+
+
+
+    I've included the patch below, use it at your own risk.
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff&quot;&gt;&lt;span class=&quot;gh&quot;&gt;Index: /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class=&quot;gh&quot;&gt;===================================================================&lt;/span&gt;
+&lt;span class=&quot;gd&quot;&gt;--- /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+++ /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class=&quot;gu&quot;&gt;@@ -3372,5 +3372,10 @@&lt;/span&gt;
+         console.log(LOG_PREFIX +&amp;#39;ICE candidate received: &amp;#39;+ e.candidate.candidate);
+       } else {
+&lt;span class=&quot;gd&quot;&gt;-        self.onIceCompleted();&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       // PATCH: (saevon) Fixes bug with the code crashing at this step.&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       // since: neither createOffer nor createAnswer get called if you&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       // had an &amp;quot;Invalid Target&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       // Thus the method doesn&amp;#39;t get added yet&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       if (self.onIceCompleted) {&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+           self.onIceCompleted();&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+       }&lt;/span&gt;
+       }
+     };
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;One-Way Audio&lt;/h4&gt;
+
+&lt;p&gt;There was one unexpected problem that seems to have been causing one way audio for me.&lt;/p&gt;
+
+&lt;p&gt;When the &lt;strong&gt;call_start&lt;/strong&gt; event fires you have a few methods you can use to get the local and remote streams, which would be quite useful for video, except I wasn't using video at the time. So I ended up ignoring these callbacks.&lt;/p&gt;
+
+&lt;p&gt;Unexpectedly the only way to get sound back was in fact through the remote stream, which I would then attach to a video tag on my html page.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;started&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getRemoteStreams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remoteView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;remoteView&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;remoteView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createObjectUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getRemoteStreams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;WebRTC is clearly still a work in progress, and I hope it gets polished up nicely for when I next wish to use it.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt;Reference&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://jssip.net/&quot; title=&quot;JsSip&quot;&gt;JsSIP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://jssip.tryit.net&quot; title=&quot;JsSip Tryit&quot;&gt;JsSip Tryit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support&quot; title=&quot;Asterisk and WebRTC&quot;&gt;Asterisk and WebRTC&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hello World!</title>
+   <link href="www.saevon.ca/misc/hello-world"/>
+   <updated>2013-07-03T00:00:00-04:00</updated>
+   <id>www.saevon.ca/misc/hello-world</id>
+   <content type="html">&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
+
+&lt;p&gt;So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.&lt;/p&gt;
+
+&lt;h2&gt;Purpose&lt;/h2&gt;
+
+&lt;p&gt;I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.&lt;/p&gt;
+
+&lt;p&gt;As I add more topics I will update this post.&lt;/p&gt;
+
+&lt;h4&gt;Coding&lt;/h4&gt;
+
+&lt;p&gt;This would list any CS related topics, and though the title is &quot;Coding&quot; it would include algorithms and other such theoretical topics.&lt;/p&gt;
+
+&lt;h4&gt;Media&lt;/h4&gt;
+
+&lt;p&gt;This would be a conglomeration of any movies, books, and other such topics. Mostly this will compose of reviews.&lt;/p&gt;
+
+&lt;h4&gt;Rant&lt;/h4&gt;
+
+&lt;p&gt;Miscellaneous talks will go here&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;div class=&quot;alert alert-block alert-success&quot;&gt;
+
+
+
+
+
+
+
+  &lt;strong&gt;Thank you&lt;/strong&gt; for reading this far
+&lt;/div&gt;
+
+
+&lt;p&gt;Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

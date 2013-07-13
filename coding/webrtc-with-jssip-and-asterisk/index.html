@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebRTC with JsSIP and Asterisk</title>
+    <meta name="description" content="Trying to get leading edge tech to work: WebRTC">
+    <meta name="author" content="Saevon">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/bootstrap/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/css/syntax.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <link href="/assets/themes/twitter/css/post.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Saevon</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/archive.html" class="">
+          
+            <i class="icon-archive"> </i>
+          
+          Archive
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/categories.html" class="">
+          
+            <i class="icon-book"> </i>
+          
+          Categories
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/pages.html" class="">
+          
+            <i class="icon-file"> </i>
+          
+          Pages
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/tags.html" class="">
+          
+            <i class="icon-tags"> </i>
+          
+          Tags
+        </a></li>
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+
+<div class="page-header">
+  <h1>WebRTC with JsSIP and Asterisk <small></small></h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>04 July 2013</span>
+    </div>
+    <div class="content">
+      <p>Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.</p>
+
+<h2>Browsers</h2>
+
+<p>I've only tried to use chrome so far, though I've read that Firefox is currently WebRTC capable as well.</p>
+
+<p>Chrome on OSX seems to work fine (version 27.0.1453.116).</p>
+
+<p>Chrome on Ubuntu had problems until I updated to a <a href="http://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-beta">Beta version</a> (version 28.0.1500.52 beta)</p>
+
+<h2>Asterisk</h2>
+
+<p>Asterisk had quite a few requirements before I could get it to work with WebRTC, <a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC">see this page for details</a>.</p>
+
+<h4>Building</h4>
+
+<p>You will likely need to rebuild Asterisk as WebRTC requires a SRTP libraries, which aren't included by default.</p>
+
+<p>You will need the following libraries on the machine you use to recompile Asterisk:</p>
+
+<ul>
+<li>libssl-dev</li>
+<li>libsrtp0</li>
+</ul>
+
+
+<p>Once you have these libraries installed, you will also need to enable two Asterisk resources:</p>
+
+<ul>
+<li>res_srtp.so</li>
+<li>res_http_websocket.so</li>
+</ul>
+
+
+<p>Now you can recompile.</p>
+
+<p>The resulting build might also need a few configuration changes:</p>
+
+<pre><code>/etc/asterisk/
+  |-- http.conf
+  |-- modules.conf
+  |-- sip.conf
+</code></pre>
+
+<ul>
+<li><p><code>http.conf</code>
+  Ensure the following options are set</p>
+
+<pre><code>  enabled=yes
+  bindaddr=0.0.0.0
+  bindport=8088
+</code></pre></li>
+<li><p><code>modules.conf</code>
+  you must load res_http_websocket.so before chan_sip.so</p></li>
+<li><p><code>sip.conf</code>
+  Any users that you want to allow WebRTC for you need:</p>
+
+<pre><code>  encryption=yes
+  avpf=yes
+  transport=ws,wss
+  icesupport=yes
+</code></pre>
+
+<p>  Adding <strong>encryption=yes</strong> to any non WebRTC phones might make them break, so be careful.</p></li>
+</ul>
+
+
+<div class="alert alert-block alert-info">
+
+
+
+    
+            <i class="icon-info-sign" style="color: #2A79B8;"> </i>
+        
+
+
+
+
+
+
+
+    Remember to restart Asterisk once you're done.
+</div>
+
+
+<h2>JsSIP</h2>
+
+<p>JsSIP <a href="http://jssip.net/" title="JsSip">JsSIP</a> was quite easy to use, however it wasn't without its set of problems. If you want to do a quick test yourself, check out the <a href="https://jssip.tryit.net" title="JsSip Tryit">JsSIP Tryit</a> page.</p>
+
+<p>My main problem was that their script didn't seem to connect with asterisk properly, though I've already forgotten the reason (will update if I do). To solve this I updated to the dev version of JsSIP, which I download from the <a href="https://jssip.tryit.net" title="JsSip Tryit">JsSIP Tryit</a> page.</p>
+
+<p>Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.</p>
+
+<div class="alert alert-block alert-warning">
+
+
+
+    
+            <i class="icon-warning-sign" style="color: #D1BC4A;"> </i>
+        
+
+
+
+
+
+
+
+    I've included the patch below, use it at your own risk.
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="diff"><span class="gh">Index: /static/js/jssip-devel.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- /static/js/jssip-devel.js</span>
+<span class="gi">+++ /static/js/jssip-devel.js</span>
+<span class="gu">@@ -3372,5 +3372,10 @@</span>
+         console.log(LOG_PREFIX +&#39;ICE candidate received: &#39;+ e.candidate.candidate);
+       } else {
+<span class="gd">-        self.onIceCompleted();</span>
+<span class="gi">+       // PATCH: (saevon) Fixes bug with the code crashing at this step.</span>
+<span class="gi">+       // since: neither createOffer nor createAnswer get called if you</span>
+<span class="gi">+       // had an &quot;Invalid Target&quot;</span>
+<span class="gi">+       // Thus the method doesn&#39;t get added yet</span>
+<span class="gi">+       if (self.onIceCompleted) {</span>
+<span class="gi">+           self.onIceCompleted();</span>
+<span class="gi">+       }</span>
+       }
+     };
+</code></pre></div>
+
+
+<h4>One-Way Audio</h4>
+
+<p>There was one unexpected problem that seems to have been causing one way audio for me.</p>
+
+<p>When the <strong>call_start</strong> event fires you have a few methods you can use to get the local and remote streams, which would be quite useful for video, except I wasn't using video at the time. So I ended up ignoring these callbacks.</p>
+
+<p>Unexpectedly the only way to get sound back was in fact through the remote stream, which I would then attach to a video tag on my html page.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;started&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">call</span><span class="p">.</span><span class="nx">getRemoteStreams</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">remoteView</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;remoteView&#39;</span><span class="p">);</span>
+        <span class="nx">remoteView</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectUrl</span><span class="p">(</span>
+            <span class="nx">call</span><span class="p">.</span><span class="nx">getRemoteStreams</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<h2>Conclusion</h2>
+
+<p>WebRTC is clearly still a work in progress, and I hope it gets polished up nicely for when I next wish to use it.</p>
+
+<hr />
+
+<h2>Reference</h2>
+
+<ul>
+<li><a href="http://jssip.net/" title="JsSip">JsSIP</a></li>
+<li><a href="https://jssip.tryit.net" title="JsSip Tryit">JsSip Tryit</a></li>
+<li><a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC">Asterisk and WebRTC</a></li>
+</ul>
+
+
+    </div>
+
+    
+      <ul class="tag-box inline">
+        <li><i class="icon-book"> </i></li>
+        
+        
+
+
+  
+    
+    	<li><a href="/categories.html#coding-ref">
+    		coding <span>2</span>
+    	</a></li>
+    
+  
+
+
+
+      </ul>
+    
+    
+      <ul class="tag-box inline">
+        <li><i class="icon-tags"> </i></li>
+        
+        
+
+
+  
+     
+    	<li><a href="/tags.html#webrtc-ref">webrtc <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#jssip-ref">jssip <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#javascript-ref">javascript <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#asterisk-ref">asterisk <span>1</span></a></li>
+    
+  
+
+
+
+      </ul>
+    
+
+    <div class="paginated btn-group">
+      
+      <a class="btn prev "
+        
+        href="/misc/hello-world"
+        title="Hello World!"
+      >
+        &laquo;
+        
+          Hello World!
+        
+      </a>
+
+      <a class="btn archive" href="/archive.html">
+        Archive
+      </a>
+
+      
+
+      <a class="btn next "
+        
+        href="/media/review-alex-rider"
+        title="Review: Alex Rider"
+      >
+        
+          Review: Alex Rider
+        
+        &raquo;
+      </a>
+    </div>
+
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2013 Saevon
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+
