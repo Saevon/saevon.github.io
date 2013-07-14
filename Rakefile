@@ -98,10 +98,25 @@ task :page do
   end
 end # task :page
 
-desc "Launch preview environment"
-task :preview do
-  system "jekyll --auto --server"
-end # task :preview
+desc "Launch Develop Environment - For the Latest post"
+task :run_post do |t, args|
+  cmd = "jekyll serve -w"
+  cmd += " --limit_posts 1"
+  puts "running #{cmd}"
+  exec(cmd)
+end
+
+
+desc "Launch Latest Post Develop Environment"
+task :run do |t, args|
+  cmd = "jekyll serve -w"
+  puts "running #{cmd}"
+  exec(cmd)
+end
+
+
+
+
 
 # Public: Alias - Maintains backwards compatability for theme switching.
 task :switch_theme => "theme:switch"
