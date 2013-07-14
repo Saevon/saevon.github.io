@@ -17,12 +17,17 @@
     display: flex;
 }
 .post-date, .post-short {
-    height: 5em;
+    height: 4.5em;
     display: inline-block;
 }
 .post-short {
     margin-left: 1em;
     overflow: hidden;
+
+    line-height: 1.5em;
+}
+.post-short p {
+    margin-bottom: .1em;
 }
 .post-date {
     width: 4em;
