@@ -12,6 +12,7 @@ tags: [webrtc, jssip, javascript, asterisk]
 Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.
 
 
+
 ## Browsers
 
 I've only tried to use chrome so far, though I've read that Firefox is currently WebRTC capable as well.
@@ -66,15 +67,10 @@ The resulting build might also need a few configuration changes:
 
     Adding **encryption=yes** to any non WebRTC phones might make them break, so be careful.
 
-
-{% alert info %}
-help [JsSIP][jssip]
-
-{% endalert %}
-
 {% alert info %}
     Remember to restart Asterisk once you're done.
 {% endalert %}
+
 
 
 ## JsSIP
@@ -136,12 +132,15 @@ call.on('started', function(event) {
 {% endhighlight %}
 
 
+
 ## Conclusion
 
 WebRTC is clearly still a work in progress, and I hope it gets polished up nicely for when I next wish to use it.
 
 
 ---
+
+
 
 ## Reference
 

@@ -10,7 +10,7 @@ class Jekyll::Alert < Liquid::Block
     }
 
     def initialize(tag, markup, tokens)
-        if markup =~ /(?<level>info|error|warning|success)?\s*(icon=(?<icon>.*))?/i
+        if markup =~ /(?<level>info|error|warning|success)?\s*(icon=(?<icon>(nil|".*")))?/i
             level = Regexp.last_match(:level)
             icon = Regexp.last_match(:icon)
 
@@ -23,10 +23,10 @@ class Jekyll::Alert < Liquid::Block
             if icon == 'nil'
                 @icon = nil
             elsif not icon
-                # TODO: Actually use a map to figure out the default
                 @icon = LEVEL_TO_ICON[@level]
             else
-                @icon = icon
+                # Strip out the quotes
+                @icon = icon[1..-2]
             end
         end
         super
