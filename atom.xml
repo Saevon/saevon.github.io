@@ -4,7 +4,7 @@
  <title>Saevon</title>
  <link href="www.saevon.ca/" rel="self"/>
  <link href="www.saevon.ca"/>
- <updated>2013-07-12T22:36:08-04:00</updated>
+ <updated>2013-07-14T14:18:38-04:00</updated>
  <id>www.saevon.ca</id>
  <author>
    <name>Saevon</name>
@@ -105,21 +105,8 @@ rmvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
 &lt;/ul&gt;
 
 
-&lt;div class=&quot;alert alert-block alert-warning&quot;&gt;
-
-
-
-    
-            &lt;i class=&quot;icon-warning-sign&quot; style=&quot;color: #D1BC4A;&quot;&gt; &lt;/i&gt;
-        
-
-
-
-
-
-
-
-    Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise `syspip` might not work as advertised.
+&lt;div class=&quot;alert alert-block alert-warning&quot;&gt; &lt;i class=&quot;icon-warning-sign&quot;&gt; &lt;/i&gt; 
+    Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.&lt;/p&gt;
 &lt;/div&gt;
 
 
@@ -222,21 +209,15 @@ rmvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
 &lt;/ul&gt;
 
 
-&lt;div class=&quot;alert alert-block alert-info&quot;&gt;
-
-
-
-    
-            &lt;i class=&quot;icon-info-sign&quot; style=&quot;color: #2A79B8;&quot;&gt; &lt;/i&gt;
-        
+&lt;div class=&quot;alert alert-block alert-info&quot;&gt; &lt;i class=&quot;icon-info-sign&quot;&gt; &lt;/i&gt; 
+help &lt;a href=&quot;http://jssip.net/&quot; title=&quot;JsSip&quot;&gt;JsSIP&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 
 
 
 
-
-
-
-    Remember to restart Asterisk once you're done.
+&lt;div class=&quot;alert alert-block alert-info&quot;&gt; &lt;i class=&quot;icon-info-sign&quot;&gt; &lt;/i&gt; 
+    Remember to restart Asterisk once you're done.&lt;/p&gt;
 &lt;/div&gt;
 
 
@@ -248,21 +229,8 @@ rmvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
 
 &lt;p&gt;Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.&lt;/p&gt;
 
-&lt;div class=&quot;alert alert-block alert-warning&quot;&gt;
-
-
-
-    
-            &lt;i class=&quot;icon-warning-sign&quot; style=&quot;color: #D1BC4A;&quot;&gt; &lt;/i&gt;
-        
-
-
-
-
-
-
-
-    I've included the patch below, use it at your own risk.
+&lt;div class=&quot;alert alert-block alert-warning&quot;&gt; &lt;i class=&quot;icon-warning-sign&quot;&gt; &lt;/i&gt; 
+    I've included the patch below, use it at your own risk.&lt;/p&gt;
 &lt;/div&gt;
 
 
@@ -353,15 +321,8 @@ rmvirtualenv &lt;span class=&quot;nv&quot;&gt;$env_name&lt;/span&gt;
 
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 
-&lt;div class=&quot;alert alert-block alert-success&quot;&gt;
-
-
-
-
-
-
-
-  &lt;strong&gt;Thank you&lt;/strong&gt; for reading this far
+&lt;div class=&quot;alert alert-block alert-success&quot;&gt; &lt;i class=&quot;icon-nil &quot;&gt; &lt;/i&gt; 
+  &lt;strong&gt;Thank you&lt;/strong&gt; for reading this far&lt;/p&gt;
 &lt;/div&gt;
 
 
