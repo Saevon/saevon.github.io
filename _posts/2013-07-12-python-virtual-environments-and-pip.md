@@ -97,9 +97,8 @@ Here we first find which version of pip we use, then add a new way of using the 
 
 * To install **only** globally
 
-{% assign level = "warning" %}
-{% include alert_start %}
+{% alert warning %}
 	Don't forget to load <code>.bash_aliases</code> before you activate any environments, otherwise `syspip` might not work as advertised.
-{% include alert_end %}
+{% endalert %}
 
 

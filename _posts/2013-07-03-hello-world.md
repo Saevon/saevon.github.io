@@ -36,11 +36,9 @@ Miscellaneous talks will go here
 
 ## Conclusion
 
-{% assign level = "success" %}
-{% assign no_icon = true %}
-{% include alert_start %}
+{% alert success icon=nil %}
   <strong>Thank you</strong> for reading this far
-{% include alert_end %}
+{% endalert %}
 
 Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.
 
