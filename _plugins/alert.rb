@@ -1,10 +1,3 @@
-module Jekyll
-      # Add accessor for directory
-  class Page
-      attr_reader :dir
-  end
-end
-
 class Jekyll::Alert < Liquid::Block
     alias_method :render_block, :render
 
@@ -63,9 +56,7 @@ class Jekyll::Alert < Liquid::Block
         html << '</div>'
 
         return html
-
     end
-
 end
 
 
