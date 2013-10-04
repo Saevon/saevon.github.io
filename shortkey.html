@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Shortkey.js</title>
+    <meta name="description" content="A Shortkey input type">
+    <meta name="author" content="Saevon">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/bootstrap/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/css/syntax.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <link href="/assets/themes/twitter/css/post.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Saevon</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/archive.html" class="">
+          
+            <i class="icon-archive"> </i>
+          
+          Archive
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/categories.html" class="">
+          
+            <i class="icon-book"> </i>
+          
+          Categories
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/pages.html" class="">
+          
+            <i class="icon-file"> </i>
+          
+          Pages
+        </a></li>
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+          
+        
+        <li class="">
+          <a href="/tags.html" class="">
+          
+            <i class="icon-tags"> </i>
+          
+          Tags
+        </a></li>
+      
+    
+  
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+
+<div class="page-header">
+  <h1>Shortkey.js </h1>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <p>This is a module that allows for a new <code>shortcut</code> input type in HTML <code>&lt;input&gt;</code>. It also provides a global parser that reads your input an helps you check if the shortcut has occured during a <code>keypress</code>, <code>keydown</code> or <code>keyup</code> event.</p>
+
+<p>You can get this module in three different parts,</p>
+
+<ul>
+<li><a href="https://saevon.ca/?2">shortkey-global.min.js</a> for just the global parser.</li>
+<li><a href="https://saevon.ca/??">shortkey.min.js</a> for the full module.</li>
+</ul>
+
+
+<p>See the source on Github <a href="https://github.com/Saevon/shortkey">here</a></p>
+
+<h1>Global Usage</h1>
+
+<h3>shortkey.parse(string[, options])</h3>
+
+<p>Tries to parse the given input returning a <code>shortcut</code> object. If it can't parse the input then it will</p>
+
+<p>Here is an example usage of the global shortcut parser</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Note: the seperator is optional, as shortkey can guess at a few of the more common formats</span>
+<span class="c1">// What it will do though is set the text field for the output using the given seperator</span>
+<span class="c1">// var shortcut = shortkey.parse(&#39;Shift+A&#39;);</span>
+<span class="kd">var</span> <span class="nx">shortcut</span> <span class="o">=</span> <span class="nx">shortkey</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">&#39;Shift+A&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">seperator</span><span class="o">:</span> <span class="s1">&#39;+&#39;</span><span class="p">});</span>
+
+<span class="nx">element</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shortcut</span><span class="p">.</span><span class="nx">valid_keydown</span><span class="p">(</span><span class="nx">event</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// The user typed the shortcut</span>
+    <span class="c1">// YOUR CODE GOES HERE</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<h3>Creating shortcut groups</h3>
+
+<p>You can group together a bunch of shortcuts adding an event listener that will check for all of them.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// Create the group you will be working with from now on</span>
+<span class="kd">var</span> <span class="nx">shortcuts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">shortkey</span><span class="p">.</span><span class="nx">Group</span><span class="p">();</span>
+
+<span class="c1">// Register a new shortcut</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+
+<span class="c1">// Register a named shortcut (so you can update/remove it later)</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+
+<span class="c1">// Listen to the following elements</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">onkeydown</span><span class="p">(</span><span class="nx">elements</span><span class="p">);</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">onkeyup</span><span class="p">(</span><span class="nx">other_elements</span><span class="p">);</span>
+
+<span class="c1">// Update the named shortcut, changing the shortcut keys</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">);</span>
+<span class="c1">// Update it changing both the shortcut and the callback</span>
+<span class="c1">// (This will create it if it doesn&#39;t exist)</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+
+<span class="c1">// Remove the named shortcut</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">unregister</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="c1">// Remove a known shortcut</span>
+<span class="nx">shortcuts</span><span class="p">.</span><span class="nx">unregister</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">);</span>
+
+<span class="nx">shortcuts</span>
+</code></pre></div>
+
+
+<h3>shortkey.Group</h3>
+
+<p>Creates a new shortcut group</p>
+
+<h4>new shortkey.Group()</h4>
+
+<h4>new shortkey.Group(shortcuts);</h4>
+
+<p>This also registers every shortcut in the given list. Each shortcut need to have the following properties:</p>
+
+<p><code>shortcut</code>: The actual shortcut object
+<code>callback</code>: The callback
+<code>name</code>: (optional) to register a named shortcut</p>
+
+<h3>.register</h3>
+
+<p>Adds a new shortcut for the group to respond to. The given callback needs to implement the following interface:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">shortcuts</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">shortcut</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Do Stuff</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<h4>.register(shortcut, callback)</h4>
+
+<p>This registers an unnamed shortcut</p>
+
+<h4>.register(shortcut, 'name', callback)</h4>
+
+<p>This registers a named shortcut, which you you can later update</p>
+
+<h3>.unregister</h3>
+
+<p>Stops the group from listening to the given shortcut</p>
+
+<h4>.unregister(shortcut)</h4>
+
+<h4>.unregister('name')</h4>
+
+<p>Removes the named shortcut instead</p>
+
+<h3>.update</h3>
+
+<p>Updates the shortcut to listen to a different set of keys. You can only update named shortcuts.</p>
+
+<h4>.update(shortcut, 'name')</h4>
+
+<h4>.update(shortcut, 'name', callback)</h4>
+
+<p>Removes any old shortcuts with the given name, creating a new one with the given shortcut and callback.</p>
+
+<h3>.onkeyup(element[s])</h3>
+
+<p>Adds the onkeyup listener to the given element[s] (Node or list of Nodes)</p>
+
+<h3>.onkeydown(element[s])</h3>
+
+<p>Adds the onkeydown listener to the given element[s] (Node or list of Nodes)</p>
+
+<p><br /></p>
+
+<h1>Data</h1>
+
+<p>The shortcut input type deals with a <code>shortcut</code> object.</p>
+
+<h2>The shortcut object</h2>
+
+<p>This is the return value of the input field.</p>
+
+<p>Note that the <code>text</code> field is what will be visible on the input tag's value field.</p>
+
+<p>Note that this does not record the order you press the keys thus <code>Shift+Cmd+A</code> is the same as <code>Cmd+Shift+A</code> and will end up being normalized to the same textual representation.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">shortcut</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="o">:</span> <span class="s1">&#39;Alt-A&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;modifiers&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;shift&#39;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s1">&#39;ctrl&#39;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s1">&#39;cmd&#39;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s1">&#39;alt&#39;</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;key&#39;</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+
+    <span class="s1">&#39;valid_keydown&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+    <span class="s1">&#39;valid_keyup&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<h3>text <code>string</code></h3>
+
+<p>A textual representation of the shortcut.</p>
+
+<h3>modifiers</h3>
+
+<p>A mapping of the following modifiers to whether this shortcut has them pressed down or not.</p>
+
+<ul>
+<li><code>shift</code></li>
+<li><code>alt</code></li>
+<li><code>control</code></li>
+<li><code>cmd</code></li>
+</ul>
+
+
+<h3>key <code>string</code></h3>
+
+<p>The key that needs to be pressed to finish the shortcut</p>
+
+<h3>Events</h3>
+
+<p>The three events test whether the given event (of their namesake) should trigger the shortcut. Thus you can use them in your own event listeners.</p>
+
+<p>Remember that since the three event have differing specs and browser compatibilities that you should only use one of these handlers for the event of its namesake.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">element</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">my_shortcut</span><span class="p">.</span><span class="nx">valid_keydown</span><span class="p">(</span><span class="nx">event</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Your code goes here</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p><br /></p>
+
+<h1>API</h1>
+
+<hr />
+
+
+<h3>.reset()</h3>
+
+<p>Resets the shortcut to the given <code>default</code> value, or removes the shortcut entirely if <code>null</code> is the default.</p>
+
+<hr />
+
+
+<h3>.disable()</h3>
+
+<p>Disables the input field</p>
+
+<hr />
+
+
+<h3>.enable()</h3>
+
+<p>Enables the input field</p>
+
+<hr />
+
+
+<h3>.data()</h3>
+
+<p>Returns the current <code>shortcut</code></p>
+
+<h3>.data(shortcut)</h3>
+
+<p>Changes the currently set <code>shortcut</code> to the given value</p>
+
+<p>Note: this will trigger the <code>change</code> event</p>
+
+<h3>.data(string)</h3>
+
+<p>Parses the given string, changing the <code>shortcut</code> to the given value if possible. <code>ParseError</code> will be raised if the text can't be parsed.</p>
+
+<p>Note: this will trigger the <code>change</code> event</p>
+
+<hr />
+
+
+<h3>.text()</h3>
+
+<p>Returns the text representation of the current <code>shortcut</code></p>
+
+<hr />
+
+
+<p><br /></p>
+
+<h1>Customization</h1>
+
+<h3>disabled <code>boolean</code></h3>
+
+<p>default: <code>false</code></p>
+
+<p>This works like any other input type, showing the field's value, but not allowing the user to change it. If you've set this using javascript, then note that the html will have the <code>disabled</code> attribute set on it, thus you can apply css styles.</p>
+
+<h3>lock_modifiers <code>boolean</code></h3>
+
+<p>default: <code>false</code></p>
+
+<p>This makes the user unable to change the modifier keys, only prompting the user for a character</p>
+
+<h3>default <code>shortcut</code></h3>
+
+<p>default: <code>null</code></p>
+
+<p>The default shortcut for the input to show, this is different from the current value of the input in that it supplies a <code>reset</code> functionality</p>
+
+<p>A value of <code>null</code> means no shortcut</p>
+
+<h3>can_reset <code>boolean</code></h3>
+
+<p>default: <code>true</code></p>
+
+<p>Toggles whether the input tag shows a reset button</p>
+
+<h3>seperator <code>string</code></h3>
+
+<p>default: <code>'-'</code></p>
+
+<p>Changes the seperator in the text formatted version of the shortcut</p>
+
+<h2>Events</h2>
+
+<p>All events get passed the <code>shortcut</code> object as their first argument.</p>
+
+<p>You can specify any event either by name using javascript.</p>
+
+<div class="highlight"><pre><code class="javascript">   <span class="c1">// TODO!!!</span>
+</code></pre></div>
+
+
+<p>You can also use an html attribute in the <code>onevent</code> format.</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;shortcut&quot;</span> <span class="na">onactivate=</span><span class="s">&quot;console.log(&#39;This is being changed&#39;)&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+
+
+<h3>activate</h3>
+
+<p>Gets triggered when the user starts changing the shortcut</p>
+
+<h3>progress</h3>
+
+<p>Gets triggered when the user changes the keys that are currently held down.</p>
+
+<h3>change</h3>
+
+<p>Gets triggered when the user's shortcut changes. This occurs when the user clicks on the first non-modifier key.</p>
+
+<p><br /></p>
+
+<h2>Reference</h2>
+
+<ul>
+<li><a href="https://github.com/Saevon/shortkey">Github Source</a></li>
+</ul>
+
+
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2013 Saevon
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+
