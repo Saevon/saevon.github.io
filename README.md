@@ -2,9 +2,9 @@
 
 The `master` and `source` branches are different repositories.
 
-To generate the code for the `master` branch run:
+This branch contains the (mostly) published code created from the `source` branch.
 
-`./publish`
+Almost none of the files here should be manually edited, except for the `README.md`. To see a list of the files that do get copied over (excepting the generated .html files) see `.publish-copy` on `master`.
 
 ## License
 
