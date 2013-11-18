@@ -5,6 +5,11 @@ uuid=`uuidgen`
 
 tmp="/tmp/jekyll-$uuid"
 
+# We need to set the user's environment back to normal
+# in case there is an error, or the user abruptly kills the
+# script
+trap "on_exit" SIGINT SIGTERM EXIT
+
 
 # Always use the source branch to publish
 jekyll build
@@ -31,6 +36,10 @@ git add *
 git commit -a -m "Publishes for `date`"
 git push -f origin master
 
+
 # Clean up
-git checkout $branch
-rm -rf $tmp
+function on_exit() {
+    git checkout -f $branch
+    rm -rf $tmp
+}
+
