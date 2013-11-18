@@ -28,7 +28,7 @@ cp -R $tmp/.site/ .
 git add *
 
 # Update master
-git commit -a -m "Publishing"
+git commit -a -m "Publishes for `date`"
 git push -f origin master
 
 # Clean up
