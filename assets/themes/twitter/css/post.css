@@ -30,7 +30,7 @@
     margin-bottom: .1em;
 }
 .post-date {
-    width: 4em;
+    min-width: 4em;
     border-right: solid 1px #3AC7EB;
     display: inline-block;
     padding: 5px 5px;
