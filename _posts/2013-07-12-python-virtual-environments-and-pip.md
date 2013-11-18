@@ -9,7 +9,7 @@ tags: [python, virtualenv, pip]
 ---
 {% include JB/setup %}
 
-virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentaly install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.
+virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.
 
 
 # Intro
