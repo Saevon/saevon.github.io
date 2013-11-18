@@ -4,7 +4,7 @@
  <title>Saevon</title>
  <link href="www.saevon.ca/" rel="self"/>
  <link href="www.saevon.ca"/>
- <updated>2013-10-04T18:04:20-04:00</updated>
+ <updated>2013-11-18T03:01:47-05:00</updated>
  <id>www.saevon.ca</id>
  <author>
    <name>Saevon</name>
@@ -71,35 +71,6 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.greenheartgames.com/2013/04/29/what-happens-when-pirates-play-a-game-development-simulator-and-then-go-bankrupt-because-of-piracy/&quot;&gt;Piracy in a game dev game!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</content>
- </entry>
- 
- <entry>
-   <title>Installing Pygame on Mac 10.8 Mountain Lion</title>
-   <link href="www.saevon.ca/coding/installing-pygame-on-mac-108-mountain-lion"/>
-   <updated>2013-08-04T00:00:00-04:00</updated>
-   <id>www.saevon.ca/coding/installing-pygame-on-mac-108-mountain-lion</id>
-   <content type="html">&lt;p&gt;So I&#39;m currently trying to install pygame for my mac, and man do I have tons of compilation problems. I&#39;ll list the solutions I found for every problem I have along the way.&lt;/p&gt;
-
-&lt;h2&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;I used the following guide to install pygame, the 10.7 one which was the closest I could find.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.pygame.org/wiki/MacCompile&quot;&gt;Installing Pygame&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;Problems&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/scale_mmx64.c:499:27: error: invalid instruction mnemonic &#39;movsxl&#39;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;h2&gt;Reference&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.pygame.org/wiki/MacCompile&quot;&gt;Installing Pygame&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
