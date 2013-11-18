@@ -4,7 +4,7 @@
  <title>Saevon</title>
  <link href="www.saevon.ca/" rel="self"/>
  <link href="www.saevon.ca"/>
- <updated>2013-11-18T03:01:47-05:00</updated>
+ <updated>2013-11-18T03:18:54-05:00</updated>
  <id>www.saevon.ca</id>
  <author>
    <name>Saevon</name>
@@ -81,7 +81,7 @@
    <link href="www.saevon.ca/coding/python-virtual-environments-and-pip"/>
    <updated>2013-07-12T00:00:00-04:00</updated>
    <id>www.saevon.ca/coding/python-virtual-environments-and-pip</id>
-   <content type="html">&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentaly install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
+   <content type="html">&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
 
 &lt;h1&gt;Intro&lt;/h1&gt;
 
