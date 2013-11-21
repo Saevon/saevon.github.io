@@ -1,3 +1,11 @@
+/* Basic changes to the bootstrap */
+.btn.off:hover {
+    color: gray;
+    cursor: not-allowed;
+    background-position: 0 -5px;
+}
+
+
 /* Custom container */
 .container-narrow {
     margin: 0 auto;
@@ -107,12 +115,6 @@ a.disabled {
     box-sizing: border-box;
     color: #08c;
 }
-
-.paginated .btn.off {
-    color: gray;
-    cursor: not-allowed;
-}
-
 
 .paginated .prev {
     width: 40%;
