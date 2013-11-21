@@ -22,6 +22,14 @@ sitemap: true
     {% endfor %}
 </ul>
 
+### Roleplaying:
+<ul class="posts">
+    {% for post in site.categories.roleplaying | limit:2 %}
+        {% include post_excerpt.html %}
+    {% endfor %}
+</ul>
+
+
 ### Misc:
 <ul class="posts">
     {% for post in site.categories.misc | limit:2 %}
