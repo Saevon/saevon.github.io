@@ -1,3 +1,11 @@
+.tagline {
+    /*
+    Ensures that the text stays on the same line if it will fit,
+    however if it needs to wrap it will go to the next line
+     */
+    display: inline-block;
+}
+
 .post {
     padding: 5px 15px;
     border: dashed 1px #3BB3A9;
