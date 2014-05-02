@@ -1,0 +1,3 @@
+[submodule "markdown-extensions/alerts"]
+	path = markdown-extensions/alerts
+	url = git@github.com:Saevon/markdown-alerts.git
