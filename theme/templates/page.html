@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <article class="page">
+        {% block page_header %}
+            {% set title = page.title %}
+            {% set tagline = page.tagline %}
+            {% set permalink = page.url %}
+            {% include 'partial/header.html' %}
+        {% endblock page_header %}
+
+        <div class="content">
+            {% block page_content %}
+                {{ page.content }}
+            {% endblock page_content %}
+        </div>
+
+        <hr />
+    </article>
+
+    <footer>
+        {% block page_footer %}
+            <a href="{{ SITEURL }}" class="btn btn-primary">&larr; Back Home?</a>
+        {% endblock page_footer %}
+    </footer>
+{% endblock %}
+
+
+
+
