@@ -7,6 +7,7 @@ from itertools import chain
 
 from plugins.debug_dump import dump, dump_all
 from plugins.category import find_category, category_preview_articles, mark
+from plugins.nav import is_cur_page
 from plugins.summary import summary
 from plugins.tags import update_count, tag_remap, tag_sort, tag_ratios
 
@@ -23,6 +24,8 @@ JINJA_FILTERS = {
     'summary': summary,
 
     'merge': lambda *args: list(chain(*args)),
+
+    'is_cur_page': is_cur_page,
 
     # DEBUG
     'dump': dump,

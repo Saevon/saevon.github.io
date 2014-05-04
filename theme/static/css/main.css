@@ -51,81 +51,6 @@ body {
     max-width: 180px;
   }
 
-  /*************/
-  /* Side Nav */
-  .sidenav {
-    overflow-y: scroll;
-    padding: 20px;
-  }
-  .avatar-wrapper {
-    display: inline-block;
-    width: 100%;
-  }
-  .avatar {
-    width: 150px;
-    max-width: 100%;
-  }
-  .site-name {
-    text-align: center;
-    margin-top: 5px;
-  }
-
-  /* Menu items */
-  .menu-group {
-    border: 1px solid transparent;
-    border-top-color: #EEE;
-  }
-  .menu-group:last-child {
-    border-bottom-color: #EEE;
-  }
-  .menu-group-title {
-    padding-left: 10px;
-    font-size: 150%;
-    font-weight: bold;
-  }
-  .menu-group-content {
-    padding-left: 30px;
-    padding-right: 10px;
-    list-style: none;
-  }
-  .menu-group-item {
-    font-size: 120%;
-    border-top: 1px solid #EEE;
-  }
-  .menu-group-item a {
-    padding: 2px 5px;
-  }
-
-  .menu-group-item:first-child {
-    border-top-width: 0;
-  }
-
-  .menu-group:hover {
-    border-radius: 10px;
-    border-color: #CCC;
-  }
-  .menu-group-title:hover,
-  .menu-group-item:hover {
-    border-radius: 5px;
-    background-color: #EEE;
-  }
-  .sidenav-menu a:hover {
-    text-decoration: none;
-  }
-
-
-  /* Account Links */
-  .account-link {
-    color: black;
-    font-size: 40px;
-    display: inline-flex;
-
-    padding: 5px;
-  }
-  .account-link:hover {
-    text-decoration: none;
-  }
-
   /* Sidenav Small */
   @media (max-width: 770px) {
     .sidenav {
@@ -136,28 +61,7 @@ body {
 
       margin-bottom: 100px;
     }
-    .avatar-wrapper {
-      width: 24%;
-      float: left;
-    }
-    .sidenav-menu {
-      width: 74%;
-      float: right;
-    }
-
-    .nav-small-hide {
-      display: none;
-    }
-
-    .account-link {
-      font-size: 80px;
-    }
-
-    .page-header {
-      text-align: center
-    }
   }
-
 
 
 

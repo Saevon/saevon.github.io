@@ -2,8 +2,9 @@
 
 
 {% block content %}
-    <section class="category">
+    <section class="page category">
         {% set title = category|capitalize %}
+        {% set tagline = CATEGORY_TAGLINES[category] %}
         {% set permalink = category.url %}
         {% include 'partial/header.html' %}
 

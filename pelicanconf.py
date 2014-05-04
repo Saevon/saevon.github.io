@@ -20,6 +20,16 @@ THEME = 'theme'
 ############################
 # Content
 
+# Taglines for auto-generated items with no page
+TAG_TAGLINES = {
+}
+CATEGORY_TAGLINES = {
+    'coding': 'Coding for fun! (and profit)',
+    'review': 'Have fun, then write about why',
+    'personal': 'Random miscellaneous articles',
+    'roleplaying': 'My public campaign details and notes',
+}
+
 # Location of blog content
 PATH = 'content'
 ARTICLE_DIR = 'articles'
@@ -99,8 +109,8 @@ TAGS_SAVE_AS = 'tags/index.html'
 TAGS_URL = 'tags/'
 
 # Individual tags have a page for each of them
-TAG_SAVE_AS = 'tags/{slug}.html'
-TAG_URL = 'tags/{slug}'
+TAG_SAVE_AS = 'tags/{slug}/index.html'
+TAG_URL = 'tags/{slug}/'
 
 
 
@@ -109,12 +119,12 @@ TAG_URL = 'tags/{slug}'
 
 # Blog Links
 LINKS =  (
-
+    # (Menu Name, url),
 )
 
 # My Account Links
 ACCOUNTS = (
-    # (icon, url)
+    # (icon, url),
     ('github-square', 'https://github.com/Saevon'),
     ('linkedin-square', 'https://ca.linkedin.com/in/saevon'),
 )
