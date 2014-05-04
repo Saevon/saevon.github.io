@@ -58,13 +58,13 @@ TRANSLATION_FEED = None
 ############################
 # Coding
 MD_EXTENSIONS = [
-	'meta',
-	'sane_lists',
-	'smarty(smart_quotes=False)',
-	'codehilite(css_class=highlight)',
-	'extra',
-	'del_ins',
-	'alerts',
+    'meta',
+    'sane_lists',
+    'smarty(smart_quotes=False)',
+    'codehilite(css_class=highlight)',
+    'extra',
+    'del_ins',
+    'alerts',
 ]
 
 # Fix the import path
@@ -77,14 +77,16 @@ from plugins.category import find_category, category_preview_articles
 from plugins.summary import summary
 from plugins.tags import update_tags_count
 JINJA_FILTERS = {
-	'find_category': find_category,
-	'category_preview_articles': category_preview_articles,
 	'update_tags_count': update_tags_count,
-	'summary': summary,
+    'find_category': find_category,
+    'category_preview_articles': category_preview_articles,
+    'summary': summary,
 
-	# DEBUG
-	'dump': dump,
-	'dump_all': dump_all,
+    'merge': chain,
+
+    # DEBUG
+    'dump': dump,
+    'dump_all': dump_all,
 }
 
 DELETE_OUTPUT_DIRECTORY = True
