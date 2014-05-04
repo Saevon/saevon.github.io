@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>blog.saevon.ca/</link><description></description><atom:link href="/feeds/pip.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 12 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Python Virtual Environments and PIP</title><link>blog.saevon.ca/coding/python-virtualenv/</link><description>&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="/feeds/pip.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 12 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Python Virtual Environments and PIP</title><link>/coding/python-virtualenv/</link><description>&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
 &lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;Jump "straight"&amp;hellip; to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
 &lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
@@ -72,4 +72,4 @@ rmvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
     Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.
-&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 12 Jul 2013 00:00:00 -0400</pubDate><guid>tag:blog.saevon.ca,2013-07-12:coding/python-virtualenv/</guid><category>python</category><category>virtualenv</category><category>pip</category></item></channel></rss>
+&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 12 Jul 2013 00:00:00 -0400</pubDate><guid>tag:,2013-07-12:coding/python-virtualenv/</guid><category>python</category><category>virtualenv</category><category>pip</category></item></channel></rss>
