@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="/feeds/personal.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 03 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Hello World!</title><link>/personal/hello-world/</link><description>&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="//blog.saevon.ca/feeds/personal.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 03 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Hello World!</title><link>/personal/hello-world/</link><description>&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
 &lt;p&gt;So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.&lt;/p&gt;
 &lt;h2&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.&lt;/p&gt;
