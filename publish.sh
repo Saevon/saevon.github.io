@@ -18,7 +18,7 @@ if [[ $? != 0 ]]; then
 fi
 
 # Remove all generated files
-git rm -r -q .
+git rm -r -q !(assets)
 
 # Get all the generated files from the source branch
 git checkout source -- .publish-copy
