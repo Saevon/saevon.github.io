@@ -1,13 +1,14 @@
 
 <hr />
-<a href="/">
-	<img src="/theme/images/avatar.jpg" class="center avatar img-rounded" width="100px" height="100px" />
+<a href="/" class="avatar-wrapper perma-link">
+	<img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
 	<h1 class="site-name">{{ AUTHOR }}</h1>
 </a>
 <hr />
 
+{# TODO: Need to look over this once more #}
+{#}
 <ul>
-	{# TODO: Need to look over this once more #}
 	{% for title, link in MENUITEMS %}
 		<li><a href="{{ link }}">{{ title }}</a></li>
 	{% endfor %}
@@ -24,6 +25,7 @@
 		<li><a href="{{ link }}">{{ name }}</a></li>
 	{% endfor %}
 </ul>
+	#}
 
 <div class="account-links center">
 	{% for icon, url in ACCOUNTS %}
@@ -39,3 +41,7 @@
 		Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
 	</small>
 </footer>
+
+<hr class="visible-xs" />
+<hr class="visible-xs" />
+

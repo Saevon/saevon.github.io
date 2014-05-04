@@ -1,3 +1,11 @@
+/******************************************/
+/* Re-Usable classes */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 
 
@@ -14,37 +22,76 @@ body {
   font-size: 40%;
 }
 
-  /* Side Nav */
+
+  /* Main content sizing and positioning */
+  .section-content {
+    max-width: 800px;
+  }
   .sidenav {
     position: fixed;
     top: 0;
     bottom: 0;
-    overflow-y: scroll;
+  }
+  .sidenav, .sidenav-placeholder {
+    max-width: 180px;
+  }
 
+  /* Side Nav */
+  .sidenav {
+    overflow-y: scroll;
     padding: 20px;
   }
   .avatar-wrapper {
+    display: inline-block;
     width: 100%;
   }
   .avatar {
-    width: 100px;
+    width: 150px;
+    max-width: 100%;
   }
   .site-name {
     text-align: center;
     margin-top: 5px;
   }
 
+
   /* Account Links */
   .account-link {
-    width: 60px;
-    height: 60px;
-
     color: black;
     font-size: 40px;
-    display: inline-block;
+    display: inline-flex;
 
     padding: 5px;
   }
+  .account-link:hover {
+    text-decoration: none;
+  }
+
+  /* Sidenav Small */
+  @media (max-width: 770px) {
+    .sidenav {
+      position: relative;
+      max-width: 100%;
+      width: 100%;
+      padding: 0;
+
+      margin-bottom: 100px;
+    }
+    .avatar-wrapper {
+      width: 25%;
+    }
+
+    .account-link {
+      font-size: 80px;
+    }
+
+    .page-header {
+      text-align: center
+    }
+  }
+
+
+
 
 
 /******************************************/
@@ -52,17 +99,6 @@ body {
 .paginator .btn {
   font-size: 125%;
   font-weight: bold;
-}
-
-
-
-/******************************************/
-/* Re-Usable classes */
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }
 
 
