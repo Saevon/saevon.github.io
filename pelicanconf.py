@@ -12,7 +12,7 @@ SITENAME = u'Saevon.ca'
 SITEURL = ''
 TIMEZONE = 'Canada/Eastern'
 DEFAULT_LANG = u'en'
-THEME = '.theme'
+THEME = 'theme'
 
 
 
