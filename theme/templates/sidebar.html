@@ -10,11 +10,13 @@
         <li><a href="{{ link }}">{{ title }}</a></li>
     {% endfor %}
  #}
- <div class="menu-items">
+ <div class="sidenav-menu">
     <div class="menu-group">
-        <div class="menu-group-title">
-            Categories
-        </div>
+        <a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">
+            <div class="menu-group-title">
+                Categories
+            </div>
+        </a>
         <ul class="menu-group-content">
         {% for category in categories|tag_remap %}
             <li class="menu-group-item {% if page_name == category.url %}active{% endif %}">
@@ -32,7 +34,8 @@
     {% endfor %}
  #}
 
- <hr />
+<div class="clearfix"></div>
+<hr />
 
 <div class="account-links center">
     {% for icon, url in ACCOUNTS %}

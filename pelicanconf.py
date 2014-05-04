@@ -81,18 +81,18 @@ DELETE_OUTPUT_DIRECTORY = True
 ############################
 # Urls
 
-AUTHOR_SAVE_AS = ''
-
 # Categories are the root directory under which articles go
-CATEGORY_URL = '{slug}/'
 CATEGORY_SAVE_AS = '{slug}/index.html'
+CATEGORY_URL = '{slug}/'
 
 # Articles go directly under their category
-ARTICLE_URL = '{category}/{slug}/'
 ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
+ARTICLE_URL = '{category}/{slug}/'
 
 # No need for a categories page, as the index page already does that
+# But any links to it should head to the right place
 CATEGORIES_SAVE_AS = False
+CATEGORIES_URL = ''
 
 # The tags page is actually for tags and categories
 TAGS_SAVE_AS = 'tags/index.html'
