@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    {% set category = 'coding' %}
+    {% include 'partial/category_excerpts.html' %}
+
+
+    {% set category = 'review' %}
+    {% include 'partial/category_excerpts.html' %}
+
+
+    {% set category = 'roleplaying' %}
+    {% include 'partial/category_excerpts.html' %}
+
+
+    {% set category = 'personal' %}
+    {% include 'partial/category_excerpts.html' %}
+
+    {% include 'pagination.html' %}
+{% endblock content %}

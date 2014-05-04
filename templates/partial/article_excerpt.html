@@ -1,0 +1,36 @@
+<div class="article article-excerpt">
+    <div class="article-header">
+        <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title }}" class="perma-link">
+            <h3 class="article-title">
+                {{ article.title }}
+            </h3>
+        </a>
+    </div>
+
+    <div class="article-body">
+        <div class="article-date">
+            <div class="article-month">
+                {{ article.date.strftime("%b") }}
+            </div>
+            <div class="article-day">
+                {{ article.date.strftime("%d") }}
+            </div>
+            <div class="article-year">
+                {{ article.date.strftime("%Y") }}
+            </div>
+        </div>
+        <div class="article-short">
+            {{ article.content|summary }}
+        </div>
+    </div>
+
+    <div class="article-footer">
+        <div class="article-tags">
+            {% include 'partial/tags_list.html' %}
+        </div>
+        <div class="article-more">
+            <a href="{{ SITEURL }}/{{ article.url }}">Read More⋙</a>
+        </div>
+    </div>
+</div>
+

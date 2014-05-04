@@ -1,0 +1,23 @@
+{% if article.tags %}
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="{{ SITEURL }}/{{ article.category.url }}" class="tag-box-item">
+          category: {{ article.category }}
+          {% for search, articles in categories if search == article.category %}
+            <span class="tag-count">{{ articles|count }}</span>
+          {% endfor %}
+        </a>
+      </li>
+      {% for tag in article.tags|sort %}
+        <li>
+          <a href="{{ SITEURL }}/{{ tag.url }}" class="tag-box-item">
+            {{- tag -}}
+            {% for search, articles in tags if search == tag %}
+              <span class="tag-count">{{ articles|count }}</span>
+            {% endfor %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+{% endif %}

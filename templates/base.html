@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+	<!-- Styles -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
+	{% block css %}{% endblock css %}
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	{% block js %}{% endblock js %}
+
+	{# TODO: disabled
+	{% if FEED_ATOM %}
+		<link href="{{ FEED_DOMAIN }}/{{ FEED }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} ATOM Feed" />
+	{% endif %}
+	{% if FEED_RSS %}
+		<link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+	{% endif %}
+	#}
+
+	{% block head %}
+		<title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+		<meta charset="utf-8" />
+	{% endblock head %}
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidebar needs to be fixed to -->
+		<section class="col-md-2"></section>
+		<div class="sidenav">
+			{% include 'sidebar.html' %}
+		</div>
+
+		<!-- Content -->
+		<section class="col-md-8">
+			{% block content %}{% endblock content %}
+		</section>
+	</div></div>
+
+	{# TODO: this is disabled
+		{% include 'analytics.html' %}
+	#}
+</body>
+</html>

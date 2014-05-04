@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <article class="article article-full">
+        {% set title = article.title %}
+        {% set tagline = article.tagline %}
+        {% set permalink = article.url %}
+        {% include 'partial/header.html' %}
+
+        <div class="date">
+          <span>{{ article.date.strftime('%d %B %Y') }}</span>
+        </div>
+        <div class="content">
+          {{ article.content }}
+        </div>
+
+        <hr />
+
+        {% include 'partial/tags_list.html' %}
+
+        <hr />
+    </article>
+
+    <footer>
+        <a href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back to {{ article.category }}</a>
+    </footer>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,70 @@
+
+
+
+/******************************************/
+/* General Layout */
+body {
+  padding: 20px;
+}
+
+.perma-link:hover {
+  text-decoration: none;
+}
+.category-excerpts .page-header small {
+  font-size: 40%;
+}
+
+  /* Side Nav */
+  .sidenav {
+    position: fixed;
+    padding: 20px;
+  }
+  .avatar-wrapper {
+    width: 100%;
+  }
+  .avatar {
+    width: 100px;
+  }
+  .site-name {
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  /* Account Links */
+  .account-link {
+    width: 60px;
+    height: 60px;
+
+    color: black;
+    font-size: 40px;
+    display: inline-block;
+
+    padding: 5px;
+  }
+
+
+
+/******************************************/
+/* Re-Usable classes */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+/********************************************/
+/* Bootstrap Colours (Customized) */
+.alert-success,
+.text-success {
+  color: #468847;
+}
+.alert-info,
+.text-info {
+  color: #3A87AD;
+}
+.alert-warning,
+.text-warning {
+  color: #C09853;
+}
