@@ -23,6 +23,9 @@ THEME = './'
 PATH = 'content'
 ARTICLE_DIR = 'articles'
 
+# Articles per page
+DEFAULT_PAGINATION = 2
+
 # If the article is in a folder and doesn't have a category use the folder name as its category
 USE_FOLDER_AS_CATEGORY = True
 
@@ -60,9 +63,11 @@ JINJA_EXTENSIONS  = []
 from plugins.debug_dump import dump, dump_all
 from plugins.category import find_category, category_preview_articles
 from plugins.summary import summary
+from plugins.tags import update_tags_count
 JINJA_FILTERS = {
 	'find_category': find_category,
 	'category_preview_articles': category_preview_articles,
+	'update_tags_count': update_tags_count,
 	'summary': summary,
 
 	# DEBUG
@@ -74,6 +79,9 @@ JINJA_FILTERS = {
 
 ############################
 # Links
+
+ARTICLE_URL = '{category}/{slug}/'
+ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
 
 # Blog Links
 LINKS =  (
@@ -93,4 +101,3 @@ SOCIAL = (
     ('Another social link', '#'),
 )
 
-DEFAULT_PAGINATION = False

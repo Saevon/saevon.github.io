@@ -16,7 +16,12 @@ def find_category(categories, name):
 
 	return found
 
-def category_preview_articles(category, num):
+def category_preview_articles(category, num=None):
 	articles = category[1]
-	return sorted(articles, key=lambda val: val.date)[:num]
+	articles = sorted(articles, key=lambda val: val.date)
+
+	if num is not None:
+		articles = articles[:num]
+
+	return articles
 

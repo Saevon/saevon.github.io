@@ -43,6 +43,14 @@ body {
   }
 
 
+/******************************************/
+/* Paging */
+.paginator .btn {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+
 
 /******************************************/
 /* Re-Usable classes */
