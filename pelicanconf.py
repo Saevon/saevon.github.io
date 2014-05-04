@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Saevon'
 SITENAME = u'Saevon.ca'
 SITEURL = ''
-TIMEZONE = 'Europe/Paris'
+TIMEZONE = 'Canada/Eastern'
 DEFAULT_LANG = u'en'
 THEME = './'
 
@@ -31,6 +31,11 @@ PAGINATED_DIRECT_TEMPLATES = ()
 
 # If the article is in a folder and doesn't have a category use the folder name as its category
 USE_FOLDER_AS_CATEGORY = True
+DEFAULT_CATEGORY = 'personal'
+
+# Disable the authors list page (as there is only one author)
+AUTHORS_SAVE_AS = False
+
 
 # Feed generation is usually not desired when developing
 # FEED_ATOM = ('atom.xml')
@@ -86,6 +91,9 @@ JINJA_FILTERS = {
 ARTICLE_URL = '{category}/{slug}/'
 ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
 
+AUTHOR_SAVE_AS = 'about.html'
+AUTHOR_URL = 'about.html'
+
 # Blog Links
 LINKS =  (
 
@@ -103,4 +111,6 @@ SOCIAL = (
     ('You can add links in your config file', '#'),
     ('Another social link', '#'),
 )
+
+
 
