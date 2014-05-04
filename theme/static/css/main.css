@@ -72,9 +72,10 @@ body {
 
   /* Menu items */
   .menu-group {
-    margin: 2px 0;
     border: 1px solid transparent;
     border-top-color: #EEE;
+  }
+  .menu-group:last-child {
     border-bottom-color: #EEE;
   }
   .menu-group-title {
@@ -137,6 +138,7 @@ body {
     }
     .avatar-wrapper {
       width: 24%;
+      float: left;
     }
     .sidenav-menu {
       width: 74%;
