@@ -1,45 +1,52 @@
 
 <hr />
 <a href="/" class="avatar-wrapper perma-link">
-	<img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
-	<h1 class="site-name">{{ AUTHOR }}</h1>
+    <img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
+    <h1 class="site-name">{{ AUTHOR }}</h1>
 </a>
-<hr />
+<hr class="nav-small-hide"/>
 
-{# TODO: Need to look over this once more #}
-{#}
-<ul>
-	{% for title, link in MENUITEMS %}
-		<li><a href="{{ link }}">{{ title }}</a></li>
-	{% endfor %}
-	{% if DISPLAY_PAGES_ON_MENU %}
-		{% for p in PAGES %}
-			<li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-		{% endfor %}
-	{% else %}
-		{% for cat, null in categories %}
-			<li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-		{% endfor %}
-	{% endif %}
-	{% for name, link in LINKS %}
-		<li><a href="{{ link }}">{{ name }}</a></li>
-	{% endfor %}
-</ul>
-	#}
+{#  {% for title, link in MENU_ITEMS %}
+        <li><a href="{{ link }}">{{ title }}</a></li>
+    {% endfor %}
+ #}
+ <div class="menu-items">
+    <div class="menu-group">
+        <div class="menu-group-title">
+            Categories
+        </div>
+        <ul class="menu-group-content">
+        {% for category in categories|tag_remap %}
+            <li class="menu-group-item {% if page_name == category.url %}active{% endif %}">
+                <a href="{{ SITEURL }}/{{ category.url }}">
+                    {{ category|capitalize }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{#  {% for name, link in LINKS %}
+        <li><a href="{{ link }}">{{ name }}</a></li>
+    {% endfor %}
+ #}
+
+ <hr />
 
 <div class="account-links center">
-	{% for icon, url in ACCOUNTS %}
-		<a href="{{ url }}" class="account-link">
-			<i class="fa fa-{{ icon }}"></i>
-		</a>
-	{% endfor %}
+    {% for icon, url in ACCOUNTS %}
+        <a href="{{ url }}" class="account-link">
+            <i class="fa fa-{{ icon }}"></i>
+        </a>
+    {% endfor %}
 </div>
 
 <hr />
 <footer>
-	<small class="center">
-		Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
-	</small>
+    <small class="center">
+        Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+    </small>
 </footer>
 
 <hr class="visible-xs" />

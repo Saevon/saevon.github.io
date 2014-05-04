@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Saevon'
 EMAIL =u'dot.saevon@gmail.com'
 SITENAME = u'Saevon.ca'
-SITEURL = ''
+SITEURL = u''
 TIMEZONE = 'Canada/Eastern'
 DEFAULT_LANG = u'en'
 THEME = 'theme'
@@ -31,7 +31,7 @@ DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives')
 DEFAULT_PAGINATION = 2
 
 # Which direct templates should be paginated
-PAGINATED_DIRECT_TEMPLATES = []
+PAGINATED_DIRECT_TEMPLATES = ()
 
 # If the article is in a folder and doesn't have a category use the folder name as its category
 USE_FOLDER_AS_CATEGORY = True
@@ -57,7 +57,7 @@ TRANSLATION_FEED = None
 
 ############################
 # Coding
-MD_EXTENSIONS = [
+MD_EXTENSIONS = (
     'meta',
     'sane_lists',
     'smarty(smart_quotes=False)',
@@ -65,7 +65,7 @@ MD_EXTENSIONS = [
     'extra',
     'del_ins',
     'alerts',
-]
+)
 
 # Fix the import path, then get all the plugins
 import sys
@@ -77,20 +77,35 @@ from plugins import JINJA_EXTENSIONS, JINJA_FILTERS
 DELETE_OUTPUT_DIRECTORY = True
 
 
-############################
-# Links
 
-ARTICLE_URL = '{category}/{slug}/'
-ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
+############################
+# Urls
 
 AUTHOR_SAVE_AS = ''
 
-# Disable tags, and have them go the tags page
-TAG_SAVE_AS = ''
-TAG_URL = 'tags#{slug}'
-TAGS_SAVE_AS = 'tags.html'
-TAGS_URL = 'tags'
+# Categories are the root directory under which articles go
+CATEGORY_URL = '{slug}/'
+CATEGORY_SAVE_AS = '{slug}/index.html'
 
+# Articles go directly under their category
+ARTICLE_URL = '{category}/{slug}/'
+ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
+
+# No need for a categories page, as the index page already does that
+CATEGORIES_SAVE_AS = False
+
+# The tags page is actually for tags and categories
+TAGS_SAVE_AS = 'tags/index.html'
+TAGS_URL = 'tags/'
+
+# Individual tags have a page for each of them
+TAG_SAVE_AS = 'tags/{slug}.html'
+TAG_URL = 'tags/{slug}'
+
+
+
+############################
+# Menu bar Links
 
 # Blog Links
 LINKS =  (
@@ -102,12 +117,6 @@ ACCOUNTS = (
     # (icon, url)
     ('github-square', 'https://github.com/Saevon'),
     ('linkedin-square', 'https://ca.linkedin.com/in/saevon'),
-)
-
-# Social widget
-SOCIAL = (
-    ('You can add links in your config file', '#'),
-    ('Another social link', '#'),
 )
 
 

@@ -51,6 +51,7 @@ body {
     max-width: 180px;
   }
 
+  /*************/
   /* Side Nav */
   .sidenav {
     overflow-y: scroll;
@@ -67,6 +68,45 @@ body {
   .site-name {
     text-align: center;
     margin-top: 5px;
+  }
+
+  /* Menu items */
+  .menu-group {
+    border-top: 1px solid #EEE;
+    padding: 2px 0;
+    margin: 2px 0;
+    border-bottom: 1px solid #EEE;
+  }
+  .menu-group-title {
+    padding-left: 10px;
+    font-size: 150%;
+    font-weight: bold;
+  }
+  .menu-group-content {
+    padding-left: 30px;
+    padding-right: 10px;
+    list-style: none;
+  }
+  .menu-group-item {
+    font-size: 120%;
+    padding: 2px 5px;
+
+    border-top: 1px solid #EEE;
+  }
+  .menu-group-item:first-child {
+    border-top-width: 0;
+  }
+
+  .menu-group:hover {
+    border-radius: 10px;
+    background-color: #FBFBFB;
+  }
+  .menu-group-item:hover {
+    border-radius: 5px;
+    background-color: #FFF;
+  }
+  .menu-group-item a:hover {
+    text-decoration: none;
   }
 
 
@@ -93,7 +133,15 @@ body {
       margin-bottom: 100px;
     }
     .avatar-wrapper {
-      width: 25%;
+      width: 24%;
+    }
+    .menu-items {
+      width: 74%;
+      float: right;
+    }
+
+    .nav-small-hide {
+      display: none;
     }
 
     .account-link {
