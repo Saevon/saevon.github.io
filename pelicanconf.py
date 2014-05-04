@@ -26,6 +26,9 @@ ARTICLE_DIR = 'articles'
 # Articles per page
 DEFAULT_PAGINATION = 2
 
+# Which direct templates should be paginated
+PAGINATED_DIRECT_TEMPLATES = ()
+
 # If the article is in a folder and doesn't have a category use the folder name as its category
 USE_FOLDER_AS_CATEGORY = True
 
