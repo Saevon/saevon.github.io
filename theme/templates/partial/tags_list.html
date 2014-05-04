@@ -9,7 +9,7 @@
           {% endfor %}
         </a>
       </li>
-      {% for tag in article.tags|update_tags_count|sort(attribute='count', reverse=True) %}
+      {% for tag in article.tags|update_count(tags)|tag_sort %}
         <li>
           <a href="{{ SITEURL }}/{{ tag.url }}" class="tag-box-item">
             {{- tag -}}

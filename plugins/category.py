@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import unicode_literals
-from jinja2 import contextfilter
 
 
 def find_category(categories, name):
@@ -16,6 +15,11 @@ def find_category(categories, name):
         raise KeyError('Category not found: %s' % name)
 
     return found
+
+def mark_category(categories):
+    for item in categories:
+        item.name = 'category: %s' % item.name
+    return categories
 
 def category_preview_articles(category, num=None):
     articles = category[1]

@@ -1,0 +1,56 @@
+{% extends "page.html" %}
+
+
+
+{% block page_header %}
+    {% set title = 'Tags Archive' %}
+    {% set tagline = 'Random keywords from all my posts' %}
+    {% include 'partial/header.html' %}
+{% endblock page_header %}
+
+
+
+{% block css %}
+    {{ super() }}
+
+    <style>
+        .keywords {
+            font-size: 40px;
+
+            text-align: center;
+        }
+        .keyword {
+            margin: 0 2px;
+            padding: 1px 5px;
+            border: 1px dashed #cccccc;
+            border-radius: 3px;
+
+            display: inline-block;
+        }
+        .keyword:hover {
+            text-decoration: none;
+            opacity: 1;
+        }
+
+    </style>
+{% endblock css %}
+
+
+
+{% block page_content %}
+	<div class="keywords">
+        {% set keywords = (categories|tag_remap|mark_category)|merge(tags|tag_remap) %}
+        {% set keywords = keywords|tag_ratios(lowest=50, highest=100)|tag_ratios(lowest=0.5, highest=1, attr="op_ratio") %}
+        {% set keywords = keywords|tag_sort %}
+
+	    {% for keyword in keywords %}
+          <a href="{{ SITEURL }}/{{ keyword.url }}" style="font-size: {{ keyword.percent }}%; opacity: {{ keyword.op_ratio }};" class="keyword">
+            {{- keyword -}}
+            <sup>{{ keyword.count }}</sup>
+          </a>
+        {% endfor %}
+
+</div>
+
+{% endblock page_content %}
+

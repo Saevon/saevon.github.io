@@ -67,28 +67,13 @@ MD_EXTENSIONS = [
     'alerts',
 ]
 
-# Fix the import path
+# Fix the import path, then get all the plugins
 import sys
 sys.path.append('.')
+from plugins import JINJA_EXTENSIONS, JINJA_FILTERS
 
-JINJA_EXTENSIONS  = []
-from plugins.debug_dump import dump, dump_all
-from plugins.category import find_category, category_preview_articles
-from plugins.summary import summary
-from plugins.tags import update_tags_count
-JINJA_FILTERS = {
-	'update_tags_count': update_tags_count,
-    'find_category': find_category,
-    'category_preview_articles': category_preview_articles,
-    'summary': summary,
 
-    'merge': chain,
-
-    # DEBUG
-    'dump': dump,
-    'dump_all': dump_all,
-}
-
+# Delete the output directory every time we generate the code
 DELETE_OUTPUT_DIRECTORY = True
 
 
@@ -102,7 +87,10 @@ AUTHOR_SAVE_AS = ''
 
 # Disable tags, and have them go the tags page
 TAG_SAVE_AS = ''
-TAG_URL = 'tags.html#{slug}'
+TAG_URL = 'tags#{slug}'
+TAGS_SAVE_AS = 'tags.html'
+TAGS_URL = 'tags'
+
 
 # Blog Links
 LINKS =  (

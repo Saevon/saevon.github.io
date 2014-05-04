@@ -2,17 +2,46 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import unicode_literals
-from jinja2 import contextfilter
 
 
-@contextfilter
-def update_tags_count(context, tags):
-	for tag in tags:
-		for search in context['tags']:
-			if unicode(search[0]) == unicode(tag):
-				tag.count = len(search[1])
-				break
+def tag_remap(data):
+    new = []
+    for item in data:
+        tag = item[0]
+        tag.articles = item[1]
+        tag.count = len(tag.articles)
+        tag.base_name = tag.name
 
-	return tags
+        new.append(tag)
+
+    return new
+
+def tag_sort(tags):
+    '''
+    Sorts first by name
+    '''
+    return sorted(tags, key=lambda tag: getattr(tag, 'base_name', unicode(tag)).lower())
+
+def tag_ratios(tags, lowest=10, highest=100, attr='percent'):
+    '''
+    Adds a percentage ratio of how close to the maximum the tag count was
+    '''
+    maximum = max(map(lambda val: val.count, tags))
+
+    for tag in tags:
+        tag.maximum = maximum
+        tag.ratio = float(tag.count) / float(tag.maximum)
+        setattr(tag, attr, (tag.ratio * (highest - lowest)) + lowest)
+
+    return tags
+
+def update_count(data, search):
+    for tag in data:
+        for item in search:
+            if unicode(item[0]) == unicode(tag):
+                tag.count = len(item[1])
+                break
+
+    return data
 
 
