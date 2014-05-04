@@ -9,7 +9,7 @@ uuid=`uuidgen`
 cur=`pwd`
 tmp_prefix="blog-pelican"
 tmp="/tmp/$tmp_prefix-$uuid"
-output="$cur/output"
+output="$cur/.site"
 
 
 # Always use the source branch to publish
