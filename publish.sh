@@ -17,6 +17,16 @@ if [[ $branch != 'source' ]]; then
 	exit 5;
 fi
 
+function cleanup {
+	echo 'Cleaning Up'
+
+	# Cleanup all tmp folders
+	rm -rf /tmp/$tmp_prefix*
+	rm -rf $cur/$output
+}
+trap cleanup SIGHUP SIGINT SIGTERM EXIT
+
+
 # Create the static site
 pelican -s publishconf.py -o $output
 mkdir -p $tmp
@@ -54,12 +64,8 @@ done < .publish-copy
 
 # Move the newly generated files to the directory
 cp -R $output/ $tmp
-rm -rf $cur/$output
 git add *
 
 # Update master
 git commit -a -m "Publishes new static content `date`"
 git push -f origin master
-
-# Cleanup
-rm -rf /tmp/$tmp_prefix*
