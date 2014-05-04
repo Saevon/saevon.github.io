@@ -1,6 +1,8 @@
 Thumbs.db
 .DS_Store
 
+# Pelican Static HTML output
 output
 
-*.pyc
+# Python
+*.py[cod]
