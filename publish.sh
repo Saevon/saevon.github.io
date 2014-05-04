@@ -9,7 +9,7 @@ if [[ $branch != 'source' ]]; then
 fi
 
 # Create the static site
-workon blog && pelican -s publishconf.py -o $output
+pelican -s publishconf.py -o $output
 
 # Get the latest version of master
 git checkout master
