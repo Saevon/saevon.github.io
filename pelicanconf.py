@@ -27,7 +27,7 @@ ARTICLE_DIR = 'articles'
 DEFAULT_PAGINATION = 2
 
 # Which direct templates should be paginated
-PAGINATED_DIRECT_TEMPLATES = ()
+PAGINATED_DIRECT_TEMPLATES = []
 
 # If the article is in a folder and doesn't have a category use the folder name as its category
 USE_FOLDER_AS_CATEGORY = True
@@ -83,6 +83,7 @@ JINJA_FILTERS = {
 	'dump_all': dump_all,
 }
 
+DELETE_OUTPUT_DIRECTORY = True
 
 
 ############################
@@ -91,8 +92,11 @@ JINJA_FILTERS = {
 ARTICLE_URL = '{category}/{slug}/'
 ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
 
-AUTHOR_SAVE_AS = 'about.html'
-AUTHOR_URL = 'about.html'
+AUTHOR_SAVE_AS = ''
+
+# Disable tags, and have them go the tags page
+TAG_SAVE_AS = ''
+TAG_URL = 'tags.html#{slug}'
 
 # Blog Links
 LINKS =  (
