@@ -10,7 +10,6 @@ def tag_remap(data):
         tag = item[0]
         tag.articles = item[1]
         tag.count = len(tag.articles)
-        tag.base_name = tag.name
 
         new.append(tag)
 
@@ -20,7 +19,7 @@ def tag_sort(tags):
     '''
     Sorts first by name
     '''
-    return sorted(tags, key=lambda tag: getattr(tag, 'base_name', unicode(tag)).lower())
+    return sorted(tags, key=lambda tag: unicode(tag).lower())
 
 def tag_ratios(tags, lowest=10, highest=100, attr='percent'):
     '''

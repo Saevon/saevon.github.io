@@ -32,6 +32,10 @@
             opacity: 1;
         }
 
+        .keyword-prefix {
+            vertical-align: middle;
+        }
+
     </style>
 {% endblock css %}
 
@@ -39,12 +43,15 @@
 
 {% block page_content %}
 	<div class="keywords">
-        {% set keywords = (categories|tag_remap|mark_category)|merge(tags|tag_remap) %}
+        {% set keywords = (categories|tag_remap|mark('category'))|merge(tags|tag_remap|mark('tag')) %}
         {% set keywords = keywords|tag_ratios(lowest=50, highest=100)|tag_ratios(lowest=0.5, highest=1, attr="op_ratio") %}
         {% set keywords = keywords|tag_sort %}
 
 	    {% for keyword in keywords %}
           <a href="{{ SITEURL }}/{{ keyword.url }}" style="font-size: {{ keyword.percent }}%; opacity: {{ keyword.op_ratio }};" class="keyword">
+            {% if keyword.marked_type == 'category' %}
+                <tiny class="keyword-prefix">category - </tiny>
+            {% endif %}
             {{- keyword -}}
             <sup>{{ keyword.count }}</sup>
           </a>

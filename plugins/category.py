@@ -16,10 +16,11 @@ def find_category(categories, name):
 
     return found
 
-def mark_category(categories):
-    for item in categories:
-        item.name = 'category: %s' % item.name
-    return categories
+def mark(items, type):
+    for item in items:
+        item.marked_type = type
+
+    return items
 
 def category_preview_articles(category, num=None):
     articles = category[1]
@@ -29,4 +30,6 @@ def category_preview_articles(category, num=None):
         articles = articles[:num]
 
     return articles
+
+
 
