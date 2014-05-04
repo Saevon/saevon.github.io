@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="/feeds/rant.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 03 Jul 2013 00:00:00 +0200</lastBuildDate><item><title>Hello World!</title><link>/hello-world.html</link><description>&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="/feeds/rant.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 03 Jul 2013 00:00:00 +0200</lastBuildDate><item><title>Hello World!</title><link>/personal/hello-world/</link><description>&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
 &lt;p&gt;So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.&lt;/p&gt;
 &lt;h2&gt;Purpose&lt;/h2&gt;
 &lt;p&gt;I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.&lt;/p&gt;
@@ -14,4 +14,4 @@
 &lt;p&gt;&lt;div class="alert alert-success "&gt;&lt;i class="fa fa-noicon"&gt;&lt;/i&gt;
     &lt;strong&gt;Thank you&lt;/strong&gt; for reading this far
 &lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Wed, 03 Jul 2013 00:00:00 +0200</pubDate><guid>tag:,2013-07-03:hello-world.html</guid><category>rant</category></item></channel></rss>
+&lt;p&gt;Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Wed, 03 Jul 2013 00:00:00 +0200</pubDate><guid>tag:,2013-07-03:personal/hello-world/</guid><category>rant</category></item></channel></rss>
