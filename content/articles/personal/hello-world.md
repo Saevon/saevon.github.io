@@ -1,6 +1,7 @@
 Template: article
 Title: Hello World!
 Tagline: Welcome to my blog
+Slug: hello-world
 Date: 2013-07-03
 Categories: personal
 Tags: rant
