@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="/" rel="alternate"></link><link href="/feeds/personal.atom.xml" rel="self"></link><id>/</id><updated>2013-07-03T00:00:00+02:00</updated><entry><title>Hello World!</title><link href="/hello-world.html" rel="alternate"></link><updated>2013-07-03T00:00:00+02:00</updated><author><name>Saevon</name></author><id>tag:,2013-07-03:hello-world.html</id><summary type="html">&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
+&lt;p&gt;So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.&lt;/p&gt;
+&lt;h2&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.&lt;/p&gt;
+&lt;p&gt;As I add more topics I will update this post.&lt;/p&gt;
+&lt;h4&gt;Coding&lt;/h4&gt;
+&lt;p&gt;This would list any CS related topics, and though the title is "Coding" it would include algorithms and other such theoretical topics.&lt;/p&gt;
+&lt;h4&gt;Media&lt;/h4&gt;
+&lt;p&gt;This would be a conglomeration of any movies, books, and other such topics. Mostly this will compose of reviews.&lt;/p&gt;
+&lt;h4&gt;Rant&lt;/h4&gt;
+&lt;p&gt;Miscellaneous talks will go here&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-success "&gt;&lt;i class="fa fa-noicon"&gt;&lt;/i&gt;
+    &lt;strong&gt;Thank you&lt;/strong&gt; for reading this far
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.&lt;/p&gt;</summary><category term="rant"></category></entry></feed>

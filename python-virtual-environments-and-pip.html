@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Styles -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>Saevon.ca</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidebar needs to be fixed to -->
+		<section class="col-md-2"></section>
+		<div class="sidenav">
+
+<hr />
+<a href="/">
+	<img src="/theme/images/avatar.jpg" class="center avatar img-rounded" width="100px" height="100px" />
+	<h1 class="site-name">Saevon</h1>
+</a>
+<hr />
+
+<ul>
+</ul>
+
+<div class="account-links center">
+		<a href="https://github.com/Saevon" class="account-link">
+			<i class="fa fa-github-square"></i>
+		</a>
+		<a href="https://ca.linkedin.com/in/saevon" class="account-link">
+			<i class="fa fa-linkedin-square"></i>
+		</a>
+</div>
+
+<hr />
+<footer>
+	<small class="center">
+		Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+	</small>
+</footer>		</div>
+
+		<!-- Content -->
+		<section class="col-md-8">
+    <article class="article article-full">
+<div class="page-header">
+    <a href="/python-virtual-environments-and-pip.html" rel="bookmark" title="Permalink to Python Virtual Environments and PIP" class="perma-link">
+        <h1>
+            Python Virtual Environments and PIP
+
+                <small class="tagline">Keep your projects separate.</small>
+        </h1>
+    </a>
+</div>
+        <div class="date">
+          <span>12 July 2013</span>
+        </div>
+        <div class="content">
+          <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
+<h1>Intro</h1>
+<p>Jump "straight"&hellip; to the <a href="#Syspip">Syspip</a> section if you know all about python packaging and virtualenv.</p>
+<h1>virtualenvwrapper</h1>
+<p>This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.</p>
+<p>I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.</p>
+<h3>Changing Environments</h3>
+<p>To change environments is pretty easy, you just use the <code>workon</code> command. This works whether you have a currently active environment or not.</p>
+<div class="highlight"><pre>workon <span class="nv">$env_name</span>
+</pre></div>
+
+
+<p>To deactivate the current environment you use the <code>deactivate</code> command, just like normal. Though personally I though workoff was more obvious.</p>
+<div class="highlight"><pre><span class="nb">alias </span><span class="nv">workoff</span><span class="o">=</span>deactivate
+</pre></div>
+
+
+<h3>Tab Completion!</h3>
+<p>When using the <code>workon</code> command you can tab complete to see the list of all the environments you have.</p>
+<h3>Add/Remove Environments</h3>
+<div class="highlight"><pre><span class="c"># Add a new environment</span>
+mkvirtualenv <span class="nv">$env_name</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="c"># Remove an environment</span>
+rmvirtualenv <span class="nv">$env_name</span>
+</pre></div>
+
+
+<h1>Syspip</h1>
+<p>Heres where stuff gets interesting. To prevent mistakes while installing packages, I've added the following things to my bash startup scripts (<code>.bashrc</code>, <code>.bash_aliases</code>, etc.)</p>
+<div class="highlight"><pre><span class="c"># .bashrc</span>
+
+<span class="nb">source</span> /usr/local/bin/virtualenvwrapper.sh
+
+<span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.environments
+<span class="nb">export </span><span class="nv">PIP_VIRTUALENV_BASE</span><span class="o">=</span>WORKON_HOME
+
+<span class="nb">export </span><span class="nv">PIP_REQUIRE_VIRTUALENV</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+
+
+<p>First notice that we set <code>PIP_REQUIRE_VIRTUALENV</code>, this ensures that pip <em>will not</em> run without an active virtual environment.</p>
+<p>Second, do remember to set <code>PIP_VIRTUALENV_BASE</code>, since that is what pip uses to tell if you have an environment active. (AFAIK)</p>
+<div class="highlight"><pre><span class="c"># .bash_aliases</span>
+
+<span class="nb">export </span><span class="nv">SYSTEM_PIP</span><span class="o">=</span><span class="sb">`</span>which pip<span class="sb">`</span>
+<span class="k">function </span>syspip <span class="o">{</span>
+    <span class="nv">PIP_REQUIRE_VIRTUALENV</span><span class="o">=</span><span class="s2">&quot;&quot;</span> sudo <span class="nv">$SYSTEM_PIP</span> <span class="s2">&quot;$@&quot;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Here we first find which version of pip we use, then add a new way of using the global pip binary. Now you have 2 ways of installing a package, each of which always installs to the expected location.</p>
+<ul>
+<li>
+<p>To install <strong>only</strong> for the currently active environment, (or fail if it doesn't find one)</p>
+<div class="highlight"><pre>pip install <span class="nv">$package</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>To install <strong>only</strong> globally</p>
+<div class="highlight"><pre>syspip install <span class="nv">$package</span>
+</pre></div>
+
+
+</li>
+</ul>
+<p><div class="alert alert-warning "><i class="fa fa-warning"></i>
+    Don't forget to load <code>.bash_aliases</code> before you activate any environments, otherwise <code>syspip</code> might not work as advertised.
+</div></p>
+        </div>
+
+        <hr />
+
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="/category/coding.html" class="tag-box-item">
+          category: coding
+            <span class="tag-count">2</span>
+        </a>
+      </li>
+        <li>
+          <a href="/tag/pip.html" class="tag-box-item">pip              <span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="/tag/python.html" class="tag-box-item">python              <span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="/tag/virtualenv.html" class="tag-box-item">virtualenv              <span class="tag-count">1</span>
+          </a>
+        </li>
+    </ul>
+
+        <hr />
+    </article>
+
+    <footer>
+        <a href="/category/coding.html">&larr; Back to coding</a>
+    </footer>
+		</section>
+	</div></div>
+
+</body>
+</html>
