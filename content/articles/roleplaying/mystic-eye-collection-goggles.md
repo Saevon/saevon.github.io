@@ -1,6 +1,7 @@
 Template: article
 Title: Mystic Eye Collection Goggles
 Tagline: Don't just steal eyes, torture while you're at it!
+Slug: mystic-goggles
 Date: 2013-11-20
 Categories: roleplaying
 Tags: magic-item, D&D

@@ -8,6 +8,7 @@ from __future__ import unicode_literals
 # Basic Details
 
 AUTHOR = u'Saevon'
+EMAIL =u'dot.saevon@gmail.com'
 SITENAME = u'Saevon.ca'
 SITEURL = ''
 TIMEZONE = 'Canada/Eastern'
@@ -22,6 +23,9 @@ THEME = 'theme'
 # Location of blog content
 PATH = 'content'
 ARTICLE_DIR = 'articles'
+
+# Templates that mage a page, rather than being a layout
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives')
 
 # Articles per page
 DEFAULT_PAGINATION = 2
