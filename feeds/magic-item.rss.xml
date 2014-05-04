@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>/</link><description></description><atom:link href="//blog.saevon.ca/feeds/magic-item.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 20 Nov 2013 00:00:00 -0500</lastBuildDate><item><title>Mystic Eye Collection Goggles</title><link>/roleplaying/mystic-goggles/</link><description>&lt;p&gt;&lt;strong&gt;Magical Item:&lt;/strong&gt; A cursed pair of eye goggles that is used to steal the eyes of creatures. It doubles as a torture device due to its method of extracting them.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/magic-item.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 20 Nov 2013 00:00:00 -0500</lastBuildDate><item><title>Mystic Eye Collection Goggles</title><link>//blog.saevon.ca/roleplaying/mystic-goggles/</link><description>&lt;p&gt;&lt;strong&gt;Magical Item:&lt;/strong&gt; A cursed pair of eye goggles that is used to steal the eyes of creatures. It doubles as a torture device due to its method of extracting them.&lt;/p&gt;
 &lt;h3&gt;Summary&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Attacks creatures within &lt;strong&gt;30 feet&lt;/strong&gt;.&lt;/li&gt;
@@ -26,4 +26,4 @@
 &lt;li&gt;&lt;strong&gt;HP:&lt;/strong&gt; 20&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Aura:&lt;/strong&gt; Strong Transmutation&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;When the Stasis glass is broken, it disappears, but the contents fall out (and are probably ruined)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Wed, 20 Nov 2013 00:00:00 -0500</pubDate><guid>tag:,2013-11-20:roleplaying/mystic-goggles/</guid><category>magic-item</category><category>D&amp;D</category></item></channel></rss>
+&lt;p&gt;When the Stasis glass is broken, it disappears, but the contents fall out (and are probably ruined)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Wed, 20 Nov 2013 00:00:00 -0500</pubDate><guid>tag://blog.saevon.ca,2013-11-20:roleplaying/mystic-goggles/</guid><category>magic-item</category><category>D&amp;D</category></item></channel></rss>
