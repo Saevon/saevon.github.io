@@ -9,6 +9,9 @@
 tiny {
   font-size: 60%;
 }
+.line-group {
+  display: inline-block;
+}
 
 
 
@@ -30,7 +33,7 @@ body {
 .page h3 {
     font-weight: bold;
 }
-.page .tagline {
+.tagline {
     /*
     Ensures that the text stays on the same line if it will fit,
     however if it needs to wrap it will go to the next line
@@ -51,77 +54,6 @@ body {
     max-width: 180px;
   }
 
-  /*************/
-  /* Side Nav */
-  .sidenav {
-    overflow-y: scroll;
-    padding: 20px;
-  }
-  .avatar-wrapper {
-    display: inline-block;
-    width: 100%;
-  }
-  .avatar {
-    width: 150px;
-    max-width: 100%;
-  }
-  .site-name {
-    text-align: center;
-    margin-top: 5px;
-  }
-
-  /* Menu items */
-  .menu-group {
-    border-top: 1px solid #EEE;
-    padding: 2px 0;
-    margin: 2px 0;
-    border-bottom: 1px solid #EEE;
-  }
-  .menu-group-title {
-    padding-left: 10px;
-    font-size: 150%;
-    font-weight: bold;
-  }
-  .menu-group-content {
-    padding-left: 30px;
-    padding-right: 10px;
-    list-style: none;
-  }
-  .menu-group-item {
-    font-size: 120%;
-    padding: 2px 5px;
-
-    border-top: 1px solid #EEE;
-  }
-  .menu-group-item:first-child {
-    border-top-width: 0;
-  }
-
-  .menu-group:hover {
-    border-radius: 10px;
-    background-color: #FBFBFB;
-  }
-  .menu-group-item:hover {
-    border-radius: 5px;
-    background-color: #FFF;
-  }
-  .menu-group-item a:hover {
-    text-decoration: none;
-  }
-
-
-  /* Account Links */
-  .account-link {
-    color: black;
-    font-size: 40px;
-    display: inline-flex;
-
-    padding: 5px;
-  }
-  .account-link:hover {
-    text-decoration: none;
-  }
-
   /* Sidenav Small */
   @media (max-width: 770px) {
     .sidenav {
@@ -132,27 +64,7 @@ body {
 
       margin-bottom: 100px;
     }
-    .avatar-wrapper {
-      width: 24%;
-    }
-    .menu-items {
-      width: 74%;
-      float: right;
-    }
-
-    .nav-small-hide {
-      display: none;
-    }
-
-    .account-link {
-      font-size: 80px;
-    }
-
-    .page-header {
-      text-align: center
-    }
   }
-
 
 
 

@@ -7,6 +7,7 @@
 
 	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
 	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/sidenav.css">
 	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
 
 
@@ -21,22 +22,27 @@
 </head>
 <body>
 	<div class="container-fluid"><div class="row">
-		<!-- Section that does nothing but take up space the sidebar needs to be fixed to -->
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
 		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
 		<div class="sidenav col-md-3 col-sm-3 col-xs-12">
 
-<hr />
-<a href="/" class="avatar-wrapper perma-link">
-    <img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
-    <h1 class="site-name">Saevon</h1>
-</a>
-<hr class="nav-small-hide"/>
+<div class="sidenav-avatar">
+    <hr />
+    <a href="/" class="avatar-wrapper perma-link">
+        <img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
+        <h1 class="site-name">Saevon</h1>
+    </a>
+    <hr class="nav-small-hide"/>
+</div>
 
- <div class="menu-items">
-    <div class="menu-group">
-        <div class="menu-group-title">
-            Categories
-        </div>
+
+<div class="sidenav-menu">
+    <div class="menu-group ">
+        <a href="//blog.saevon.ca/">
+            <div class="menu-group-title">
+                Categories
+            </div>
+        </a>
         <ul class="menu-group-content">
             <li class="menu-group-item ">
                 <a href="//blog.saevon.ca/coding/">
@@ -60,26 +66,49 @@
             </li>
         </ul>
     </div>
-</div>
-
-
- <hr />
-
-<div class="account-links center">
-        <a href="https://github.com/Saevon" class="account-link">
-            <i class="fa fa-github-square"></i>
+    <div class="menu-group ">
+        <a href="//blog.saevon.ca/tags/">
+            <div class="menu-group-title">
+                Tags
+            </div>
         </a>
-        <a href="https://ca.linkedin.com/in/saevon" class="account-link">
-            <i class="fa fa-linkedin-square"></i>
-        </a>
+    </div>
 </div>
+<div class="clearfix"></div>
 
-<hr />
-<footer>
-    <small class="center">
-        Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
-    </small>
-</footer>
+    <div class="sidenav-acc-links">
+        <hr />
+        <div class="account-links center">
+                <a href="https://github.com/Saevon" class="account-link">
+                    <i class="fa fa-github-square"></i>
+                </a>
+                <a href="https://ca.linkedin.com/in/saevon" class="account-link">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+        </div>
+    </div>
+
+
+
+<div class="sidenav-copyrights">
+    <hr />
+    <footer>
+        <small class="center">
+            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+        </small>
+        <br />
+        <small class="center">
+            <span class="line-group">
+                © Saevon 2014
+            </span>
+            <span class="line-group">
+                see <a href="/">
+                    licence
+                </a>
+            </span>
+        </small>
+    </footer>
+</div>
 
 <hr class="visible-xs" />
 <hr class="visible-xs" />
@@ -185,15 +214,15 @@ rmvirtualenv <span class="nv">$env_name</span>
         </a>
       </li>
         <li>
-          <a href="//blog.saevon.ca/tags/pip" class="tag-box-item">pip<span class="tag-count">1</span>
+          <a href="//blog.saevon.ca/tags/pip/" class="tag-box-item">pip<span class="tag-count">1</span>
           </a>
         </li>
         <li>
-          <a href="//blog.saevon.ca/tags/python" class="tag-box-item">python<span class="tag-count">1</span>
+          <a href="//blog.saevon.ca/tags/python/" class="tag-box-item">python<span class="tag-count">1</span>
           </a>
         </li>
         <li>
-          <a href="//blog.saevon.ca/tags/virtualenv" class="tag-box-item">virtualenv<span class="tag-count">1</span>
+          <a href="//blog.saevon.ca/tags/virtualenv/" class="tag-box-item">virtualenv<span class="tag-count">1</span>
           </a>
         </li>
     </ul>

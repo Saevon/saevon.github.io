@@ -1,0 +1,155 @@
+
+/*************/
+/* Side Nav */
+.sidenav {
+  overflow-y: scroll;
+  padding: 20px;
+}
+.avatar-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+.avatar {
+  width: 150px;
+  max-width: 100%;
+}
+.site-name {
+  text-align: center;
+  margin-top: 5px;
+}
+
+
+/**************/
+/* Menu items */
+.menu-group {
+  border: 1px solid transparent;
+  border-top-color: #EEE;
+}
+.menu-group:last-child {
+  border-bottom-color: #EEE;
+}
+.menu-group-title {
+  padding-left: 10px;
+  font-size: 150%;
+  font-weight: bold;
+}
+.menu-group-content {
+  padding-left: 30px;
+  padding-right: 10px;
+  list-style: none;
+}
+.menu-group-item {
+  font-size: 120%;
+  border: 1px solid transparent;
+  border-top-color: #EEE;
+}
+.menu-group-item a {
+  padding: 2px 5px;
+}
+
+.menu-group-item:first-child {
+  border-top-color: transparent;
+}
+
+  /****************************/
+  /* Active and hover effects */
+  .menu-group:hover {
+    border-radius: 10px;
+    border-color: #CCC;
+  }
+  .menu-group-title:hover,
+  .menu-group-item:hover {
+    border-radius: 5px;
+    background-color: #EEE;
+  }
+  .menu-group-item:hover {
+    border-color: #CCC;
+  }
+  .menu-group-item.active {
+    background-color: #EEF;
+    border-radius: 5px;
+  }
+  .menu-group.active {
+    background-color: #EEF;
+    border-radius: 10px;
+  }
+  .sidenav-menu a:hover {
+    text-decoration: none;
+  }
+
+
+  /* Fix the extra border at the bottom on highlight problem */
+  .menu-group.active + .menu-group:not(:hover),
+  .menu-group:hover + .menu-group,
+  .menu-group-item.active + .menu-group-item:not(:hover),
+  .menu-group-item:hover + .menu-group-item {
+    border-top-color: transparent;
+  }
+
+
+
+/*****************/
+/* Account Links */
+.account-link {
+  color: black;
+  font-size: 40px;
+  display: inline-flex;
+
+  padding: 5px;
+}
+.account-link:hover {
+  text-decoration: none;
+}
+
+
+
+/*****************/
+/* Sidenav Small */
+@media (max-width: 770px) {
+  .avatar-wrapper {
+    width: 150px;
+    margin-right: 20px;
+    float: left;
+  }
+  .sidenav-menu {
+    width: 70%;
+    float: left;
+  }
+
+  .nav-small-hide {
+    display: none;
+  }
+
+  .account-link {
+    font-size: 80px;
+  }
+
+  .page-header {
+    text-align: center
+  }
+}
+
+
+/******************************************************/
+/* The text size needs to decrement for the site name */
+
+/**********************************************/
+/* We should also vary the avatar positioning */
+@media (max-width: 650px) {
+  .sidenav-menu {
+    width: 65%;
+  }
+}
+@media (max-width: 570px) {
+  .sidenav-menu {
+    width: 55%;
+  }
+}
+@media (max-width: 460px) {
+  .sidenav-menu {
+    width: 45%;
+  }
+}
+
+
+
