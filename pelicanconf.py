@@ -80,7 +80,8 @@ MD_EXTENSIONS = (
 # Fix the import path, then get all the plugins
 import sys
 sys.path.append('.')
-from plugins import JINJA_EXTENSIONS, JINJA_FILTERS
+from plugins.jinja2 import JINJA_EXTENSIONS, JINJA_FILTERS
+from plugins.pelican import PLUGINS
 
 
 # Delete the output directory every time we generate the code

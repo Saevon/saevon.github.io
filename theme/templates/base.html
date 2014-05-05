@@ -34,14 +34,15 @@
 </head>
 <body>
 	<div class="container-fluid"><div class="row">
-		<!-- Section that does nothing but take up space the sidebar needs to be fixed to -->
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
 		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
 		<div class="sidenav col-md-3 col-sm-3 col-xs-12">
-			{% include 'sidebar.html' %}
+			{% include 'sidenav.html' %}
 		</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+			{{ page_name|dump_all }}
 			{% block content %}{% endblock content %}
 		</section>
 	</div></div>
