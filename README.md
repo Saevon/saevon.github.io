@@ -33,6 +33,7 @@ The following is my todo list for this site, feel free to ignore this, unless yo
 * [ ] Page search
 * [ ] Pagination is plain right now
 * [ ] No Feeds are enabled (working) at all right now
+* [ ] Go back to X button should head to the previous url
 * [ ] No Favicon
 * [ ] Publish script needs to checkout the full repository including the assets folder, which is annoying
 
