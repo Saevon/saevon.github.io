@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <section class="category page">
+        {% set title = tag|capitalize %}
+        {% set tagline = TAG_TAGLINES[category] %}
+        {% set permalink = tag.url %}
+        {% include 'partial/header.html' %}
+
+        {% for article in articles_page.object_list %}
+            {% include 'partial/article_excerpt.html' %}
+        {% endfor %}
+
+        <hr />
+
+        {% include 'partial/pagination.html' %}
+    </section>
+{% endblock content %}

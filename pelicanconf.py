@@ -38,7 +38,7 @@ ARTICLE_DIR = 'articles'
 DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives')
 
 # Articles per page
-DEFAULT_PAGINATION = 2
+DEFAULT_PAGINATION = 5
 
 # Which direct templates should be paginated
 PAGINATED_DIRECT_TEMPLATES = ()
@@ -80,7 +80,7 @@ MD_EXTENSIONS = (
 # Fix the import path, then get all the plugins
 import sys
 sys.path.append('.')
-from plugins.jinja2 import JINJA_EXTENSIONS, JINJA_FILTERS
+from plugins.jinja2 import JINJA_EXTENSIONS, JINJA_FILTERS, JINJA_FUNCTIONS
 from plugins.pelican import PLUGINS
 
 

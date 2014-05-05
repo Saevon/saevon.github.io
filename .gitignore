@@ -4,6 +4,7 @@ Thumbs.db
 # Pelican Static HTML output
 output
 .site
+source
 
 # Python
 *.py[cod]

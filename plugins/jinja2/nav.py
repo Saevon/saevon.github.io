@@ -11,4 +11,3 @@ def is_cur_page(context, url, or_child=False):
         return url in unicode(page)
     else:
         return url == page
-
