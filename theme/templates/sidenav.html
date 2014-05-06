@@ -26,7 +26,7 @@
         {% endfor %}
         </ul>
     </div>
-    <div class="menu-group {% if TAGS_URL|is_cur_page(or_child=True) %}active{% endif %}">
+    <div class="menu-group menu-group-empty {% if TAGS_URL|is_cur_page(or_child=True) %}active{% endif %}">
         <a href="{{ SITEURL }}/{{ TAGS_URL }}">
             <div class="menu-group-title">
                 Tags
