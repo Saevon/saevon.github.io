@@ -21,62 +21,62 @@
 
 /**************/
 /* Menu items */
-.menu-group {
+.nav-link {
   border: 1px solid transparent;
   border-top-color: #EEE;
 }
-.menu-group:last-child {
+.nav-link:last-child {
   border-bottom-color: #EEE;
 }
-.menu-group-title {
+.nav-link-title {
   padding-left: 10px;
   font-size: 150%;
   font-weight: bold;
-
+}
+.nav-group .nav-link-title {
   border-bottom: 1px solid transparent;
   margin-bottom: 5px;
 }
-.menu-group-empty .menu-group-title {
-  margin-bottom: 0;
-  border-bottom-width: 0;
-}
-.menu-group-content {
+.nav-group-content {
   padding-left: 30px;
   padding-right: 10px;
   list-style: none;
 }
-.menu-group-item {
+.nav-group-item {
   font-size: 120%;
   border: 1px solid transparent;
   border-top-color: #EEE;
 }
-.menu-group-item a {
+.nav-group-item a {
   padding: 2px 5px;
 }
 
-.menu-group-item:first-child {
+.nav-group-item:first-child {
   border-top-color: transparent;
 }
 
   /****************************/
   /* Active and hover effects */
-  .menu-group:hover {
+  .nav-link:hover {
     border-radius: 10px;
     border-color: #CCC;
   }
-  .menu-group-title:hover,
-  .menu-group-item:hover {
+  .nav-link-title:hover,
+  .nav-group-item:hover {
     border-radius: 5px;
     background-color: #EEE;
     border-color: #CCC;
   }
-  .menu-group-item.active {
+  .nav-group-item.active {
     background-color: #EEF;
     border-radius: 5px;
   }
-  .menu-group.active {
-    background-color: #EEF;
+  .nav-link.active,
+  .nav-link.active .nav-link-title {
     border-radius: 10px;
+  }
+  .nav-link.active .nav-link-title {
+    background-color: #EEF;
   }
   .sidenav-menu a:hover {
     text-decoration: none;
@@ -84,10 +84,10 @@
 
 
   /* Fix the extra border at the bottom on highlight problem */
-  .menu-group.active + .menu-group:not(:hover),
-  .menu-group:hover + .menu-group,
-  .menu-group-item.active + .menu-group-item:not(:hover),
-  .menu-group-item:hover + .menu-group-item {
+  .nav-link-single.active + .nav-link:not(:hover),
+  .nav-link:hover + .nav-link,
+  .nav-group-item.active + .nav-group-item:not(:hover),
+  .nav-group-item:hover + .nav-group-item {
     border-top-color: transparent;
   }
 
