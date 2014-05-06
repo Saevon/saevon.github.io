@@ -18,7 +18,7 @@
         </a>
         <ul class="menu-group-content">
         {% for category in categories|tag_remap %}
-            <li class="menu-group-item {% if category.url|is_cur_page %}active{% endif %}">
+            <li class="menu-group-item {% if category.url|is_cur_page(or_child=True) %}active{% endif %}">
                 <a href="{{ SITEURL }}/{{ category.url }}">
                     {{ category|capitalize }}
                 </a>
