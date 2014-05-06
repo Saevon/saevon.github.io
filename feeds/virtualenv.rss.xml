@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/virtualenv.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 12 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Python Virtual Environments and PIP</title><link>//blog.saevon.ca/coding/python-virtual-environments-and-pip/</link><description>&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
 &lt;h1&gt;Intro&lt;/h1&gt;
-&lt;p&gt;Jump "straight"&amp;hellip; to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
+&lt;p&gt;Jump "straight" to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
 &lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
 &lt;p&gt;This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.&lt;/p&gt;
 &lt;p&gt;I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.&lt;/p&gt;

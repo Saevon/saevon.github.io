@@ -84,7 +84,7 @@
 &lt;li&gt;&lt;a href="http://www.greenheartgames.com/2013/04/29/what-happens-when-pirates-play-a-game-development-simulator-and-then-go-bankrupt-because-of-piracy/"&gt;Piracy in a game dev game!&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary><category term="game dev tycoon"></category><category term="game"></category><category term="Greenheart Games"></category></entry><entry><title>Python Virtual Environments and PIP</title><link href="//blog.saevon.ca/coding/python-virtual-environments-and-pip/" rel="alternate"></link><updated>2013-07-12T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2013-07-12:coding/python-virtual-environments-and-pip/</id><summary type="html">&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
 &lt;h1&gt;Intro&lt;/h1&gt;
-&lt;p&gt;Jump "straight"&amp;hellip; to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
+&lt;p&gt;Jump "straight" to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
 &lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
 &lt;p&gt;This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.&lt;/p&gt;
 &lt;p&gt;I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.&lt;/p&gt;
