@@ -12,7 +12,7 @@ virtualenv is a pretty awesome tool for any python user, however it is often too
 
 # Intro
 
-Jump "straight"... to the [Syspip](#Syspip) section if you know all about python packaging and virtualenv.
+Jump "straight" to the [Syspip](#Syspip) section if you know all about python packaging and virtualenv.
 
 
 
