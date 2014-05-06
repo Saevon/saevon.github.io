@@ -1,7 +1,6 @@
 Template: article
 Title: Review: Prison Architect
 Tagline: Riots Galore
-Slug: prison-architect
 Date: 2014-01-08
 Categories: review
 Tags: prison architect, game

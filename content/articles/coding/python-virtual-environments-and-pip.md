@@ -1,7 +1,6 @@
 Template: article
 Title: Python Virtual Environments and PIP
 Tagline: Keep your projects separate.
-Slug: python-virtualenv
 Date: 2013-07-12
 Categories: coding
 Tags: python, virtualenv, pip

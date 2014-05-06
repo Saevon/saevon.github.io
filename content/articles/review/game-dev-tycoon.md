@@ -1,7 +1,6 @@
 Template: article
 Title: Review: Game Dev Tycoon
 Tagline:
-Slug: game-dev-tycoon
 Date: 2013-10-04
 Categories: review
 Tags: game dev tycoon, game, Greenheart Games

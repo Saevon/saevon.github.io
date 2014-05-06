@@ -1,7 +1,6 @@
 Template: article
 Title: Review: Alex Rider
 Tagline:
-Slug: alex-rider
 Date: 2013-07-08
 Categories: review
 Tags: alex rider, book
