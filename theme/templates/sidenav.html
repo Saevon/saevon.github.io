@@ -10,15 +10,15 @@
 
 
 <div class="sidenav-menu">
-    <div class="menu-group {% if 'index'|is_cur_page %}active{% endif %}">
+    <div class="nav-link nav-group {% if 'index'|is_cur_page %}active{% endif %}">
         <a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">
-            <div class="menu-group-title">
+            <div class="nav-link-title">
                 Categories
             </div>
         </a>
-        <ul class="menu-group-content">
+        <ul class="nav-group-content">
         {% for category in categories|tag_remap %}
-            <li class="menu-group-item {% if category.url|is_cur_page(or_child=True) %}active{% endif %}">
+            <li class="nav-group-item {% if category.url|is_cur_page(or_child=True) %}active{% endif %}">
                 <a href="{{ SITEURL }}/{{ category.url }}">
                     {{ category|capitalize }}
                 </a>
@@ -26,9 +26,9 @@
         {% endfor %}
         </ul>
     </div>
-    <div class="menu-group menu-group-empty {% if TAGS_URL|is_cur_page(or_child=True) %}active{% endif %}">
+    <div class="nav-link nav-link-single {% if TAGS_URL|is_cur_page(or_child=True) %}active{% endif %}">
         <a href="{{ SITEURL }}/{{ TAGS_URL }}">
-            <div class="menu-group-title">
+            <div class="nav-link-title">
                 Tags
             </div>
         </a>
