@@ -35,7 +35,7 @@ PATH = 'content'
 ARTICLE_DIR = 'articles'
 
 # Templates that mage a page, rather than being a layout
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives')
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'license')
 
 # Articles per page
 DEFAULT_PAGINATION = 5
@@ -49,6 +49,11 @@ DEFAULT_CATEGORY = 'personal'
 
 # Disable the authors list page (as there is only one author)
 AUTHORS_SAVE_AS = False
+
+# License File
+LICENSE_FILE = '../LICENSE.md'
+LICENSE_SAVE_AS = 'license/index.html'
+LICENSE_URL = 'license/'
 
 
 # Feed generation is usually not desired when developing

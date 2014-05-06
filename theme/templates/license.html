@@ -1,0 +1,15 @@
+{% extends "page.html" %}
+
+
+
+{% block page_header %}
+    {% set title = 'License' %}
+    {% set url = LICENSE_URL %}
+    {% include 'partial/header.html' %}
+{% endblock page_header %}
+
+
+{% block page_content %}
+    {{ LICENSE_FILE|render }}
+{% endblock page_content %}
+
