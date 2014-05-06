@@ -36,6 +36,10 @@
   border-bottom: 1px solid transparent;
   margin-bottom: 5px;
 }
+.menu-group-empty .menu-group-title {
+  margin-bottom: 0;
+  border-bottom-width: 0;
+}
 .menu-group-content {
   padding-left: 30px;
   padding-right: 10px;
@@ -151,6 +155,24 @@
     width: 45%;
   }
 }
+
+
+
+/*********************************/
+/* Misc */
+.copyright {
+  margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
