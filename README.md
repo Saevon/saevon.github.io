@@ -30,6 +30,7 @@ To publish the site, one needs to generate the source, copy over the files in `.
 The following is my todo list for this site, feel free to ignore this, unless you're trying to get inspiration from this site, in which case, pay attention to what you might need to fix up.
 
 * [ ] 404 page needs to auto search based on the url (and maybe email me?)
+* [ ] Need to comment up css better
 * [ ] Page search
 * [ ] Pagination is plain right now
 * [ ] No Feeds are enabled (working) at all right now
