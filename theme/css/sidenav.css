@@ -32,6 +32,9 @@
   padding-left: 10px;
   font-size: 150%;
   font-weight: bold;
+
+  border-bottom: 1px solid transparent;
+  margin-bottom: 5px;
 }
 .menu-group-content {
   padding-left: 30px;
@@ -61,8 +64,6 @@
   .menu-group-item:hover {
     border-radius: 5px;
     background-color: #EEE;
-  }
-  .menu-group-item:hover {
     border-color: #CCC;
   }
   .menu-group-item.active {
