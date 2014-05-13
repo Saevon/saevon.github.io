@@ -19,11 +19,13 @@
         <hr />
     </article>
 
-    <footer>
-        {% block page_footer %}
-            <a href="{{ SITEURL }}/" class="btn btn-primary">&larr; Back Home?</a>
-        {% endblock page_footer %}
-    </footer>
+    {% if not main.nofooter %}
+        <footer>
+            {% block page_footer %}
+                <a href="{{ SITEURL }}/" class="btn btn-primary">&larr; Back Home?</a>
+            {% endblock page_footer %}
+        </footer>
+    {% endif %}
 {% endblock %}
 
 

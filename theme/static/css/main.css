@@ -13,6 +13,10 @@ tiny {
   display: inline-block;
 }
 
+dd {
+  margin-left: 40px;
+}
+
 
 
 /******************************************/
@@ -31,14 +35,14 @@ body {
 .page h1,
 .page h2,
 .page h3 {
-    font-weight: bold;
+  font-weight: bold;
 }
 .tagline {
-    /*
-    Ensures that the text stays on the same line if it will fit,
-    however if it needs to wrap it will go to the next line
-     */
-    display: inline-block;
+  /*
+  Ensures that the text stays on the same line if it will fit,
+  however if it needs to wrap it will go to the next line
+   */
+  display: inline-block;
 }
 
   /* Main content sizing and positioning */

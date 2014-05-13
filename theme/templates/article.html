@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 
+{% block css %}
+    {{ super() }}
+
+    {% if article.style == 'simple' %}
+        <link rel="stylesheet" type="text/css" href="/theme/css/simple.css">
+    {% endif %}
+{% endblock %}
+
+
 {% block content %}
     <article class="article article-full">
         {% set title = article.title %}
@@ -17,14 +26,27 @@
 
         <hr />
 
-        {% include 'partial/tags_list.html' %}
+        {% if not article.notags %}
+            {% include 'partial/tags_list.html' %}
 
-        <hr />
+            <hr />
+        {% endif %}
     </article>
 
-    <footer>
-        <a href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back to {{ article.category }}</a>
-    </footer>
+    {% if not main.nofooter %}
+        <footer>
+            <a href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back to {{ article.category }}</a>
+        </footer>
+    {% endif %}
+
+    {% if not main.nocomments %}
+        <div id="comments">
+            {% if DISQUS_SITENAME %}
+                {% include 'plugin/disqus.html' %}
+            {% endif %}
+            <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+    {% endif %}
 {% endblock %}
 
 
