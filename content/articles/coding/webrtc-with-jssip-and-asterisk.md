@@ -2,7 +2,7 @@ Template: article
 Title: WebRTC with JsSIP and Asterisk
 Tagline: Trying to get leading edge tech to work: WebRTC
 Date: 2013-07-04
-Categories: coding
+Category: coding
 Tags: webrtc, jssip, javascript, asterisk
 
 

@@ -2,7 +2,7 @@ Template: article
 Title: Review: Alex Rider
 Tagline:
 Date: 2013-07-08
-Categories: review
+Category: review
 Tags: alex rider, book
 
 

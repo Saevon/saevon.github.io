@@ -2,7 +2,7 @@ Template: article
 Title: Hello World!
 Tagline: Welcome to my blog
 Date: 2013-07-03
-Categories: personal
+Category: personal
 Tags: rant
 
 
@@ -10,6 +10,7 @@ Tags: rant
 Welcome to my Blog!
 
 So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.
+
 
 
 ## Purpose
@@ -39,7 +40,7 @@ Miscellaneous talks will go here
  	<strong>Thank you</strong> for reading this far
 !endalert!
 
-Expect to see many changes for the next month (or a few more than that) as I customize this blog and personalize as much as I can.
+Expect to see many changes for the next months as I customize this blog and personalize as much as I can.
 
 
 
