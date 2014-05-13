@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import unicode_literals
-from jinja2 import contextfilter
+from jinja2 import contextfilter, contextfunction
 
 @contextfilter
 def is_cur_page(context, url, or_child=False):
@@ -17,3 +17,24 @@ def is_cur_page(context, url, or_child=False):
         return url in unicode(page)
     else:
         return url == page
+
+
+from collections import defaultdict
+from itertools import repeat
+
+def factory(value):
+    return repeat(value).next
+
+
+@contextfunction
+def get_main(context):
+    main = context.get('article', False)
+
+    if not main:
+        main = context.get('page', False)
+
+    if not main:
+        main = defaultdict(factory(False))
+
+    # context.set('main', main)
+    return main

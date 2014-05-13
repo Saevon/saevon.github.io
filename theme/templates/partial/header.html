@@ -1,5 +1,7 @@
 <div class="page-header">
-    {% if permalink %}
+    {% set main = get_main() %}
+
+    {% if permalink and not main.nopermalink %}
         <a href="{{ SITEURL }}/{{ permalink }}" rel="bookmark" title="Permalink to {{ title }}" class="perma-link">
     {% endif %}
             <h1>

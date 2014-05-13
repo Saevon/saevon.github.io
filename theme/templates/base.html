@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
 <head>
-	{% if page is defined %}
-		{% set main = page %}
-	{% else %}
-		{% if article is defined %}
-			{% set main = article %}
-		{% else %}
-			{% set main = {} %}
-		{% endif %}
-	{% endif %}
+	{% set main = get_main() %}
 
 
 	<!-- Styles -->
