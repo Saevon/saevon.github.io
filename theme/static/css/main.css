@@ -95,3 +95,21 @@ body {
 .text-warning {
   color: #C09853;
 }
+
+
+/* Fix the difficult to notice links in the info box */
+.alert-info a {
+  text-decoration: underline;
+}
+
+code {
+  background-color: #F8F8F8;
+  font-style: italic;
+  color: #2593C7;
+}
+
+
+
+
+
+
