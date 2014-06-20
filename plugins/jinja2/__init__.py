@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 from itertools import chain
 
-from plugins.jinja2.debug_dump import dump, dump_all
+from plugins.jinja2.debug_dump import dump, dump_all, dump_file, dump_url
 from plugins.jinja2.category import find_category, category_preview_articles, mark
 from plugins.jinja2.nav import is_cur_page, get_main
 from plugins.jinja2.summary import summary
@@ -37,6 +37,8 @@ JINJA_FUNCTIONS = {
     'today': datetime.today,
 
     'get_main': get_main,
+    'dump_file': dump_file,
+    'dump_url': dump_url,
 }
 
 JINJA_EXTENSIONS  = []
