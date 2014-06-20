@@ -1,4 +1,6 @@
 pelican==3.3
 Markdown==2.4
 Fabric==1.8.3
+git+git://github.com/Saevon/mdx_alerts.git
 git+git://github.com/Saevon/mdx_del_ins.git
+git+git://github.com/Saevon/mdx_outline
