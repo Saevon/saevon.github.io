@@ -6,16 +6,10 @@ KEEP='assets'
 branch=`git rev-parse --abbrev-ref HEAD`
 uuid=`uuidgen`
 
-cur=`pwd`
 tmp_prefix="blog-pelican"
 tmp="/tmp/$tmp_prefix-$uuid"
-output="$cur/.site"
+output="/tmp/$tmp_prefix-$uuid-site"
 
-
-# Always use the source branch to publish
-if [[ $branch != 'source' ]]; then
-	exit 5;
-fi
 
 function cleanup {
 	echo 'Cleaning Up'
@@ -27,17 +21,27 @@ function cleanup {
 trap cleanup SIGHUP SIGINT SIGTERM EXIT
 
 
-# Create the static site
-pelican -s publishconf.py -o $output
+# make the temporary folder
 mkdir -p $tmp
-
 cd $tmp
 if [[ `pwd` != $tmp ]]; then
 	echo 'ERROR: Not working in the correct directory'
 fi
 
+
+# Set-up the git repo
 git init
 git remote add -f origin $URL
+
+
+# Create the static site
+git checkout source
+if [[ $? != 0 ]]; then
+	echo "ERROR: Can't checkout master"
+	exit 1;
+fi
+pelican -s publishconf.py -o $output
+
 
 # Get the latest version of master
 git checkout master
