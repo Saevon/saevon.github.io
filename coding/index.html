@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
 	<!-- Styles -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap-theme.min.css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
@@ -24,7 +27,7 @@
 	<div class="container-fluid"><div class="row">
 		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
 		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
-		<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
 
 <div class="sidenav-avatar">
     <hr />
@@ -106,16 +109,130 @@
 
 <hr class="visible-xs" />
 <hr class="visible-xs" />
-		</div>
+			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <section class="page category">
 <div class="page-header">
+
         <a href="//blog.saevon.ca/coding/" rel="bookmark" title="Permalink to Coding" class="perma-link">
             <h1>Coding                    <small class="tagline">Coding for fun! (and profit)</small>
             </h1>
         </a>
+</div>
+<div class="article article-excerpt">
+    <div class="article-header">
+        <a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/" rel="bookmark" title="Permalink to Using the proper Assembler on Mac OSX" class="perma-link">
+            <h3 class="article-title">
+                Using the proper Assembler on Mac OSX
+            </h3>
+        </a>
+    </div>
+
+    <div class="article-body">
+        <div class="article-date">
+            <div class="article-month">
+                Jun
+            </div>
+            <div class="article-day">
+                20
+            </div>
+            <div class="article-year">
+                2014
+            </div>
+        </div>
+        <div class="article-short">
+            <p>The standard compiler <code>gcc</code> for Mac OSX is actually the <code>clang</code> compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that <code>as</code> is not the clang assembler however, which causes it to break down.</p>
+<p>In this article I will discuss a simple solution to this problem.</p>
+
+        </div>
+    </div>
+
+    <div class="article-footer">
+        <div class="article-tags">
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">4</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/assembler/" class="tag-box-item">assembler<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/clang/" class="tag-box-item">clang<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/mac-osx/" class="tag-box-item">Mac OSX<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/real-time-trains/" class="tag-box-item">Real-Time (Trains)<span class="tag-count">1</span>
+          </a>
+        </li>
+    </ul>
+        </div>
+        <div class="article-more">
+            <a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/">Read More⋙</a>
+        </div>
+    </div>
+</div>
+<div class="article article-excerpt">
+    <div class="article-header">
+        <a href="//blog.saevon.ca/coding/dial-tones-using-javascript/" rel="bookmark" title="Permalink to Dial Tones using Javascript" class="perma-link">
+            <h3 class="article-title">
+                Dial Tones using Javascript
+            </h3>
+        </a>
+    </div>
+
+    <div class="article-body">
+        <div class="article-date">
+            <div class="article-month">
+                May
+            </div>
+            <div class="article-day">
+                30
+            </div>
+            <div class="article-year">
+                2014
+            </div>
+        </div>
+        <div class="article-short">
+            <p>Dial tones are usually just downloaded as WAV files, however, theres a pretty simple algorithm you could run to just generate your own.</p>
+
+        </div>
+    </div>
+
+    <div class="article-footer">
+        <div class="article-tags">
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">4</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/dtmf/" class="tag-box-item">dtmf<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/javascript/" class="tag-box-item">javascript<span class="tag-count">2</span>
+          </a>
+        </li>
+    </ul>
+        </div>
+        <div class="article-more">
+            <a href="//blog.saevon.ca/coding/dial-tones-using-javascript/">Read More⋙</a>
+        </div>
+    </div>
 </div>
 <div class="article article-excerpt">
     <div class="article-header">
@@ -139,7 +256,7 @@
             </div>
         </div>
         <div class="article-short">
-            <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
+            <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
 
         </div>
     </div>
@@ -151,7 +268,7 @@
       <li>
         <a href="//blog.saevon.ca/coding/" class="tag-box-item">
           category: coding
-            <span class="tag-count">2</span>
+            <span class="tag-count">4</span>
         </a>
       </li>
         <li>
@@ -207,7 +324,7 @@
       <li>
         <a href="//blog.saevon.ca/coding/" class="tag-box-item">
           category: coding
-            <span class="tag-count">2</span>
+            <span class="tag-count">4</span>
         </a>
       </li>
         <li>
@@ -215,7 +332,7 @@
           </a>
         </li>
         <li>
-          <a href="//blog.saevon.ca/tags/javascript/" class="tag-box-item">javascript<span class="tag-count">1</span>
+          <a href="//blog.saevon.ca/tags/javascript/" class="tag-box-item">javascript<span class="tag-count">2</span>
           </a>
         </li>
         <li>

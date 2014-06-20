@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
 	<!-- Styles -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap-theme.min.css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
 	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/theme/css/sidenav.css">
 	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
+
+    
 
 
 	<!-- Javascript -->
@@ -24,7 +29,7 @@
 	<div class="container-fluid"><div class="row">
 		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
 		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
-		<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
 
 <div class="sidenav-avatar">
     <hr />
@@ -106,12 +111,13 @@
 
 <hr class="visible-xs" />
 <hr class="visible-xs" />
-		</div>
+			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full">
 <div class="page-header">
+
         <a href="//blog.saevon.ca/coding/python-virtual-environments-and-pip/" rel="bookmark" title="Permalink to Python Virtual Environments and PIP" class="perma-link">
             <h1>Python Virtual Environments and PIP                    <small class="tagline">Keep your projects separate.</small>
             </h1>
@@ -121,13 +127,13 @@
           <span>12 July 2013</span>
         </div>
         <div class="content">
-          <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new pacakges into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
-<h1>Intro</h1>
+          <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
+<section class="&quot;section section1&quot;" id="intro"><h1>Intro</h1>
 <p>Jump "straight" to the <a href="#Syspip">Syspip</a> section if you know all about python packaging and virtualenv.</p>
-<h1>virtualenvwrapper</h1>
+</section><section class="&quot;section section1&quot;" id="virtualenvwrapper"><h1>virtualenvwrapper</h1>
 <p>This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.</p>
 <p>I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.</p>
-<h3>Changing Environments</h3>
+<section class="&quot;section section3&quot;" id="changing-environments"><h3>Changing Environments</h3>
 <p>To change environments is pretty easy, you just use the <code>workon</code> command. This works whether you have a currently active environment or not.</p>
 <div class="highlight"><pre>workon <span class="nv">$env_name</span>
 </pre></div>
@@ -138,9 +144,9 @@
 </pre></div>
 
 
-<h3>Tab Completion!</h3>
+</section><section class="&quot;section section3&quot;" id="tab-completion"><h3>Tab Completion!</h3>
 <p>When using the <code>workon</code> command you can tab complete to see the list of all the environments you have.</p>
-<h3>Add/Remove Environments</h3>
+</section><section class="&quot;section section3&quot;" id="addremove-environments"><h3>Add/Remove Environments</h3>
 <div class="highlight"><pre><span class="c"># Add a new environment</span>
 mkvirtualenv <span class="nv">$env_name</span>
 </pre></div>
@@ -151,7 +157,7 @@ rmvirtualenv <span class="nv">$env_name</span>
 </pre></div>
 
 
-<h1>Syspip</h1>
+</section></section><section class="&quot;section section1&quot;" id="syspip"><h1>Syspip</h1>
 <p>Heres where stuff gets interesting. To prevent mistakes while installing packages, I've added the following things to my bash startup scripts (<code>.bashrc</code>, <code>.bash_aliases</code>, etc.)</p>
 <div class="highlight"><pre><span class="c"># .bashrc</span>
 
@@ -195,6 +201,7 @@ rmvirtualenv <span class="nv">$env_name</span>
 <p><div class="alert alert-warning "><i class="fa fa-warning"></i>
     Don't forget to load <code>.bash_aliases</code> before you activate any environments, otherwise <code>syspip</code> might not work as advertised.
 </div></p>
+</section>
         </div>
 
         <hr />
@@ -204,7 +211,7 @@ rmvirtualenv <span class="nv">$env_name</span>
       <li>
         <a href="//blog.saevon.ca/coding/" class="tag-box-item">
           category: coding
-            <span class="tag-count">2</span>
+            <span class="tag-count">4</span>
         </a>
       </li>
         <li>
@@ -221,12 +228,27 @@ rmvirtualenv <span class="nv">$env_name</span>
         </li>
     </ul>
 
-        <hr />
+            <hr />
     </article>
 
-    <footer>
-        <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
-    </footer>
+        <footer>
+            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+        </footer>
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'python-virtual-environments-and-pip';
+    var disqus_title = 'Python Virtual Environments and PIP';
+    var disqus_url = '//blog.saevon.ca/coding/python-virtual-environments-and-pip/';
+</script>
+
+
+            <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
 		</section>
 	</div></div>
 

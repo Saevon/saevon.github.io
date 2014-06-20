@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/assembler.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2014-06-20T00:00:00-04:00</updated><entry><title>Using the proper Assembler on Mac OSX</title><link href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/" rel="alternate"></link><updated>2014-06-20T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2014-06-20:coding/using-the-proper-assembler-on-mac-osx/</id><summary type="html">&lt;p&gt;The standard compiler &lt;code&gt;gcc&lt;/code&gt; for Mac OSX is actually the &lt;code&gt;clang&lt;/code&gt; compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that &lt;code&gt;as&lt;/code&gt; is not the clang assembler however, which causes it to break down.&lt;/p&gt;
+&lt;p&gt;In this article I will discuss a simple solution to this problem.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="intro"&gt;&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+    Jump straight to the &lt;a href="#solution"&gt;solution&lt;/a&gt;, or read about the situation ahead.
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;I was working on a microkernel &lt;code&gt;(CS 452: Real Time Programming)&lt;/code&gt;, and I needed to do my compilations with a custom compiler, assembler and linker, so I could compile for ARM. However this required me to use an older version of gcc without the &lt;code&gt;--with-as=&lt;/code&gt; flag, thus I needed to get the assembler to run as a seperate command.&lt;/p&gt;
+&lt;p&gt;Enter a complication: I needed this to run tests on my local machine (Mac), as well as on those of my partners (Windows running cygwin), I also needed this to compile on a remote Linux server, which could do the necessary cross-compilation.&lt;/p&gt;
+&lt;p&gt;My resulting makefile had the following basic structure.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Create the assembly file so that we can use a seperate assembler in the next step&lt;/span&gt;
+&lt;span class="nf"&gt;%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.c&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -S &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Use out assembler to compile an object file&lt;/span&gt;
+&lt;span class="nf"&gt;%.o&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.s&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;AS&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ASFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Combine the object files using the linker&lt;/span&gt;
+&lt;span class="nf"&gt;%.elf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.o&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;LD&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;LDFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -Map &lt;span class="nv"&gt;$*&lt;/span&gt;.map -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$*&lt;/span&gt;.o &lt;span class="k"&gt;$(&lt;/span&gt;INC&lt;span class="k"&gt;)&lt;/span&gt; -lgcc
+    chmod a+r &lt;span class="nv"&gt;$@&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First we generate the assembly files, next we assemble the resulting files into object files. Finally we produce the elf file that will represent my Kernel.&lt;/p&gt;
+&lt;p&gt;This will run properly on the linux machine, however when I try to use the same makefile to generate code locally, it fails.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="solution"&gt;&lt;h1&gt;Solution&lt;/h1&gt;
+&lt;p&gt;The error I get looks like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;test_cbuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Unknown&lt;/span&gt; &lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_startproc&lt;/span&gt;
+&lt;span class="n"&gt;test_cbuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Unknown&lt;/span&gt; &lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_def_cfa_offset&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So the assemble results from &lt;code&gt;gcc&lt;/code&gt; can't be read by the assembler?&lt;/p&gt;
+&lt;p&gt;It seems the &lt;code&gt;gcc&lt;/code&gt; and the &lt;code&gt;as&lt;/code&gt; progams that Mac has by default use differing standards.&lt;/p&gt;
+&lt;p&gt;The correct assembler to use uses a command like the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;clang -c -x assembler &lt;span class="nv"&gt;$@&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;Now to solve my situation above:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I can give a different &lt;code&gt;AS = "clang -c -x assembler"&lt;/code&gt; variable to my makefile&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;But then I either need to call it that way always (a pain) or add different instructions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I can add a simple bash script that calls the code above, one that is earlier in my &lt;code&gt;$PATH&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I opted for the second solution, mostly since this seems to be a more common use-case for me.&lt;/p&gt;
+&lt;/section&gt;</summary><category term="Mac OSX"></category><category term="assembler"></category><category term="clang"></category><category term="Real-Time (Trains)"></category></entry></feed>

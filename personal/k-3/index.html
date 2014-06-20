@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/sidenav.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
+
+    
+
+        <link rel="stylesheet" type="text/css" href="/theme/css/simple.css">
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>Saevon.ca</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
+		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
+
+		<!-- Content -->
+		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+    <article class="article article-full">
+<div class="page-header">
+
+            <h1>CS 452: Kernel 3            </h1>
+        </a>
+</div>
+        <div class="date">
+          <span>11 June 2013</span>
+        </div>
+        <div class="content">
+          <hr />
+<div class="names-block">
+<div class="names-block-person" markdown="1">
+
+<dl>
+<dt><code>Name</code></dt>
+<dd>Serghei Filippov</dd>
+<dt><code>Student ID</code></dt>
+<dd>20390471</dd>
+</dl>
+</div>
+<div class="names-block-person">
+<dl>
+<dt><code>Name</code></dt>
+<dd>Anton Pravdin</dd>
+<dt><code>Student ID</code></dt>
+<dd>20378263</dd>
+</dl>
+</div>
+<div class="names-block-person">
+<dl>
+<dt><code>Name</code></dt>
+<dd>Steven Chen</dd>
+<dt><code>Student ID</code></dt>
+<dd>20381661</dd>
+</dl>
+</div>
+</div>
+
+<hr />
+<section class="&quot;section section1&quot;" id="overview"><h1>1. Overview</h1>
+<p>This program is a basic kernel created for the ARM920T processor. It supports some basic system calls, multiple (non-preemptive) concurrent usertasks. With this, you can schedule user programs to run with a priority.</p>
+<p>There is now a main menu with which a user can now control which programs are run, one of which is the K3 user program. For testing purposes the user is not limited to executing only one program at a time. Note: some of the test programs are designed to utilize as much of the system resources as possible, such as the forkbomb or spawner scripts.</p>
+<hr />
+</section><section class="&quot;section section1&quot;" id="docs"><h1>2. Documentation</h1>
+<section class="&quot;section section3&quot;" id="syscalls"><h3>2.1 Syscalls</h3>
+<p>The following syscalls were added to the kernel</p>
+<dl>
+<dt><code>AwaitEvent(int event_type)</code></dt>
+<dd>Blocks the task until the event defined by <code>event_type</code> happens.</dd>
+</dl>
+<p>The delay syscalls implement <code>ticks</code> which represent a <code>10ms</code> time period within the kernel.</p>
+<dl>
+<dt><code>Delay(time_t ticks)</code></dt>
+<dd>Blocks the task for a specific number of ticks specified by the <code>ticks</code> argument.</dd>
+<dt><code>DelayUntil(time_t ticks)</code></dt>
+<dd>Blocks the task until a specific time specified by the <code>ticks</code> argument</dd>
+</dl>
+<p>The following extra system calls were also added for convinience.</p>
+<dl>
+<dt><code>Wait(tid_t tid)</code></dt>
+<dd>Blocks the task until the specified task has died.</dd>
+<dt><code>Halt( )</code></dt>
+<dd>Halts the system immediately.</dd>
+<dt><code>Assert( msg, function, line )</code></dt>
+<dd>Prints an assert message, then halts the system. This means user programs won't get fragmented assertion prints</dd>
+<dt><code>UnregisterAs(char *name)</code></dt>
+<dd>Unregister a service from the nameserver. Uses tid to validate the request.</dd>
+<dt><code>ForceUnregisterAs(char *name)</code></dt>
+<dd>Forcefully remove a registered service from the nameserver. (Disregard who the service belongs to)</dd>
+<dd>This syscall was included to make repetitive runs of certain user tests possible.</dd>
+</dl>
+<hr />
+</section></section><section class="&quot;section section1&quot;" id="3-design-technical-details"><h1>3. Design &amp; Technical Details</h1>
+<section class="&quot;section section3&quot;" id="31-structures-algorythms"><h3>3.1 Structures &amp; Algorythms</h3>
+<section class="&quot;section section4&quot;" id="311-ordered-linked-list"><h4>3.1.1 Ordered Linked List</h4>
+<p>To store the list of tasks that are waiting on a <code>delay</code> or a <code>delay_until</code> we use an <b>ordered link list</b>. We predefine a number of nodes equal to the amount of tasks descriptors available at one time so that we know every task can be waiting. We decided to use a linear runtime insert so that we could ensure our resulting list will be sorted. We do this so that we can have a faster read because we will have to check to see if anything needs to be replied to every tick while we only insert it once and read only the top items.</p>
+</section><section class="&quot;section section4&quot;" id="312-circular-buffer"><h4>3.1.2 Circular Buffer</h4>
+<p>A Circular buffer has been added, this is for future usage.</p>
+<p>It has been created as a circular linked list, with the standard circular buffer functions. With the circular buffer, we can ensure the space gets reused properly. Also you can now use the standard overwriting property of a circular bufer to nsure the array only has N elements, overwritting the oldest one. This was (and can be) used to display things like the latest N sensor updates.</p>
+</section><section class="&quot;section section4&quot;" id="313-linked-list"><h4>3.1.3 Linked List</h4>
+<p>We re-used our linked list structure to hold the list of tasks waiting on each specific event.</p>
+</section></section><section class="&quot;section section3&quot;" id="32-kernel"><h3>3.2 Kernel</h3>
+<section class="&quot;section section4&quot;" id="321-hardware-interrupts"><h4>3.2.1 Hardware Interrupts</h4>
+<p>The hardware interrupt is very similar to our current context switch. We decided to keep the two context switches in seperate functions for now even though they share some code.</p>
+<p>When a hardware interrupt happens:</p>
+<ol>
+<li>We jump to the irq_enter function</li>
+<li>We store the user state exactly as the swi_enter does<ul>
+<li>Since we use the same code to load, this must be done identically</li>
+</ul>
+</li>
+<li>We save the link register</li>
+<li>We store a constant syscall id <code>SYSCALL_ID_IRQ</code><ul>
+<li>So our kernel knows that it shouldn't do any system call stuff</li>
+</ul>
+</li>
+<li>Reload the kernel as normal</li>
+</ol>
+<p>At the end of the <code>activate</code> function we now load the user <code>PC</code> and <code>CPSR</code> at the same time to ensure that the user's stack is properly loaded and saved.</p>
+<hr />
+</section></section><section class="&quot;section section3&quot;" id="33-user-tasks"><h3>3.3 User Tasks</h3>
+<section class="&quot;section section4&quot;" id="331-clock-server-and-notifiers"><h4>3.3.1 Clock Server and Notifiers</h4>
+<p>Our <code>clockserver</code> is a simple forever loop with a switch statement that just receives and handles the request. It blocks waiting user tasks by not replying until their delay has been reached. Our clock server does not keep time.</p>
+<p>Our clock server handles the delay events by adding the requested delay to the current time and storing this number along with the tasks tid in an <code>ordered linked list</code>. For delay_until, we simply do the same but store only the inputted ticks. The server then checks through the <code>ordered linked list</code> for tasks to unblock.</p>
+<p>Our <code>clock_notifiers</code> is also a simple forever loop that waits on the <code>TIMER3</code> interrupt. On every interrupt, the notifier will increment it's <code>cur_time</code> variable to keep time. We have it here so that in the case we choose not to send to the clock server every tick, the time count will not be affects. Every loop, it will send the current time to <code>clockserver</code>.</p>
+</section></section><section class="&quot;section section3&quot;" id="34-optimizations"><h3>3.4 Optimizations</h3>
+</section><section class="&quot;section section3&quot;" id="341-task-descriptor"><h3>3.4.1 Task descriptor</h3>
+<p>In order to save room on the task descriptor struct (for when we lock it to cache) we removed the return value pointer from it. It is now saved directly into the user's stack during <code>sys_handle</code>. We can do this because we have the user's stack pointer and know the offset of the return value pointer.</p>
+</section><section class="&quot;section section3&quot;" id="342-memcpy"><h3>3.4.2 Memcpy</h3>
+<p>Memcpy has been modified to copy in batch sizes. This change has positive, but very minor changes to majority of the copy operations since they are generally not large enough to utilize the optimization. But it does dramatically decrease the execution time of the few large copy operations. Especially if the size of the data is a multiple of 32 bytes, since we use at most 8 registers <code>r3-r10</code> to perform the copy. This optimization will allow us to perform demanding string copy operations when the time comes.</p>
+<hr />
+</section></section><section class="&quot;section section1&quot;" id="4-program-output"><h1>4. Program Output</h1>
+<p>This program can be run from the main menu by pressing the number <code>3</code> key.</p>
+<div class="highlight"><pre><span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">1</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">2</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">3</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">4</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">2</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">5</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">6</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">2</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">3</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">7</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">71</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">8</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">9</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">4</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">3</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">10</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">11</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">5</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">12</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">13</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">4</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">6</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">14</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">71</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">15</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">16</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">7</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">5</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">17</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">18</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">8</span><span class="o">/</span><span class="mi">9</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">19</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">9</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">33</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">6</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">7</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">10</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">20</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">Task</span><span class="o">:</span><span class="mi">8</span><span class="o">,</span> <span class="n">Delay</span><span class="o">:</span><span class="mi">23</span><span class="o">,</span> <span class="n">Iterations</span><span class="o">:</span><span class="mi">9</span><span class="o">/</span><span class="mi">9</span>
+</pre></div>
+
+
+<hr />
+</section><section class="&quot;section section1&quot;" id="5-bugs"><h1>5. Bugs</h1>
+<ol>
+<li>Currently the hash table used by the nameserver does not handle collisions. We used a fairly large table and a well tested hash function to deter these collisions.</li>
+</ol>
+<section class="&quot;section section3&quot;" id="51-quirks"><h3>5.1 Quirks</h3>
+<ol>
+<li>
+<p>If a task keeps dying and being created, while no other tasks change status, then its <code>task_id</code> is reused, and incremented by <code>TOTAL_TASKS</code>. Thus you see major jumps in <code>task_id</code> values. <em>Note: we have added a tail pointer to our task array, so now the tasks recycle better, but this can still happen in a very rare case</em></p>
+<p>e.g. with TOTAL_TASKS = 64</p>
+<p>4 &gt;&gt; 68 &gt;&gt; 132 &gt;&gt; 196 &hellip;</p>
+</li>
+<li>
+<p>As a temporary fix, until we get to the IO Server up and running, when returning from hardware interrupts, the task is scheduled back onto the front of it's priority. This means that it schedules using <code>FILO</code> instead of <code>Round Robin</code>. We do this to avoid user tasks getting interrupted during a print and causing the output to be jumbled up.</p>
+</li>
+</ol>
+<hr />
+</section></section><section class="&quot;section section1&quot;" id="6-thoughts-and-comments"><h1>6. Thoughts and Comments</h1>
+<blockquote>
+<p>My thoughts, for anyone trying to understand the code</p>
+</blockquote>
+<section class="&quot;section section3&quot;" id="61-code-flags"><h3>6.1 Code Flags</h3>
+<p>There are a few flags that you can pass into the preprocessor, which allow you to try a few things. See the <code>Common.mk</code> file in the root directory. There you will find the <code>DEFINES</code> variable, where you can uncomment these flags and compile. You can also play around with the extra compiler flags.</p>
+<dl>
+<dt><code>DEBUG</code></dt>
+<dd>
+<p>Enables the <code>ASSERTS</code> flag.</p>
+<p>This also enables any debug only code, notably the following:</p>
+<ul>
+<li>Prints an overview of the kernel state after every task run. This includes the syscall request, its arguments, and any return values (which may not make sense if the syscall does not return a value)</li>
+</ul>
+</dd>
+<dt><code>ASSERTS</code></dt>
+<dd>Enables <code>asserts</code> and other things in the <code>assert.h</code> file,</dd>
+<dt><code>LOCAL</code></dt>
+<dd>Used to toggle required changes to compile the test-suite for my machine</dd>
+</dl>
+<p>We can also toggle some optimizations</p>
+<dl>
+<dt><code>ENABLE_CACHE</code></dt>
+<dd>Turns on the caches</dd>
+<dt><code>OPT_MEMCPY</code></dt>
+<dd>Turns on the memcpy optimization</dd>
+<dt><code>OPT_ATTRIBUTES</code></dt>
+<dd>
+<p>Toggles the function attibutes which give gcc more information</p>
+<p><code>const</code>: Doesn't read/write to globals</p>
+<p><code>pure</code>: Only reads globals</p>
+<p><code>noret</code>: The function is not expected to return;</p>
+<p><code>naked</code>: GCC will not add any function entry/exit code</p>
+</dd>
+</dl>
+</section><section class="&quot;section section3&quot;" id="62-todos"><h3>6.2 Todos</h3>
+<p>The important todo's are listed below:</p>
+<p>The other miscellaneous todos go here:</p>
+<ul>
+<li><code>task_id</code> needs to overflow properly, otherwise it will wrap around to potentially in-use <code>task_id</code></li>
+</ul>
+<p>Also the following need to be thought about</p>
+<ul>
+<li>Our Stack is currently using space that manages to be empty (calculated by us) however we can just allocate an array of STACK_SIZE * TOTAL_TASKS, and use that array to ensure there will be room, and we won't be using memory that might be taken by the kernel later.</li>
+</ul>
+<section class="&quot;section section4&quot;" id="631-optimization-todos"><h4>6.3.1 Optimization TODOs</h4>
+<ul>
+<li>
+<p>g++ -O2 -falign-functions=16 -falign-loops=16 (alignment)</p>
+</li>
+<li>
+<p>Compare the -Os to our current -O3 flags</p>
+</li>
+<li>
+<p>-flto (can be set to individual files https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html) or -fwhole-program (linker optimizations)</p>
+</li>
+<li>
+<p>test out the arm compiler</p>
+</li>
+<li>
+<p>Currently the hardware interrupt code is mostly a copy of the software interrupt code. We can probably try to optimize them both further by removing things specific to each one.</p>
+</li>
+<li>
+<p>We need to figure out what to cache lock, and re-arrange them to be in consequtive memory. Currently we call many functions when doing system calls, which would incur overhead since they would be in different memory regions.</p>
+</li>
+</ul>
+<hr />
+</section></section></section><section class="&quot;section section1&quot;" id="7-files-how-to-run"><h1>7. Files &amp; How to Run</h1>
+<section class="&quot;section section2&quot;" id="71-getting-code-access"><h2>7.1 Getting Code Access</h2>
+<p>There are 2 ways of getting access to the code</p>
+<section class="&quot;section section3&quot;" id="711-github"><h3>7.1.1 Github</h3>
+<dl>
+<dt><code>Site</code></dt>
+<dd><code>https://github.com/login</code></dd>
+<dt><code>Username</code></dt>
+<dd><code>Searea</code></dd>
+<dt><code>Password</code></dt>
+<dd><code>cs452_access</code></dd>
+</dl>
+<p>After logging in you just need to go to the following url <code>https://github.com/Saevon-Altimit/Trains/tree/k3</code></p>
+<p>If you wish to clone the repo, there is an ssh key in the <code>ssh</code> folder, this grants anyone read-only access to the repo. (minimal git knowledge is assumed)</p>
+<div class="highlight"><pre><span class="c"># The ./ssh/cs452 data goes here</span>
+vim ~/.ssh/id_rsa
+<span class="c"># The ./ssh/cs452.pub data goes here</span>
+vim ~/.ssh/id_rsa.pub
+
+git clone git@github.com:Saevon-Altimit/Trains.git trains
+
+<span class="c"># NOTE: There are now 3 tags which indicate different submissions: k1, k2, and k3</span>
+<span class="c"># So we need to switch to the correct branch</span>
+git checkout k3
+</pre></div>
+
+
+</section><section class="&quot;section section3&quot;" id="712-school-linux-servers"><h3>7.1.2 School Linux Servers</h3>
+<p>It is unknown whether the <code>cs452_sf</code> group grants you access to folders within, however if this is true, you can find the code in <code>/u8/sfilippov/cs452/kernel-3/</code></p>
+</section><section class="&quot;section section3&quot;" id="72-compilation-and-misc-uses"><h3>7.2 Compilation and Misc Uses</h3>
+<p>The program can be compiled by executing the following command, note that the resulting <code>*.elf</code> files will be in the <code>main</code> folder. A copy of the resulting <code>*.elf</code> files will also be in the root directory, as a precaution.</p>
+<p>The <code>submit.elf</code> file is the submission file, it runs the kernel 3 task, then waits for a <code>q</code> keypress to exit. It provides a console menu above, so you can play around with it more.</p>
+<div class="highlight"><pre><span class="c"># Run this in the root folder of the project</span>
+make kern
+</pre></div>
+
+
+<p>Remember! there are some flags you can pass in to customize the compiled product, see section <code>6.2 Code Flags</code>. (Or look at the main Makefile)</p>
+<p>There are also a few more things you can do:</p>
+<div class="highlight"><pre><span class="c"># run the unit tests on your machine</span>
+<span class="c"># WARNING: this will not compile with the wmcowan gcc</span>
+<span class="c">#   this is made to compile with normal gcc</span>
+<span class="c">#   so some path tweaking, or not doing this on the school servers, is required</span>
+make <span class="nb">test</span>
+</pre></div>
+
+
+</section><section class="&quot;section section3&quot;" id="73-files-md5"><h3>7.3 Files &amp; MD5</h3>
+<div class="md5">
+<div class="highlight"><pre><span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">bwio</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                        <span class="o">=</span> <span class="mi">1</span><span class="n">c6b99f3cc99905e2800680d7353b250</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">debug</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                       <span class="o">=</span> <span class="n">cc52b0b6ce582f4fe7d13bd3ef53a52a</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">errno</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                       <span class="o">=</span> <span class="mf">858376e4649</span><span class="n">ecfdc4ab8a0e0eb8c168a</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">io</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                          <span class="o">=</span> <span class="mi">76</span><span class="n">a4b1a0ca13f5e800f7e2efbec20667</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">context</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                <span class="o">=</span> <span class="mi">41</span><span class="n">cc5525ca867bee79c50accc8d8f0bb</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">pqueue</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                 <span class="o">=</span> <span class="mi">9</span><span class="n">caec69935ce7d7136616666b5085cb8</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                <span class="o">=</span> <span class="n">eb924ee9052b4594d36fca4f1f644813</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">task</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">5</span><span class="n">a6ad3149a012238a414aa8a7c95364c</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">linklist</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                    <span class="o">=</span> <span class="mf">61f</span><span class="mi">9</span><span class="n">de5eda4fe3fb9819ecb7ae6b9ca8</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">machine</span><span class="o">/</span><span class="n">arm</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                 <span class="o">=</span> <span class="mf">528e62</span><span class="n">cb00459a09f9ae301c76d89b62</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">machine</span><span class="o">/</span><span class="n">ts7200</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>              <span class="o">=</span> <span class="n">a7be86663a46ddf66cdc3cea59bf3a28</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">stdlib</span><span class="o">/</span><span class="n">assert</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>               <span class="o">=</span> <span class="mi">699271</span><span class="n">c531466966ee5dcf6f01e21317</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">stdlib</span><span class="o">/</span><span class="n">stdtype</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>              <span class="o">=</span> <span class="mi">7</span><span class="n">d6264e93f95bda95582ca65826194f1</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">stdlib</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                      <span class="o">=</span> <span class="n">b8d122201fee6bfac0e0b8032ecbdeae</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">syscall</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                     <span class="o">=</span> <span class="mi">08</span><span class="n">ce2660776640fd49b7acfec3a93324</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">user</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                        <span class="o">=</span> <span class="n">cfa349ff6c03d8ca3174d2edee576bde</span>
+
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">Common</span><span class="p">.</span><span class="n">mk</span><span class="p">)</span>                             <span class="o">=</span> <span class="n">f86662bd294cc18c4aed266489dd531b</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">Cred</span><span class="p">.</span><span class="n">mk</span><span class="p">)</span>                               <span class="o">=</span> <span class="mi">404</span><span class="n">d27c6b9c7f3e97f2b8741e747ce62</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">Makefile</span><span class="p">)</span>                              <span class="o">=</span> <span class="n">d8f3d09a2c1d4bc03162930d4c6e800b</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">Makefile</span><span class="p">)</span>                         <span class="o">=</span> <span class="mi">26</span><span class="n">b20f79d3a0bcccc67b4e6e60ffc654</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">forkbomb</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                       <span class="o">=</span> <span class="n">a106ed3519f33358bfb0355f83e8391e</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">kern</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                           <span class="o">=</span> <span class="mi">5</span><span class="n">a1352005329b5fdf37b9929104a5483</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">spawner</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                        <span class="o">=</span> <span class="mf">6834f</span><span class="mi">6</span><span class="n">b0faa2f98ccc69cff4cdd5fe67</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">voider</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                         <span class="o">=</span> <span class="n">df2b5ce305ccdd9155a9b8a2cf33ad49</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">orex</span><span class="p">.</span><span class="n">ld</span><span class="p">)</span>                          <span class="o">=</span> <span class="n">e74784fc9d2207bcf1843f68c350f8f2</span>
+
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">Makefile</span><span class="p">)</span>                          <span class="o">=</span> <span class="n">e244b32cc00c9e88364b51c253340d42</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">Local</span><span class="p">.</span><span class="n">mk</span><span class="p">)</span>                          <span class="o">=</span> <span class="mi">356</span><span class="n">ea1ad022df01cc3d510c9a7639e00</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">Main</span><span class="p">.</span><span class="n">mk</span><span class="p">)</span>                           <span class="o">=</span> <span class="n">b3600b57c524a86b58db5a5da4fc6786</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">user</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                            <span class="o">=</span> <span class="mi">65</span><span class="n">d60b790b38c979f7b68ac2e8a99967</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">asm</span><span class="o">/</span><span class="n">context</span><span class="p">.</span><span class="n">S</span><span class="p">)</span>                <span class="o">=</span> <span class="mf">93f8200424f</span><span class="mi">17</span><span class="n">d55addb58425c5d4224</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">context</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                    <span class="o">=</span> <span class="mi">7</span><span class="n">b4c7c3e6264cf924df63a61069fa919</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">pqueue</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                     <span class="o">=</span> <span class="n">e6d628482fa726809d207e8b1637340e</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_create</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>         <span class="o">=</span> <span class="n">de349799f26e259d492500c9d7d89018</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_exit</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>           <span class="o">=</span> <span class="mi">2</span><span class="n">d09aa1c4e3bede262cb05a214ad2695</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_get_parent_tid</span><span class="p">.</span><span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span><span class="n">a53d4f6e1d2c7063404f0618d72d1e9</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_get_priority</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>   <span class="o">=</span> <span class="n">de080b04eb5acccf5676ca11f6782fdb</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_get_tid</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>        <span class="o">=</span> <span class="n">bf9d43ea8570c4c5f7d48b3b112d5ce5</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_handle</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>         <span class="o">=</span> <span class="mi">16237681</span><span class="n">d973e2009b24529acbef4fa0</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_pass</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>           <span class="o">=</span> <span class="mi">448491</span><span class="n">bc79bca6e55e505cc5a630b62c</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">syscall</span><span class="o">/</span><span class="n">sys_set_priority</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>   <span class="o">=</span> <span class="mi">33181</span><span class="n">ee630bcf3aecefdbd8cfb7be4bb</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">kern</span><span class="o">/</span><span class="n">task</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                       <span class="o">=</span> <span class="mf">06f</span><span class="n">edbcb5c39ab6c60c4d12513530291</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bwio</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                        <span class="o">=</span> <span class="mi">7</span><span class="n">d6e950323e0cb3d5d788a682c0a491e</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">fake_bwio</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">9667</span><span class="n">a9be550162fdb3c442ddb52d9243</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">linklist</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                    <span class="o">=</span> <span class="n">b3c01a9f67146bf042b9072e5b5c9675</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">stdlib</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                      <span class="o">=</span> <span class="n">ad7427f8c92901418c5e2e4773ab12e4</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">syscall</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                     <span class="o">=</span> <span class="n">d16d11126776e6c6cfc1a90ae8547337</span>
+
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">Makefile</span><span class="p">)</span>                        <span class="o">=</span> <span class="mi">36</span><span class="n">a2cecbbad14c26fce8c0b49154a660</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">arm</span><span class="o">/</span><span class="n">armtest</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">49</span><span class="n">c94900ce147444ca37dddcf9bced30</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">arm</span><span class="o">/</span><span class="n">armtest</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">8</span><span class="n">b2321883e83c3403c08d9c2d04c0c39</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                          <span class="o">=</span> <span class="n">fb0d58dc497091a0ea7d4f09d665ccd7</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>                         <span class="o">=</span> <span class="mf">63e8314</span><span class="n">c03f8d2966d8568c06f807408</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_handle</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                   <span class="o">=</span> <span class="n">ed54a9683f165f9814111d2d0d171bf4</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_linklist</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                 <span class="o">=</span> <span class="mi">7413</span><span class="n">d7b097d401c445d8fa066b3f109e</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_pqueue</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">10</span><span class="n">bcc968e96a858a20af0b8043c3f398</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_pqueue_priority</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>          <span class="o">=</span> <span class="mf">575e9</span><span class="n">e2ca0b3ed70e8e158c284af3322</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_sample</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                   <span class="o">=</span> <span class="n">ac9f56de292958078b48a34029156077</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_syscall</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                  <span class="o">=</span> <span class="mi">333971</span><span class="n">b4fae238d67895c3028cc1cc1c</span>
+<span class="n">MD5</span> <span class="p">(.</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_task</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>                     <span class="o">=</span> <span class="mi">226</span><span class="n">a6658e4f93529f1d785b058e6fb81</span>
+</pre></div>
+
+
+</div>
+</section></section></section>
+        </div>
+
+        <hr />
+
+    </article>
+
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'k-3';
+    var disqus_title = 'CS 452: Kernel 3';
+    var disqus_url = '//blog.saevon.ca/personal/k-3/';
+</script>
+
+
+            <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+		</section>
+	</div></div>
+
+</body>
+</html>

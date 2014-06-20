@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/game-dev-tycoon.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2013-10-04T00:00:00-04:00</updated><entry><title>Review: Game Dev Tycoon</title><link href="//blog.saevon.ca/review/review-game-dev-tycoon/" rel="alternate"></link><updated>2013-10-04T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2013-10-04:review/review-game-dev-tycoon/</id><summary type="html">&lt;p&gt;Game Dev Tycoon is an interesting game that puts the player into the shoes of a game developer from the 80's. Re-invent your favourite games, combat piracy, or even embrace it. Its a unique game due to its differing gameplay between the legit and pirated versions.&lt;/p&gt;
-&lt;h2&gt;Review&lt;/h2&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="review"&gt;&lt;h2&gt;Review&lt;/h2&gt;
 &lt;p&gt;A quick warning, this review is written just before the move to the 3rd office, and thus might not fully reflect all the game options. I just felt it was best to write this while its fresh in my mind.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.greenheartgames.com/2013/04/29/what-happens-when-pirates-play-a-game-development-simulator-and-then-go-bankrupt-because-of-piracy/"&gt;See this link for details about the piracy aspect.&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Controls&lt;/h3&gt;
+&lt;section class="&amp;quot;section section3&amp;quot;" id="controls"&gt;&lt;h3&gt;Controls&lt;/h3&gt;
 &lt;p&gt;The game uses a menu for most of its controls, you click on the screen and a menu opens up. I found this a bit unweldy, as sometimes this meant it went above the other icons at the top, making them hard to see.&lt;/p&gt;
 &lt;p&gt;There was also a minor bug that made me sometimes manipulate a menu in the background while I was on the "New Game" window. I'd be trying to click to type the game name, but be clicking on menu options.&lt;/p&gt;
 &lt;p&gt;One suggestion which I thought would be nice, would be to highlight staff when you hover over them, that would make it more obvious that there are seperate menus. Thought it was pretty clear after a click or two.&lt;/p&gt;
-&lt;h3&gt;Gameplay&lt;/h3&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="gameplay"&gt;&lt;h3&gt;Gameplay&lt;/h3&gt;
 &lt;p&gt;I found the game was a bit confusing, I was always just guessing what options to choose, and sometimes the game I imagined and the game that I apparantly made didn't match.&lt;/p&gt;
 &lt;p&gt;The game creation menu was nice, but sometimes I wish I could cross some genres such as Zombie/Horror.&lt;/p&gt;
 &lt;p&gt;The three stages were also a little confusing, I had already made tons of games by this point, yet the requirements still eluded me. If I was actually making games, after that many games and game reports I would have long since compiled the effects of each stage on the topics and genres. While I sometime get hints saying "+++?" it just didn't seem like I was getting enough for my efforts, sure I could have actually written reports myself, but this is a casual game to me.&lt;/p&gt;
@@ -15,16 +15,17 @@
 &lt;p&gt;Research was pretty well done, I found that I could mostly guess when I'd get lots of research points, it was intuitive.&lt;/p&gt;
 &lt;p&gt;When choosing projects to work on, I felt I should have more control over who does what, while I could train, and research individually, it would be nice to do that as a group as well. Conversely I felt that my staff could produce multiple games, as I could do them by myself at the start, especially when I really needed money, and didn't mind going red to get money faster&lt;/p&gt;
 &lt;p&gt;On a similar topic, the medium game didn't tell me my team would have been swamped and incapable of finishing it without giving 130% each.&lt;/p&gt;
-&lt;h3&gt;Graphics&lt;/h3&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="graphics"&gt;&lt;h3&gt;Graphics&lt;/h3&gt;
 &lt;p&gt;I found the graphics to be to my liking, the cartoonish sprites, and backgrounds to be very fitting. They didn't take too much of the focus, making you see the whole office as important, rather than focusing on your individual avatar.&lt;/p&gt;
 &lt;p&gt;Speaking of the avatar, I found there wasn't too much options for making an avatar, I think hair style and colour could have been seperated. Otherwise I had all the options I needed to get someone I liked.&lt;/p&gt;
 &lt;p&gt;The time bar at the top left was not very well done either, as I found the numbers just faded away and were unimportant to me. If it was more obvious what year it was (1980 + the given year I guess) it might have been nice, especially when I was talking to my friends about how I released these cool games in (what year would this be again?). I remember one conversation vividly, where my friend stated, "maybe the world isn't ready for your ground breaking Zombie/Sim :P", and I took forever to figure out what year that was in real time. The other time values could have been better shown as well.&lt;/p&gt;
-&lt;h3&gt;Sounds&lt;/h3&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="sounds"&gt;&lt;h3&gt;Sounds&lt;/h3&gt;
 &lt;p&gt;I found the sounds were okay, they were reminiscent of the much older games I liked to play, and totally fit in with the time and feel of the game. However there wasn't much more about them, thus I can see how the developers took their own gameplay to heart, not putting much effort into the sounds.&lt;/p&gt;
 &lt;p&gt;Overall I did like them, and feel that the game really didn't need much effort in this category.&lt;/p&gt;
-&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="conclusion"&gt;&lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;This game was a very fun game, however I still felt there was room for improvement. I wish the best of luck to the developers of this game, and hope their sequel or expansion is awesome.&lt;/p&gt;
-&lt;h2&gt;Reference&lt;/h2&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="reference"&gt;&lt;h2&gt;Reference&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.greenheartgames.com/2013/04/29/what-happens-when-pirates-play-a-game-development-simulator-and-then-go-bankrupt-because-of-piracy/"&gt;Piracy in a game dev game!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="game dev tycoon"></category><category term="game"></category><category term="Greenheart Games"></category></entry></feed>
+&lt;/ul&gt;
+&lt;/section&gt;</summary><category term="game dev tycoon"></category><category term="game"></category><category term="Greenheart Games"></category></entry></feed>

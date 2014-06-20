@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/sidenav.css">
+	<link rel="stylesheet" type="text/css" href="/theme/css/article.css">
+
+    
+
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>Saevon.ca</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
+		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+
+<div class="sidenav-avatar">
+    <hr />
+    <a href="/" class="avatar-wrapper perma-link">
+        <img src="/theme/images/avatar.jpg" class="center avatar img-rounded" />
+        <h1 class="site-name">Saevon</h1>
+    </a>
+    <hr class="nav-small-hide"/>
+</div>
+
+
+<div class="sidenav-menu">
+    <div class="nav-link nav-group ">
+        <a href="//blog.saevon.ca/">
+            <div class="nav-link-title">
+                Categories
+            </div>
+        </a>
+        <ul class="nav-group-content">
+            <li class="nav-group-item active">
+                <a href="//blog.saevon.ca/coding/">
+                    Coding
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/personal/">
+                    Personal
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/review/">
+                    Review
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/roleplaying/">
+                    Roleplaying
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-link nav-link-single ">
+        <a href="//blog.saevon.ca/tags/">
+            <div class="nav-link-title">
+                Tags
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+    <div class="sidenav-acc-links">
+        <hr />
+        <div class="account-links center">
+                <a href="https://github.com/Saevon" class="account-link">
+                    <i class="fa fa-github-square"></i>
+                </a>
+                <a href="https://ca.linkedin.com/in/saevon" class="account-link">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+        </div>
+    </div>
+
+
+
+<div class="sidenav-copyrights">
+    <hr />
+    <footer>
+        <small class="center copyright">
+            <a href="/license/">
+                © Saevon 2014
+            </a>
+        </small>
+        <small class="center">
+            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+        </small>
+    </footer>
+</div>
+
+<hr class="visible-xs" />
+<hr class="visible-xs" />
+			</div>
+
+		<!-- Content -->
+		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+    <article class="article article-full">
+<div class="page-header">
+
+        <a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/" rel="bookmark" title="Permalink to Using the proper Assembler on Mac OSX" class="perma-link">
+            <h1>Using the proper Assembler on Mac OSX                    <small class="tagline">Making things work</small>
+            </h1>
+        </a>
+</div>
+        <div class="date">
+          <span>20 June 2014</span>
+        </div>
+        <div class="content">
+          <p>The standard compiler <code>gcc</code> for Mac OSX is actually the <code>clang</code> compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that <code>as</code> is not the clang assembler however, which causes it to break down.</p>
+<p>In this article I will discuss a simple solution to this problem.</p>
+<section class="&quot;section section1&quot;" id="intro"><h1>Intro</h1>
+<p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
+    Jump straight to the <a href="#solution">solution</a>, or read about the situation ahead.
+</div></p>
+<p>I was working on a microkernel <code>(CS 452: Real Time Programming)</code>, and I needed to do my compilations with a custom compiler, assembler and linker, so I could compile for ARM. However this required me to use an older version of gcc without the <code>--with-as=</code> flag, thus I needed to get the assembler to run as a seperate command.</p>
+<p>Enter a complication: I needed this to run tests on my local machine (Mac), as well as on those of my partners (Windows running cygwin), I also needed this to compile on a remote Linux server, which could do the necessary cross-compilation.</p>
+<p>My resulting makefile had the following basic structure.</p>
+<div class="highlight"><pre><span class="c"># Create the assembly file so that we can use a seperate assembler in the next step</span>
+<span class="nf">%.s</span><span class="o">:</span> <span class="m">%.c</span>
+    <span class="k">$(</span>CC<span class="k">)</span> -S <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Use out assembler to compile an object file</span>
+<span class="nf">%.o</span><span class="o">:</span> <span class="m">%.s</span>
+    <span class="k">$(</span>AS<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Combine the object files using the linker</span>
+<span class="nf">%.elf</span><span class="o">:</span> <span class="m">%.o</span>
+    <span class="k">$(</span>LD<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> -Map <span class="nv">$*</span>.map -o <span class="nv">$@</span> <span class="nv">$*</span>.o <span class="k">$(</span>INC<span class="k">)</span> -lgcc
+    chmod a+r <span class="nv">$@</span>
+</pre></div>
+
+
+<p>First we generate the assembly files, next we assemble the resulting files into object files. Finally we produce the elf file that will represent my Kernel.</p>
+<p>This will run properly on the linux machine, however when I try to use the same makefile to generate code locally, it fails.</p>
+</section><section class="&quot;section section1&quot;" id="solution"><h1>Solution</h1>
+<p>The error I get looks like this.</p>
+<div class="highlight"><pre><span class="n">test_cbuf</span><span class="p">.</span><span class="n">s</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="n">Unknown</span> <span class="n">pseudo</span><span class="o">-</span><span class="n">op</span><span class="o">:</span> <span class="p">.</span><span class="n">cfi_startproc</span>
+<span class="n">test_cbuf</span><span class="p">.</span><span class="n">s</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span><span class="n">Unknown</span> <span class="n">pseudo</span><span class="o">-</span><span class="n">op</span><span class="o">:</span> <span class="p">.</span><span class="n">cfi_def_cfa_offset</span>
+</pre></div>
+
+
+<p>So the assemble results from <code>gcc</code> can't be read by the assembler?</p>
+<p>It seems the <code>gcc</code> and the <code>as</code> progams that Mac has by default use differing standards.</p>
+<p>The correct assembler to use uses a command like the following:</p>
+<div class="highlight"><pre>clang -c -x assembler <span class="nv">$@</span>
+</pre></div>
+
+
+<hr />
+<p>Now to solve my situation above:</p>
+<ul>
+<li>
+<p>I can give a different <code>AS = "clang -c -x assembler"</code> variable to my makefile</p>
+<ul>
+<li>But then I either need to call it that way always (a pain) or add different instructions</li>
+</ul>
+</li>
+<li>
+<p>I can add a simple bash script that calls the code above, one that is earlier in my <code>$PATH</code></p>
+</li>
+</ul>
+<p>I opted for the second solution, mostly since this seems to be a more common use-case for me.</p>
+</section>
+        </div>
+
+        <hr />
+
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">4</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/assembler/" class="tag-box-item">assembler<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/clang/" class="tag-box-item">clang<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/mac-osx/" class="tag-box-item">Mac OSX<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/real-time-trains/" class="tag-box-item">Real-Time (Trains)<span class="tag-count">1</span>
+          </a>
+        </li>
+    </ul>
+
+            <hr />
+    </article>
+
+        <footer>
+            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+        </footer>
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'using-the-proper-assembler-on-mac-osx';
+    var disqus_title = 'Using the proper Assembler on Mac OSX';
+    var disqus_url = '//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/';
+</script>
+
+
+            <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+		</section>
+	</div></div>
+
+</body>
+</html>

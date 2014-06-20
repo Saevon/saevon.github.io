@@ -1,0 +1,43 @@
+code {
+    background-color: #F8F8F8;
+    font-style: italic;
+    color: #2593C7;
+}
+
+dt > code {
+    color: inherit;
+    padding: inherit;
+
+    background-color: inherit;
+}
+
+blockquote {
+    font-size: 90%;
+    font-style: italic;
+}
+
+
+dd {
+    padding-bottom: 4px;
+}
+
+dd p:last-child {
+    margin-bottom: 0;
+}
+
+.names-block .names-block-person {
+    display: inline-block;
+
+    min-width: 30%;
+}
+
+
+.spacer {
+    width: 10px;
+    height: 50px;
+}
+
+.md5 pre {
+    font-size: 80%;
+}
+
