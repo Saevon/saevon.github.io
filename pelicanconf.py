@@ -72,19 +72,11 @@ TRANSLATION_FEED = None
 
 ############################
 # Coding
-MD_EXTENSIONS = (
-    'meta',
-    'sane_lists',
-    'smarty(smart_quotes=False)',
-    'codehilite(css_class=highlight)',
-    'extra',
-    'del_ins',
-    'alerts',
-)
 
 # Fix the import path, then get all the plugins
 import sys
 sys.path.append('.')
+from plugins.markdown import MD_EXTENSIONS
 from plugins.jinja2 import JINJA_EXTENSIONS, JINJA_FILTERS, JINJA_FUNCTIONS
 from plugins.pelican import PLUGINS
 
@@ -134,6 +126,7 @@ ACCOUNTS = (
     ('github-square', 'https://github.com/Saevon'),
     ('linkedin-square', 'https://ca.linkedin.com/in/saevon'),
 )
+
 
 
 
