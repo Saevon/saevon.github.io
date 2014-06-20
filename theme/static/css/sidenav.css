@@ -48,6 +48,7 @@
   border-top-color: #EEE;
 }
 .nav-group-item a {
+  display: block;
   padding: 2px 5px;
 }
 
