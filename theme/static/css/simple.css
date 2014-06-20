@@ -41,3 +41,41 @@ dd p:last-child {
     font-size: 80%;
 }
 
+
+
+/**************************************************************/
+/* Auto-incrementing headers */
+.article .content {
+    counter-reset: h1counter 0 h2counter 0 h3counter 0;
+}
+.article .content h1 {
+    counter-reset: h2counter 0 h3counter 0;
+}
+.article .content h2 {
+    counter-reset: h3counter 0;
+}
+
+
+.article .content h1:not(.nocount):before {
+    content: counter(h1counter) "\0000a0\0000a0";
+    counter-increment: h1counter;
+}
+.article .content h2:not(.header-nocount):before {
+    content: counter(h1counter) "." counter(h2counter) "\0000a0\0000a0";
+    counter-increment: h2counter;
+}
+.article .content h3:not(.header-nocount):before {
+    content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "\0000a0\0000a0";
+    counter-increment: h3counter;
+}
+
+
+/* Specifically for reports: shrinks the header sizes past the main one */
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+
+
