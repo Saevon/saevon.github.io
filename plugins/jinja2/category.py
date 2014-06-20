@@ -24,7 +24,7 @@ def mark(items, type):
 
 def category_preview_articles(category, num=None):
     articles = category[1]
-    articles = sorted(articles, key=lambda val: val.date)
+    articles = sorted(articles, key=lambda val: val.date, reverse=True)
 
     if num is not None:
         articles = articles[:num]
