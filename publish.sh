@@ -16,7 +16,7 @@ function cleanup {
 
 	# Cleanup all tmp folders
 	rm -rf /tmp/$tmp_prefix*
-	rm -rf $cur/$output
+	rm -rf $output
 }
 trap cleanup SIGHUP SIGINT SIGTERM EXIT
 
@@ -43,6 +43,15 @@ fi
 pelican -s publishconf.py -o $output
 
 
+# Get all the extra files files from the source branch
+while read file; do
+	cp ./content/$file $output/
+	if [[ $? != 0 ]]; then
+		echo "WARNING: File not found $file"
+	fi
+done < .publish-copy
+
+
 # Get the latest version of master
 git checkout master
 if [[ $? != 0 ]]; then
@@ -56,18 +65,10 @@ find . -maxdepth 1 \! \( -name ".*" -or -name $KEEP \) | xargs git rm -r
 # Copy over the output content
 cp -R $output/ $tmp
 
-# Get all the extra files files from the source branch
-cp $cur/.publish-copy .
-while read file; do
-	cp $cur/content/$file .
-	if [[ $? != 0 ]]; then
-		echo "WARNING: File not found $file"
-	fi
-done < .publish-copy
-
 
 # Move the newly generated files to the directory
 cp -R $output/ $tmp
+
 git add *
 
 # Update master
