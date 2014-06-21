@@ -48,7 +48,7 @@
             {% if DISQUS_SITENAME %}
                 {% include 'plugin/disqus.html' %}
             {% else %}
-                {% comments_enabled = false %}
+                {% set comments_enabled = false %}
             {% endif %}
 
             {% if comments_enabled %}
