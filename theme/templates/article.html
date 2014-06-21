@@ -5,7 +5,7 @@
     {{ super() }}
 
     {% if article.style == 'simple' %}
-        <link rel="stylesheet" type="text/css" href="/theme/css/simple.css">
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/simple.css">
     {% endif %}
 {% endblock %}
 

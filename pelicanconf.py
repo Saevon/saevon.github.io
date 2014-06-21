@@ -6,18 +6,23 @@ from __future__ import unicode_literals
 ############################
 # Basic Details
 
-AUTHOR = u'Saevon'
-EMAIL =u'dot.saevon@gmail.com'
-SITENAME = u'Saevon.ca'
-SITEURL = u''
-TIMEZONE = 'Canada/Eastern'
+AUTHOR       = u'Saevon'
+EMAIL        = u'dot.saevon@gmail.com'
+SITENAME     = u'Saevon.ca'
+SITEURL      = u''
+TIMEZONE     = u'Canada/Eastern'
 DEFAULT_LANG = u'en'
-THEME = 'theme'
-
 
 
 ############################
 # Content
+
+# The theme folder to use
+THEME = 'theme'
+# The directory to copy statics into
+THEME_STATIC_DIR = 'static'
+STATIC_DIR = THEME_STATIC_DIR
+
 
 # Taglines for auto-generated items with no page
 TAG_TAGLINES = {
