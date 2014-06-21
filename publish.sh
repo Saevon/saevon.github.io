@@ -1,5 +1,36 @@
 #!/bin/bash
 
+# Asks the user a y/n question
+function ask_yn {
+	echo -n "Continue? [y/n]: "
+	read item
+	case "$item" in
+		y) $1; break;;
+		n) $2; break;;
+		*) $2; break;;
+	esac
+}
+
+# Asks the user if they wish to continue or exit
+function ask_continue {
+	ask_yn "true" "exit 1"
+}
+
+# Print a fancy warning message
+function warn {
+	echo -e '\x1b[0;33mWARN:' $@ '\x1b[0;0m' 1>&2
+}
+
+# Warn the user, then ask them if they want to continue
+function ask_warn {
+	warn $@
+	ask_continue
+}
+
+
+#
+# The actual script starts here
+#
 URL='git@github.com:Saevon/saevon.github.io.git'
 KEEP='assets'
 
@@ -16,9 +47,18 @@ function cleanup {
 
 	# Cleanup all tmp folders
 	rm -rf /tmp/$tmp_prefix*
-	rm -rf $output
+
+	exit 1
 }
 trap cleanup SIGHUP SIGINT SIGTERM EXIT
+
+
+
+# Warn the user if there are un-pushed changes
+unpushed=`git log @{upstream}..`
+if [[ -n $unpushed ]]; then
+	ask_warn "You have unpushed changes"
+fi
 
 
 # make the temporary folder
