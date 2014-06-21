@@ -33,8 +33,8 @@ CATEGORY_TAGLINES = {
 PATH = 'content'
 ARTICLE_DIR = 'articles'
 
-# Templates that mage a page, rather than being a layout
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'license')
+# Templates that make a page, rather than being a layout
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'license', 'sitemap')
 
 # Articles per page
 DEFAULT_PAGINATION = 5
@@ -53,6 +53,9 @@ AUTHORS_SAVE_AS = False
 LICENSE_FILE = '../LICENSE.md'
 LICENSE_SAVE_AS = 'license/index.html'
 LICENSE_URL = 'license/'
+
+# Sitemap file
+SITEMAP_SAVE_AS = "sitemap.xml"
 
 
 # Feed generation is usually not desired when developing
@@ -86,6 +89,23 @@ from plugins.pelican import PLUGINS
 # Delete the output directory every time we generate the code
 DELETE_OUTPUT_DIRECTORY = True
 
+
+######################################
+# Sitemap
+
+# My custom sitemap data
+# Not for use with the pelican sitemap plugin
+SITEMAP = {
+    'format': 'xml',
+    'articles': {
+        'priority': 0.5,
+        'changefreq': 'monthly',
+    },
+    'pages': {
+        'priority': 0.5,
+        'changefreq': 'monthly',
+    },
+}
 
 
 

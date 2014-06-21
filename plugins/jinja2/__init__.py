@@ -10,6 +10,7 @@ from plugins.jinja2.category import find_category, category_preview_articles, ma
 from plugins.jinja2.nav import is_cur_page, get_main
 from plugins.jinja2.summary import summary
 from plugins.jinja2.tags import update_count, tag_remap, tag_sort, tag_ratios
+from plugins.jinja2.date import date_to_xmlschema
 from datetime import datetime
 
 
@@ -27,6 +28,8 @@ JINJA_FILTERS = {
     'merge': lambda *args: list(chain(*args)),
 
     'is_cur_page': is_cur_page,
+
+    'date_to_xmlschema': date_to_xmlschema,
 
     # DEBUG
     'dump': dump,

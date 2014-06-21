@@ -1,0 +1,70 @@
+{#
+# If you want a page listed it needs the following variables
+#
+# sitemap: true
+# OR
+# sitemap:
+#    priority: 0.7
+#    changefreq: monthly
+#    lastmod: 2013-03-29T12:49:30-05:00
+#
+# priority: 0.0 - 1.0
+#       Importance of this page as opposed to any other page on _this_
+#       site. This won't affect relevance in relation to other sites
+# changefreq: always, hourly, daily, weekly, monthly, yearly, never
+#       How often this page should be crawled.
+#       always: for dynamic pages
+#       never:  for archived pages
+# lastmod: YYYY-MM-DD / YYYY-MM-DDTHH:MM:SS+TIMEZONE
+#       last modified date.
+#}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for article in articles %}
+    {% if not article.nositemap %}
+      <url>
+        <loc>{{ SITEURL }}/{{ article.url }}</loc>
+
+        {% if article.priority %}
+          <priority>{{ article.priority }}</priority>
+        {% else %}
+          <priority>{{ SITEMAP.articles.priority }}</priority>
+        {% endif %}
+
+        {% if article.modified == null %}
+          <lastmod>{{ article.date | date_to_xmlschema }}</lastmod>
+        {% else %}
+          <lastmod>{{ article.modified | date_to_xmlschema }}</lastmod>
+        {% endif %}
+
+        {% if article.changefreq %}
+          <changefreq>{{ article.changefreq }}</changefreq>
+        {% else %}
+          <changefreq>{{ SITEMAP.articles.changefreq }}</changefreq>
+        {% endif %}
+      </url>
+    {% endif %}
+  {% endfor %}
+
+  {% for page in pages %}
+    {% if page.sitemap and not page.nositemap %}
+      <url>
+        <loc>{{ SITEURL }}/{{ page.url }}</loc>
+
+        {% if page.priority %}
+          <priority>{{ page.priority }}</priority>
+        {% else %}
+          <priority>{{ SITEMAP.pages.priority }}</priority>
+        {% endif %}
+
+        {% if page.changefreq %}
+          <changefreq>{{ page.changefreq }}</changefreq>
+        {% else %}
+          <changefreq>{{ SITEMAP.pages.changefreq }}</changefreq>
+        {% endif %}
+
+      </url>
+    {% endif %}
+  {% endfor %}
+</urlset>
+
