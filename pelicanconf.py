@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 
-
 ############################
 # Basic Details
 
@@ -68,6 +67,9 @@ TAG_FEED_RSS = None
 FEED_DOMAIN = SITEURL
 TRANSLATION_FEED = None
 
+# Comments
+DISQUS_SITENAME = "dev-blog-saevon"
+
 
 
 ############################
@@ -83,6 +85,7 @@ from plugins.pelican import PLUGINS
 
 # Delete the output directory every time we generate the code
 DELETE_OUTPUT_DIRECTORY = True
+
 
 
 

@@ -8,6 +8,7 @@ from __future__ import unicode_literals
 import os
 import sys
 sys.path.append(os.curdir)
+
 from pelicanconf import *
 
 SITEURL = '//blog.saevon.ca'
@@ -25,5 +26,5 @@ DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
+DISQUS_SITENAME = 'blog-saevon'
 #GOOGLE_ANALYTICS = ""
