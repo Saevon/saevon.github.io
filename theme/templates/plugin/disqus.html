@@ -5,7 +5,10 @@
 
     var disqus_identifier = '{{ article.slug }}';
     var disqus_title = '{{ article.title }}';
-    var disqus_url = '/{{ article.url }}';
+
+    {% if SITEURL %}
+        var disqus_url = window.location.protocol + '{{ SITEURL }}/{{ article.url }}';
+    {% endif %}
 </script>
 
 <script type="text/javascript" async src="//{{ DISQUS_SITENAME }}.disqus.com/embed.js"></script>
