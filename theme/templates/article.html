@@ -43,10 +43,17 @@
 
     {% if not main.nocomments %}
         <div id="comments">
+            {# If none of the comment engines are enabled, this will be turned off #}
+            {% set comments_enabled = true %}
             {% if DISQUS_SITENAME %}
                 {% include 'plugin/disqus.html' %}
+            {% else %}
+                {% comments_enabled = false %}
             {% endif %}
-            <noscript>Please enable JavaScript to view the comments</noscript>
+
+            {% if comments_enabled %}
+                <noscript>Please enable JavaScript to view the comments</noscript>
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}
