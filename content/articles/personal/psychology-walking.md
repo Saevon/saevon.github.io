@@ -12,7 +12,7 @@ How many times have you had to do the "sidewalk dance" where you try to shuffle 
 
 # Overview
 
-Recently a friend of mine commented to me about something he read on reddit, people use gaze to figure out which way others are going. Now I'd been using this to avoid crowds, and even to indicate to my friends where to go next. However I realized that not many people know of this.
+Recently a friend of mine commented about something he read on reddit, people use gaze to figure out which way others are going. Now I'd been using this to avoid crowds, and even to indicate to my friends where to go next. However I realized that not many people know of this.
 
 
 # Psychology
