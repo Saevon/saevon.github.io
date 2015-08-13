@@ -6,7 +6,7 @@
 &lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-create-the-code"&gt;&lt;h1&gt;How to create the code&lt;/h1&gt;
 &lt;section class="&amp;quot;section section2&amp;quot;" id="header-files"&gt;&lt;h2&gt;Header files&lt;/h2&gt;
 &lt;p&gt;First comes the assemble helpers that will let us add immediate values using standard pre-processor constants.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// arm.h&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// asm.h&lt;/span&gt;
 
 &lt;span class="cp"&gt;#define immed(val) # ## val&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

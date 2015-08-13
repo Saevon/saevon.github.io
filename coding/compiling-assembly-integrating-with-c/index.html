@@ -7,7 +7,7 @@
     <meta property="og:title" content="Compiling Assembly, Integrating with C" />
     <meta property="og:description" content="Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.
 " />
-    <meta property="og:url" content="//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" />
+    <meta property="og:url" content="http://blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" />
     <meta property="og:type" content="article" />
 
 	<meta property="og:site_name" content="Saevon's Blog"/>
@@ -146,7 +146,7 @@
 </section><section class="&quot;section section1&quot;" id="how-to-create-the-code"><h1>How to create the code</h1>
 <section class="&quot;section section2&quot;" id="header-files"><h2>Header files</h2>
 <p>First comes the assemble helpers that will let us add immediate values using standard pre-processor constants.</p>
-<div class="highlight"><pre><span class="c1">// arm.h</span>
+<div class="highlight"><pre><span class="c1">// asm.h</span>
 
 <span class="cp">#define immed(val) # ## val</span>
 </pre></div>
