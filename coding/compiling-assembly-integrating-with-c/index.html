@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/static/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/sidenav.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/article.css">
+
+    
+
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>Saevon.ca</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
+		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+
+<div class="sidenav-avatar">
+    <hr />
+    <a href="/" class="avatar-wrapper perma-link">
+        <img src="/static/images/avatar.jpg" class="center avatar img-rounded" />
+        <h1 class="site-name">Saevon</h1>
+    </a>
+    <hr class="nav-small-hide"/>
+</div>
+
+
+<div class="sidenav-menu">
+    <div class="nav-link nav-group ">
+        <a href="//blog.saevon.ca/">
+            <div class="nav-link-title">
+                Categories
+            </div>
+        </a>
+        <ul class="nav-group-content">
+            <li class="nav-group-item active">
+                <a href="//blog.saevon.ca/coding/">
+                    Coding
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/personal/">
+                    Personal
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/review/">
+                    Review
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/roleplaying/">
+                    Roleplaying
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-link nav-link-single ">
+        <a href="//blog.saevon.ca/tags/">
+            <div class="nav-link-title">
+                Tags
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+    <div class="sidenav-acc-links">
+        <hr />
+        <div class="account-links center">
+                <a href="https://github.com/Saevon" class="account-link">
+                    <i class="fa fa-github-square"></i>
+                </a>
+                <a href="https://ca.linkedin.com/in/saevon" class="account-link">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+        </div>
+    </div>
+
+
+
+<div class="sidenav-copyrights">
+    <hr />
+    <footer>
+        <small class="center copyright">
+            <a href="/license/">
+                © Saevon 2015
+            </a>
+        </small>
+        <small class="center">
+            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+        </small>
+    </footer>
+</div>
+
+<hr class="visible-xs" />
+<hr class="visible-xs" />
+			</div>
+
+		<!-- Content -->
+		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+    <article class="article article-full">
+<div class="page-header">
+
+        <a href="//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" rel="bookmark" title="Permalink to Compiling Assembly, Integrating with C" class="perma-link">
+            <h1>Compiling Assembly, Integrating with C                    <small class="tagline">No more Inline __asm__ statements!</small>
+            </h1>
+        </a>
+</div>
+        <div class="date">
+          <span>21 June 2014</span>
+        </div>
+        <div class="content">
+          <p>Compiling assmbly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.</p>
+<section class="&quot;section section1&quot;" id="situation"><h1>Situation</h1>
+<p>While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.</p>
+<p>I also needed to have my user tasks call syscall functions, which ended up being stubs for the <code>swi</code> ARM assembly command. Thus I needed assembly there too, however it needed to share the <code>syscall_id</code> value between the kernel syscall handler, and the user syscall stubs.</p>
+</section><section class="&quot;section section1&quot;" id="how-to-create-the-code"><h1>How to create the code</h1>
+<section class="&quot;section section2&quot;" id="header-files"><h2>Header files</h2>
+<p>First comes the assemble helpers that will let us add immediate values using standard pre-processor constants.</p>
+<div class="highlight"><pre><span class="c1">// arm.h</span>
+
+<span class="cp">#define immed(val) # ## val</span>
+</pre></div>
+
+
+<p>It simply defines adds a <code>#</code> in front of the value (since ARM assembly uses a hash sign to mark immediate values)</p>
+<p>Then define the function headers, so your C compiler knows that the functions will exist when you call the linker later.</p>
+<div class="highlight"><pre><span class="c1">// syscall.h</span>
+
+<span class="kt">int</span> <span class="nf">Create</span><span class="p">(</span><span class="kt">int</span> <span class="n">priority</span><span class="p">,</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">code</span><span class="p">)</span> <span class="p">(</span> <span class="p">));</span>
+<span class="kt">void</span> <span class="nf">Exit</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Finally we have our shared <code>syscall_id</code> definitions.</p>
+<div class="highlight"><pre><span class="cp">#define SYSCALL_ID_CREATE    1</span>
+<span class="cp">#define SYSCALL_ID_EXIT      12</span>
+</pre></div>
+
+
+</section><section class="&quot;section section2&quot;" id="assembly"><h2>Assembly</h2>
+<p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
+    The code highlighter doesn't support this, but the "@&hellip;" lines are comments in ARM Assembly
+</div></p>
+<p>You can see the <code>immed(SYSCALL_ID_CREATE)</code> doing its job to put the value properly into assembly</p>
+<div class="no-pre-err">
+<div class="highlight"><pre><span class="err">@</span> <span class="nf">sycall.S</span>
+
+<span class="c">#include &lt;machine/asm.h&gt;</span>
+<span class="c">#include &lt;kern/syscall_id.h&gt;</span>
+
+<span class="err">@-----------------------------------------------------------</span>
+<span class="na">.text</span>
+<span class="na">.align</span>  <span class="mi">2</span>
+<span class="na">.global</span> <span class="no">Create</span>
+<span class="na">.type</span>   <span class="no">Create</span><span class="p">,</span> <span class="err">%</span><span class="no">function</span>
+<span class="nl">Create:</span>
+    <span class="err">@</span> <span class="nf">args</span> <span class="err">=</span> <span class="mi">0</span><span class="p">,</span> <span class="no">pretend</span> <span class="err">=</span> <span class="mi">0</span><span class="p">,</span> <span class="no">frame</span> <span class="err">=</span> <span class="mi">8</span>
+    <span class="err">@</span> <span class="nf">frame_needed</span> <span class="err">=</span> <span class="mi">1</span><span class="p">,</span> <span class="no">uses_anonymous_args</span> <span class="err">=</span> <span class="mi">0</span>
+
+    <span class="err">@</span> <span class="nf">Push</span> <span class="no">the</span> <span class="no">args</span>
+    <span class="nf">stmfd</span> <span class="no">sp</span><span class="err">!</span><span class="p">,</span> <span class="err">{</span><span class="no">r0-r1</span><span class="err">}</span>
+
+    <span class="err">@</span> <span class="nf">Software</span> <span class="no">interrupt</span><span class="p">,</span> <span class="no">doing</span> <span class="no">the</span> <span class="no">syscall</span>
+    <span class="nf">swi</span> <span class="no">immed</span><span class="p">(</span><span class="no">SYSCALL_ID_CREATE</span><span class="p">)</span>
+
+    <span class="err">@</span> <span class="nf">Fix</span> <span class="no">the</span> <span class="no">stack</span> <span class="no">pointer</span>
+    <span class="nf">add</span> <span class="no">sp</span><span class="p">,</span> <span class="no">sp</span><span class="p">,</span> <span class="c">#8</span>
+
+    <span class="err">@</span> <span class="nf">Exit</span> <span class="no">back</span> <span class="no">to</span> <span class="no">previous</span> <span class="no">frame</span>
+    <span class="nf">mov</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span>
+<span class="na">.size</span>   <span class="no">Create</span><span class="p">,</span> <span class="no">.-Create</span>
+<span class="err">@-----------------------------------------------------------</span>
+
+
+<span class="err">@-----------------------------------------------------------</span>
+<span class="na">.text</span>
+<span class="na">.align</span>  <span class="mi">2</span>
+<span class="na">.global</span> <span class="no">Exit</span>
+<span class="na">.type</span>   <span class="no">Exit</span><span class="p">,</span> <span class="err">%</span><span class="no">function</span>
+<span class="nl">Exit:</span>
+    <span class="err">@</span> <span class="nf">args</span> <span class="err">=</span> <span class="mi">0</span><span class="p">,</span> <span class="no">pretend</span> <span class="err">=</span> <span class="mi">0</span><span class="p">,</span> <span class="no">frame</span> <span class="err">=</span> <span class="mi">0</span>
+    <span class="err">@</span> <span class="nf">frame_needed</span> <span class="err">=</span> <span class="mi">1</span><span class="p">,</span> <span class="no">uses_anonymous_args</span> <span class="err">=</span> <span class="mi">0</span>
+
+    <span class="err">@</span> <span class="nf">Software</span> <span class="no">interrupt</span><span class="p">,</span> <span class="no">doing</span> <span class="no">the</span> <span class="no">syscall</span>
+    <span class="nf">swi</span> <span class="no">immed</span><span class="p">(</span><span class="no">SYSCALL_ID_EXIT</span><span class="p">)</span>
+
+    <span class="err">@</span> <span class="nf">Exit</span> <span class="no">back</span> <span class="no">to</span> <span class="no">previous</span> <span class="no">frame</span>
+    <span class="nf">mov</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span>
+<span class="na">.size</span>   <span class="no">Exit</span><span class="p">,</span> <span class="no">.-Exit</span>
+<span class="err">@-----------------------------------------------------------</span>
+</pre></div>
+
+
+</div>
+</section></section><section class="&quot;section section1&quot;" id="how-to-set-up-your-makefile"><h1>How to set-up your Makefile</h1>
+<p><div class="alert alert-warning "><i class="fa fa-warning"></i>
+    TODO: Add a chart
+</div></p>
+<p>First we need to find each of the files, remember the <code>*.S</code> files are your assembly + preproccessor.</p>
+<p>Then we convert their endings to the resulting files that we want: <code>*.o</code> files</p>
+<div class="highlight"><pre><span class="c"># Kernel libraries</span>
+<span class="nv">ASMLIB</span> <span class="o">=</span> <span class="k">$(</span>shell find ./kern/asm/ -name <span class="s2">&quot;*.S&quot;</span><span class="k">)</span>
+<span class="nv">CLIB</span> <span class="o">=</span> <span class="k">$(</span>shell find ./kern/ -name <span class="s2">&quot;*.c&quot;</span><span class="k">)</span>
+
+<span class="nf">all</span><span class="o">:</span> <span class="m">$(patsubst %.c</span><span class="p">,</span><span class="m">%.o</span><span class="p">,</span><span class="m">$(LIBS)) $(patsubst %.S</span><span class="p">,</span><span class="m">%.o</span><span class="p">,</span><span class="m">$(ASMLIB))</span>
+</pre></div>
+
+
+<p>Then we have the actual commands that will compile the files.</p>
+<p>Notice that the <code>*.S</code> files only get pre-processed by gcc (using the <code>-E</code> flag). Then they follow the standard chain to become <code>*.o</code> files.</p>
+<div class="highlight"><pre><span class="nf">%.s</span><span class="o">:</span> <span class="m">%.c</span>
+    <span class="k">$(</span>CC<span class="k">)</span> -S <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="nf">%.o</span><span class="o">:</span> <span class="m">%.s</span>
+    <span class="k">$(</span>AS<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="nf">kern/asm/%.s</span><span class="o">:</span> <span class="m">kern/asm/%.S</span>
+    <span class="k">$(</span>CC<span class="k">)</span> -E <span class="k">$(</span>CFLAGS<span class="k">)</span> -O0 -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+</pre></div>
+
+
+</section>
+        </div>
+
+        <hr />
+
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">4</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/arm/" class="tag-box-item">ARM<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/assembly/" class="tag-box-item">assembly<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/real-time-trains/" class="tag-box-item">Real-Time (Trains)<span class="tag-count">2</span>
+          </a>
+        </li>
+    </ul>
+
+            <hr />
+    </article>
+
+        <footer>
+            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+        </footer>
+
+        <hr />
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'compiling-assembly-integrating-with-c';
+    var disqus_title = 'Compiling Assembly, Integrating with C';
+
+        var disqus_url = window.location.protocol + '//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/';
+</script>
+
+<script type="text/javascript" async src="//blog-saevon.disqus.com/embed.js"></script>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+		</section>
+	</div></div>
+
+</body>
+</html>

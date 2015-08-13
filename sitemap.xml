@@ -10,6 +10,15 @@
           <changefreq>monthly</changefreq>
       </url>
       <url>
+        <loc>//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/</loc>
+
+          <priority>0.5</priority>
+
+          <lastmod>2014-06-21T00:00:00</lastmod>
+
+          <changefreq>monthly</changefreq>
+      </url>
+      <url>
         <loc>//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/</loc>
 
           <priority>0.5</priority>

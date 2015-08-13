@@ -117,3 +117,11 @@ p + ul, p + ol {
 }
 
 
+
+/******************************************************/
+/* Pygments Customizations */
+.no-pre-err pre .err {
+  border: none;
+}
+
+
