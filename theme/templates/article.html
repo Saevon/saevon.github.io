@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 
 
+{% block facebook_article %}
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:description" content="{{ article.content|summary_raw }}" />
+    <meta property="og:url" content="{{ FACEBOOK_LINK_PROTOCOL }}:{{ SITEURL }}/{{ article.url }}" />
+    <meta property="og:type" content="article" />
+{% endblock facebook_article %}
+
+
+
+
 {% block css %}
     {{ super() }}
 

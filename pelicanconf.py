@@ -78,6 +78,8 @@ TRANSLATION_FEED = None
 # Comments
 DISQUS_SITENAME = "dev-blog-saevon"
 
+# Facebook
+FACEBOOK_LINK_PROTOCOL = "http"
 
 
 ############################

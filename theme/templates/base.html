@@ -4,6 +4,16 @@
 	{% set main = get_main() %}
 
 
+	<!-- Facebook Share -->
+	{% block facebook_article %}
+		<meta property="og:type" content="article" />
+	{% endblock facebook_article %}
+
+	<meta property="og:site_name" content="Saevon's Blog"/>
+	<meta property="og:image" content="{{ FACEBOOK_LINK_PROTOCOL }}:{{ SITEURL }}/{{ STATIC_DIR }}/images/avatar-facebook.jpg" />
+	<meta property="og:image:secure_url" content="{{ FACEBOOK_LINK_PROTOCOL }}:{{ SITEURL }}/{{ STATIC_DIR }}/images/avatar-facebook.jpg" />
+
+
 	<!-- Styles -->
 	<link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/bootstrap-theme.min.css">
