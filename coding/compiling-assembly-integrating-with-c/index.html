@@ -4,8 +4,15 @@
 
 
 	<!-- Facebook Share -->
-	<meta property="og:image" content="/static/images/avatar.jpg"/>
-	<meta property="og:image:secure_url" content="/static/images/avatar.jpg" />
+    <meta property="og:title" content="Compiling Assembly, Integrating with C" />
+    <meta property="og:description" content="Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.
+" />
+    <meta property="og:url" content="//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" />
+    <meta property="og:type" content="article" />
+
+	<meta property="og:site_name" content="Saevon's Blog"/>
+	<meta property="og:image" content="/static/images/avatar-facebook.jpg" />
+	<meta property="og:image:secure_url" content="/static/images/avatar-facebook.jpg" />
 
 
 	<!-- Styles -->
@@ -132,7 +139,7 @@
           <span>13 August 2015</span>
         </div>
         <div class="content">
-          <p>Compiling assmbly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.</p>
+          <p>Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.</p>
 <section class="&quot;section section1&quot;" id="situation"><h1>Situation</h1>
 <p>While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.</p>
 <p>I also needed to have my user tasks call syscall functions, which ended up being stubs for the <code>swi</code> ARM assembly command. Thus I needed assembly there too, however it needed to share the <code>syscall_id</code> value between the kernel syscall handler, and the user syscall stubs.</p>
