@@ -8,7 +8,7 @@ Tags: Mac OSX, assembler, clang, Real-Time (Trains)
 
 
 
-The standard compiler `gcc` for Mac OSX is actually the `clang` compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that `as` is not the clang assembler however, which causes it to break down.
+The standard compiler `gcc` for Mac OSX is actually the `clang` compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that "`as`" is not the clang assembler however, which causes it to break down.
 
 In this article I will discuss a simple solution to this problem.
 
