@@ -25,6 +25,14 @@ In detail, what actually happens is the following.
 
 To publish the site, one needs to generate the source, copy over the files in `.publish-copy`, then make a new commit on master. Remember old pages might need to be removed/updated, and new ones might need to be added. Also remember that the assets folder is currently not generated at all, but used to server usefull data.
 
+#### Development
+
+I use the my alerts plugins, and if you want to develop the alerts plugin at the same time as the blog, you need to run
+
+```bash
+python setup.py develop
+```
+
 ## TODO
 
 The following is my todo list for this site, feel free to ignore this, unless you're trying to get inspiration from this site, in which case, pay attention to what you might need to fix up.
