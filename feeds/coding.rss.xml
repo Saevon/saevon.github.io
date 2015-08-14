@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/coding.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 13 Aug 2015 00:00:00 -0400</lastBuildDate><item><title>Compiling Assembly, Integrating with C</title><link>//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/</link><description>&lt;p&gt;Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/coding.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 14 Aug 2015 00:00:00 -0400</lastBuildDate><item><title>Quickly pausing an app in Mac-OS</title><link>//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/</link><description>&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+    You can see the code in my config file repository, along with my other bash aliases.
+    &lt;a href="bash-pauser"&gt;Click here to see the entire pause script&lt;/a&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;I added the following bash functions&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pause_process(pid)&lt;/code&gt;: nicer kill command that pauses a process (&lt;code&gt;kill -STOP&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pause_app(string)&lt;/code&gt;: searches for any proccesses with the given string, pausing them all&lt;/p&gt;
+&lt;p&gt;As well as the opposing functions &lt;code&gt;resume_app()&lt;/code&gt; and &lt;code&gt;resume_process()&lt;/code&gt; (which use &lt;code&gt;kill -CONT&lt;/code&gt;).&lt;/p&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="implementation"&gt;&lt;h2&gt;Implementation&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-commenting"&gt;&lt;/i&gt;
+    I'm not too great at bash, so if there's a better way to do this, do comment!
+    Thanks!
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;First thing I needed was a nice way to work with lists in bash, so I made a function to map a command on each item.
+Using that I made a function that searches for processes that contain a given string. Then it maps a command on them&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;function &lt;/span&gt;map&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for &lt;/span&gt;pid in &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
+        &lt;span class="nv"&gt;$2&lt;/span&gt; &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;pid&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;;
+    &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="nv"&gt;PGREP_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-U ${USER}&amp;quot;&lt;/span&gt;
+
+&lt;span class="k"&gt;function &lt;/span&gt;search_map&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    map &lt;span class="s2"&gt;&amp;quot;pgrep ${PGREP_FLAGS} -f \&amp;quot;$1\&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="nv"&gt;$2&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using this the &lt;code&gt;pause_app()&lt;/code&gt; command is quite simple, and the resume_app one as well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;function &lt;/span&gt;pause_app&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;echo &lt;/span&gt;pausing &lt;span class="nv"&gt;$1&lt;/span&gt;
+    search_map &lt;span class="s2"&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; pause_process;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="usage"&gt;&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Using this just requires knowing part of the app name:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pause_app Chrome.app
+pausing Chrome.app
+  pausing:  378
+  pausing:  406
+  pausing:  414
+&lt;span class="nv"&gt;$ &lt;/span&gt;resume_app Chrome.app
+resuming Chrome.app
+  resuming:  378
+  resuming:  406
+  resuming:  414
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+    &lt;code&gt;pgrep&lt;/code&gt; will find more that one app if they contain the same text in the process tag.
+    The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="more-uses"&gt;&lt;h2&gt;More Uses&lt;/h2&gt;
+&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it [here][bash-pauser-all]&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="reference"&gt;&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser.sh"&gt;The entire pause Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[Pausing a list of apps at once][bash-pauser-all]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 14 Aug 2015 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</guid><category>Mac OSX</category><category>bash</category></item><item><title>Compiling Assembly, Integrating with C</title><link>//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/</link><description>&lt;p&gt;Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
 &lt;p&gt;While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.&lt;/p&gt;
 &lt;p&gt;I also needed to have my user tasks call syscall functions, which ended up being stubs for the &lt;code&gt;swi&lt;/code&gt; ARM assembly command. Thus I needed assembly there too, however it needed to share the &lt;code&gt;syscall_id&lt;/code&gt; value between the kernel syscall handler, and the user syscall stubs.&lt;/p&gt;

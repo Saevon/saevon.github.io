@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<!-- Facebook Share -->
+    <meta property="og:title" content="Quickly pausing an app in Mac-OS" />
+    <meta property="og:description" content="Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.
+" />
+    <meta property="og:url" content="http://blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" />
+    <meta property="og:type" content="article" />
+
+	<meta property="og:site_name" content="Saevon's Blog"/>
+	<meta property="og:image" content="http://blog.saevon.ca/static/images/avatar-facebook.jpg" />
+	<meta property="og:image:secure_url" content="http://blog.saevon.ca/static/images/avatar-facebook.jpg" />
+
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/static/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/sidenav.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/article.css">
+
+    
+
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>Saevon.ca</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
+		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+
+<div class="sidenav-avatar">
+    <hr />
+    <a href="/" class="avatar-wrapper perma-link">
+        <img src="/static/images/avatar.jpg" class="center avatar img-rounded" />
+        <h1 class="site-name">Saevon</h1>
+    </a>
+    <hr class="nav-small-hide"/>
+</div>
+
+
+<div class="sidenav-menu">
+    <div class="nav-link nav-group ">
+        <a href="//blog.saevon.ca/">
+            <div class="nav-link-title">
+                Categories
+            </div>
+        </a>
+        <ul class="nav-group-content">
+            <li class="nav-group-item active">
+                <a href="//blog.saevon.ca/coding/">
+                    Coding
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/personal/">
+                    Personal
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/review/">
+                    Review
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/roleplaying/">
+                    Roleplaying
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-link nav-link-single ">
+        <a href="//blog.saevon.ca/tags/">
+            <div class="nav-link-title">
+                Tags
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+    <div class="sidenav-acc-links">
+        <hr />
+        <div class="account-links center">
+                <a href="https://github.com/Saevon" class="account-link">
+                    <i class="fa fa-github-square"></i>
+                </a>
+                <a href="https://ca.linkedin.com/in/saevon" class="account-link">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+        </div>
+    </div>
+
+
+
+<div class="sidenav-copyrights">
+    <hr />
+    <footer>
+        <small class="center copyright">
+            <a href="//blog.saevon.ca/license/">
+                © Saevon 2015
+            </a>
+        </small>
+        <small class="center">
+            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+        </small>
+    </footer>
+</div>
+
+<hr class="visible-xs" />
+<hr class="visible-xs" />
+			</div>
+
+		<!-- Content -->
+		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+    <article class="article article-full">
+<div class="page-header">
+
+        <a href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="bookmark" title="Permalink to Quickly pausing an app in Mac-OS" class="perma-link">
+            <h1>Quickly pausing an app in Mac-OS                    <small class="tagline">pause and resume apps with multiple processes</small>
+            </h1>
+        </a>
+</div>
+        <div class="date">
+          <span>14 August 2015</span>
+        </div>
+        <div class="content">
+          <p>Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.</p>
+<section class="&quot;section section1&quot;" id="overview"><h1>Overview</h1>
+<p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
+    You can see the code in my config file repository, along with my other bash aliases.
+    <a href="bash-pauser">Click here to see the entire pause script</a>
+</div></p>
+<p>I added the following bash functions</p>
+<p><code>pause_process(pid)</code>: nicer kill command that pauses a process (<code>kill -STOP</code>)</p>
+<p><code>pause_app(string)</code>: searches for any proccesses with the given string, pausing them all</p>
+<p>As well as the opposing functions <code>resume_app()</code> and <code>resume_process()</code> (which use <code>kill -CONT</code>).</p>
+<section class="&quot;section section2&quot;" id="implementation"><h2>Implementation</h2>
+<p><div class="alert alert-info "><i class="fa fa-commenting"></i>
+    I'm not too great at bash, so if there's a better way to do this, do comment!
+    Thanks!
+</div></p>
+<p>First thing I needed was a nice way to work with lists in bash, so I made a function to map a command on each item.
+Using that I made a function that searches for processes that contain a given string. Then it maps a command on them</p>
+<div class="highlight"><pre><span class="k">function </span>map<span class="o">()</span> <span class="o">{</span>
+    <span class="k">for </span>pid in <span class="sb">`</span><span class="nb">eval</span> <span class="nv">$1</span><span class="sb">`</span>; <span class="k">do</span>
+        <span class="nv">$2</span> <span class="k">${</span><span class="nv">pid</span><span class="k">}</span>;
+    <span class="k">done</span>
+<span class="o">}</span>
+
+<span class="nv">PGREP_FLAGS</span><span class="o">=</span><span class="s2">&quot;-U ${USER}&quot;</span>
+
+<span class="k">function </span>search_map<span class="o">()</span> <span class="o">{</span>
+    map <span class="s2">&quot;pgrep ${PGREP_FLAGS} -f \&quot;$1\&quot;&quot;</span> <span class="nv">$2</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Using this the <code>pause_app()</code> command is quite simple, and the resume_app one as well.</p>
+<div class="highlight"><pre><span class="k">function </span>pause_app<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo </span>pausing <span class="nv">$1</span>
+    search_map <span class="s2">&quot;$1&quot;</span> pause_process;
+<span class="o">}</span>
+</pre></div>
+
+
+</section><section class="&quot;section section2&quot;" id="usage"><h2>Usage</h2>
+<p>Using this just requires knowing part of the app name:</p>
+<div class="highlight"><pre><span class="nv">$ </span>pause_app Chrome.app
+pausing Chrome.app
+  pausing:  378
+  pausing:  406
+  pausing:  414
+<span class="nv">$ </span>resume_app Chrome.app
+resuming Chrome.app
+  resuming:  378
+  resuming:  406
+  resuming:  414
+</pre></div>
+
+
+<p><div class="alert alert-warning "><i class="fa fa-warning"></i>
+    <code>pgrep</code> will find more that one app if they contain the same text in the process tag.
+    The best search string is one which contains the entire app name, (or at least the <code>.app</code> prefix)
+</div></p>
+</section><section class="&quot;section section2&quot;" id="more-uses"><h2>More Uses</h2>
+<p>I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. <code>pause_all</code> reads a list of app names, mapping the pause script on them all. <code>resume_all</code> does the opposite. You can see it [here][bash-pauser-all]</p>
+</section></section><section class="&quot;section section1&quot;" id="reference"><h1>Reference</h1>
+<ul>
+<li><a href="https://github.com/Saevon/config/blob/master/cbash/pauser.sh">The entire pause Script</a></li>
+<li>[Pausing a list of apps at once][bash-pauser-all]</li>
+</ul>
+</section>
+        </div>
+
+        <hr />
+
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">5</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/bash/" class="tag-box-item">bash<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/mac-osx/" class="tag-box-item">Mac OSX<span class="tag-count">2</span>
+          </a>
+        </li>
+    </ul>
+
+            <hr />
+    </article>
+
+        <footer>
+            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+        </footer>
+
+        <hr />
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'quickly-pausing-an-app-in-mac-os';
+    var disqus_title = 'Quickly pausing an app in Mac-OS';
+
+        var disqus_url = window.location.protocol + '//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/';
+</script>
+
+<script type="text/javascript" async src="//blog-saevon.disqus.com/embed.js"></script>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+		</section>
+	</div></div>
+
+</body>
+</html>
