@@ -58,10 +58,10 @@ resuming Chrome.app
     The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
 &lt;/div&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="more-uses"&gt;&lt;h2&gt;More Uses&lt;/h2&gt;
-&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it [here][bash-pauser-all]&lt;/p&gt;
+&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it &lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="reference"&gt;&lt;h1&gt;Reference&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser.sh"&gt;The entire pause Script&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[Pausing a list of apps at once][bash-pauser-all]&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;Pausing a list of apps at once&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 14 Aug 2015 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</guid><category>Mac OSX</category><category>bash</category></item></channel></rss>
