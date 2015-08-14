@@ -96,6 +96,11 @@ body {
   color: #C09853;
 }
 
+.alert code {
+  background-color: rgba(230, 230, 230, .2);
+  border: solid rgba(180, 180, 180, .5) 1px;
+}
+
 
 /* Fix the difficult to notice links in the info box */
 .alert-info a {
