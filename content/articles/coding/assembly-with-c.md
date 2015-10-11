@@ -121,10 +121,6 @@ Exit:
 
 # How to set-up your Makefile
 
-!alert! warning
-    TODO: Add a chart
-!endalert!
-
 First we need to find each of the files, remember the `*.S` files are your assembly + preproccessor.
 
 Then we convert their endings to the resulting files that we want: `*.o` files
