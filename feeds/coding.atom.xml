@@ -148,9 +148,6 @@ resuming Chrome.app
 
 &lt;/div&gt;
 &lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-set-up-your-makefile"&gt;&lt;h1&gt;How to set-up your Makefile&lt;/h1&gt;
-&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
-    TODO: Add a chart
-&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;First we need to find each of the files, remember the &lt;code&gt;*.S&lt;/code&gt; files are your assembly + preproccessor.&lt;/p&gt;
 &lt;p&gt;Then we convert their endings to the resulting files that we want: &lt;code&gt;*.o&lt;/code&gt; files&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Kernel libraries&lt;/span&gt;

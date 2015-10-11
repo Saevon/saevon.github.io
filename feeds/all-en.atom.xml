@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2015-08-14T00:00:00-04:00</updated><entry><title>Quickly pausing an app in Mac-OS</title><link href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="alternate"></link><updated>2015-08-14T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</id><summary type="html">&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2015-10-11T00:00:00-04:00</updated><entry><title>Kaern's Blade</title><link href="//blog.saevon.ca/roleplaying/kaerns-blade/" rel="alternate"></link><updated>2015-10-11T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-10-11:roleplaying/kaerns-blade/</id><summary type="html">&lt;p&gt;&lt;strong&gt;Magical Item:&lt;/strong&gt; A merciful sword that refuses to kill its foes, but eagerly drinks in magic. Its main purpose is to absorb all magic, refusing to be sheathed if its purpose isn't met.&lt;/p&gt;
+&lt;section class="&amp;quot;section section3&amp;quot;" id="summary"&gt;&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;+3 flutter blade (1Handed, 1d4+1d6 piercing or slashing, 19-20 Crit)&lt;ul&gt;
+&lt;li&gt;Move action to switch between slashing and piercing damage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Symbols on it pulse with a faint sky blue light (rad 10' bright, rad 15' shadowy)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Merciful&lt;/strong&gt;: Only does subdual damage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mage Killer&lt;/strong&gt;: On successful hit can steal magic (see below)&lt;ul&gt;
+&lt;li&gt;+6 vs Magic items or effects (see below)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cursed Item&lt;/strong&gt;: You can't sheathe the blade without draining magic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="mage-killer"&gt;&lt;h3&gt;Mage Killer&lt;/h3&gt;
+&lt;p&gt;Every successful hit with this blade steals magic, choose one of the following for the blade to eat:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Up 6 spell levels worth of spells/day&lt;/li&gt;
+&lt;li&gt;Up to 2 uses of a &lt;strong&gt;Su&lt;/strong&gt; or &lt;strong&gt;Sp&lt;/strong&gt; ability&lt;/li&gt;
+&lt;li&gt;One infinite use &lt;strong&gt;Su&lt;/strong&gt; or &lt;strong&gt;Sp&lt;/strong&gt; ability&lt;/li&gt;
+&lt;li&gt;Any spell affect currently on the user&lt;/li&gt;
+&lt;li&gt;Any effects of a magical item, disabling it for 1 hour&lt;ul&gt;
+&lt;li&gt;If a magical item provides multiple bonuses, only one is disabled.&lt;/li&gt;
+&lt;li&gt;e.g. +2 Keen Flaming Weapon: Only one of those 3 effects can be stolen per attack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note that any ability that is the equivalent of a &lt;strong&gt;7th&lt;/strong&gt; level spell or higher cannot be stolen. Also Kaern's Blade cannot affect artifacts.&lt;/p&gt;
+&lt;p&gt;On a &lt;strong&gt;Confirmed Critical&lt;/strong&gt; instead of doing bonus damage, the user can steal the magic instead, being able to store it in the blade for up to &lt;strong&gt;1 Hour&lt;/strong&gt;. The user can then cast/use as if he is the original source of the magic. If the original source is destroyed, the magic is lost as well.&lt;/p&gt;
+&lt;p&gt;The owner can specifically choose to target an effect or magical item, treat this as a &lt;strong&gt;called shot&lt;/strong&gt;, but with a &lt;strong&gt;+6 Echantment&lt;/strong&gt; bonus. However when using this the weapon does no damage at all.&lt;/p&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+    &lt;strong&gt;Optional&lt;/strong&gt;: You can even have the blade be able to absorb magic being cast on it. If the user readies a standard action to defend himself from magic, they can make an attack roll against the opponents caster level check.
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="merciful"&gt;&lt;h3&gt;Merciful&lt;/h3&gt;
+&lt;p&gt;This blade refuses to kill any living being, specifically any creature termed alive, intelligent or soulled, doing only subdual damage to these creatures.&lt;/p&gt;
+&lt;p&gt;When this blade deals damage treat it as normal for the purposes of &lt;strong&gt;Damage Resistance&lt;/strong&gt;. Then apply all damage as &lt;strong&gt;subdual damage&lt;/strong&gt; to the creature. The blade cannot take a creature below &lt;strong&gt;-5 HP&lt;/strong&gt;, refusing to damage said creatures. It can still steal magic from them however. Note that some creatures are soulled, but can't go below &lt;strong&gt;0 HP&lt;/strong&gt; in which case they are brought to at most &lt;strong&gt;1 HP&lt;/strong&gt;, and any further damage from Kaern's Blade causes them to be &lt;strong&gt;Disabled&lt;/strong&gt;: unable to do any mental or physical actions until &lt;strong&gt;8 hours* or they have &lt;/strong&gt;1 HP** worth of healing.&lt;/p&gt;
+&lt;p&gt;This ability is also affected by the owner's thoughts. Thus if an animated item was seen as a "pet" by the owner, the blade would refuse to destroy it.&lt;/p&gt;
+&lt;section class="&amp;quot;section section4&amp;quot;" id="flavour-text"&gt;&lt;h4&gt;Flavour Text&lt;/h4&gt;
+&lt;p&gt;This ability manifests as the blade passing through opponents, and causing them to feel more and more exhausted, or . Thus the blade is still used to slash or stab, but passes through the opponents instead, seemingly turning into a pale blue ghostly blade. Against creatures immune to subdual damage, it works like normal.&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="description"&gt;&lt;h3&gt;Description&lt;/h3&gt;
+&lt;p&gt;Kaern's Blade is a True Chaotic intelligent magic item, it does not speak, or act in any way by itself, lying dormant most of the time. The blade's refusal to kill and Magic absorbtion are a facet of its personality, as it was originally made to destroy wards and other magical defenses.&lt;/p&gt;
+&lt;p&gt;The blade is a pale silver colour, with glowing sky blue symbols along the length.&lt;/p&gt;
+&lt;/section&gt;</summary><category term="magic-item"></category><category term="D&amp;D"></category></entry><entry><title>Vampiric Blade</title><link href="//blog.saevon.ca/roleplaying/vampiric-blade/" rel="alternate"></link><updated>2015-10-10T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-10-10:roleplaying/vampiric-blade/</id><summary type="html">&lt;p&gt;&lt;strong&gt;Magical Item:&lt;/strong&gt; A bloodthirsty sword that always draws blood, any wielder is filled with a slight bloodlust, and is unable to sheathe it without drawing blood.&lt;/p&gt;
+&lt;section class="&amp;quot;section section3&amp;quot;" id="summary"&gt;&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;+3 elven thinblade (1Handed, 1d8 piercing, 18-20x2 Crit)&lt;/li&gt;
+&lt;li&gt;Symbols on it pulse with a faint blood red light (rad 10' bright, rad 15' shadowy)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Vampiric&lt;/strong&gt;: 1d4 Con Damage on hit&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cursed Item&lt;/strong&gt;: You can't sheathe the blade without it drinking blood&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="description"&gt;&lt;h3&gt;Description&lt;/h3&gt;
+&lt;p&gt;The vampiric blade is made of adamantine (dark red color with a thin silvery hue), with glowing red symbols along the length.&lt;/p&gt;
+&lt;/section&gt;</summary><category term="magic-item"></category><category term="D&amp;D"></category></entry><entry><title>Quickly pausing an app in Mac-OS</title><link href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="alternate"></link><updated>2015-08-14T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</id><summary type="html">&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
     You can see the code in my config file repository, along with my other bash aliases.
@@ -148,9 +201,6 @@ resuming Chrome.app
 
 &lt;/div&gt;
 &lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-set-up-your-makefile"&gt;&lt;h1&gt;How to set-up your Makefile&lt;/h1&gt;
-&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
-    TODO: Add a chart
-&lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;First we need to find each of the files, remember the &lt;code&gt;*.S&lt;/code&gt; files are your assembly + preproccessor.&lt;/p&gt;
 &lt;p&gt;Then we convert their endings to the resulting files that we want: &lt;code&gt;*.o&lt;/code&gt; files&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Kernel libraries&lt;/span&gt;
@@ -308,7 +358,7 @@ resuming Chrome.app
 &lt;p&gt;The three stages were also a little confusing, I had already made tons of games by this point, yet the requirements still eluded me. If I was actually making games, after that many games and game reports I would have long since compiled the effects of each stage on the topics and genres. While I sometime get hints saying "+++?" it just didn't seem like I was getting enough for my efforts, sure I could have actually written reports myself, but this is a casual game to me.&lt;/p&gt;
 &lt;p&gt;I also found the "Design" and "Technology" bubbles to be confusing, I had no idea what it meant to get better points there, except that it was probably good. Nor how each staff member and choice could effect it. My characters had stats, but I couldn't figure out why I'd care for that very reason.&lt;/p&gt;
 &lt;p&gt;Research was pretty well done, I found that I could mostly guess when I'd get lots of research points, it was intuitive.&lt;/p&gt;
-&lt;p&gt;When choosing projects to work on, I felt I should have more control over who does what, while I could train, and research individually, it would be nice to do that as a group as well. Conversely I felt that my staff could produce multiple games, as I could do them by myself at the start, especially when I really needed money, and didn't mind going red to get money faster&lt;/p&gt;
+&lt;p&gt;When choosing projects to work on, I felt I should have more control over who does what. While I could train, and research individually, it would be nice to do that as a group as well, especially if the rest of my team has nothing to do. Conversely I felt that my staff could produce multiple games, as I could do them by myself at the start, especially when I really needed money, and didn't mind going red to get money faster&lt;/p&gt;
 &lt;p&gt;On a similar topic, the medium game didn't tell me my team would have been swamped and incapable of finishing it without giving 130% each.&lt;/p&gt;
 &lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="graphics"&gt;&lt;h3&gt;Graphics&lt;/h3&gt;
 &lt;p&gt;I found the graphics to be to my liking, the cartoonish sprites, and backgrounds to be very fitting. They didn't take too much of the focus, making you see the whole office as important, rather than focusing on your individual avatar.&lt;/p&gt;

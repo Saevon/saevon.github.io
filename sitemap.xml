@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
+        <loc>//blog.saevon.ca/roleplaying/kaerns-blade/</loc>
+
+          <priority>0.5</priority>
+
+          <lastmod>2015-10-11T00:00:00</lastmod>
+
+          <changefreq>monthly</changefreq>
+      </url>
+      <url>
+        <loc>//blog.saevon.ca/roleplaying/vampiric-blade/</loc>
+
+          <priority>0.5</priority>
+
+          <lastmod>2015-10-10T00:00:00</lastmod>
+
+          <changefreq>monthly</changefreq>
+      </url>
+      <url>
         <loc>//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/</loc>
 
           <priority>0.5</priority>
