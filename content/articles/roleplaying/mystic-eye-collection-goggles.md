@@ -17,7 +17,7 @@ Tags: magic-item, D&D
  * **Concentration 16** or launch an eye every **10rnds**.
  * When shapeshifting with eyes, you get its abilities.
  * Takes up the **Headband** slot.
- * **Cursed Item**
+ * **Cursed Item**: Can't be taken off
 
 
 ### Extraction
