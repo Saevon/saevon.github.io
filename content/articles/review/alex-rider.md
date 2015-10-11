@@ -23,5 +23,3 @@ One of the main characteristics of this series is that Alex does not often wish 
 The evil villains of the Alex Rider universe do follow the standard James Bond procedure, but all seem to have unique quirks that make them much more. Not all of them would blab out their evil plan when Alex is caught and about to be killed, though most of them do end up leaving him to die.
 
 Psychology plays a big part in the series, as we see Alex get hurt mentally with everything he goes through, and even though he seems to get back up a little too resiliently, it makes reading the books all the more accurate and enjoyable.
-
-

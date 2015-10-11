@@ -40,7 +40,7 @@ I also found the "Design" and "Technology" bubbles to be confusing, I had no ide
 
 Research was pretty well done, I found that I could mostly guess when I'd get lots of research points, it was intuitive.
 
-When choosing projects to work on, I felt I should have more control over who does what, while I could train, and research individually, it would be nice to do that as a group as well. Conversely I felt that my staff could produce multiple games, as I could do them by myself at the start, especially when I really needed money, and didn't mind going red to get money faster
+When choosing projects to work on, I felt I should have more control over who does what. While I could train, and research individually, it would be nice to do that as a group as well, especially if the rest of my team has nothing to do. Conversely I felt that my staff could produce multiple games, as I could do them by myself at the start, especially when I really needed money, and didn't mind going red to get money faster
 
 On a similar topic, the medium game didn't tell me my team would have been swamped and incapable of finishing it without giving 130% each.
 
