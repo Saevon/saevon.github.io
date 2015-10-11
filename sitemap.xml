@@ -10,11 +10,29 @@
           <changefreq>monthly</changefreq>
       </url>
       <url>
+        <loc>//blog.saevon.ca/roleplaying/necklace-of-anti-magic/</loc>
+
+          <priority>0.5</priority>
+
+          <lastmod>2015-10-11T00:00:00</lastmod>
+
+          <changefreq>monthly</changefreq>
+      </url>
+      <url>
         <loc>//blog.saevon.ca/roleplaying/vampiric-blade/</loc>
 
           <priority>0.5</priority>
 
           <lastmod>2015-10-10T00:00:00</lastmod>
+
+          <changefreq>monthly</changefreq>
+      </url>
+      <url>
+        <loc>//blog.saevon.ca/roleplaying/ravaging-bow/</loc>
+
+          <priority>0.5</priority>
+
+          <lastmod>2015-10-09T00:00:00</lastmod>
 
           <changefreq>monthly</changefreq>
       </url>
