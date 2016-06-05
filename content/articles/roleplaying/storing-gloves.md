@@ -4,6 +4,9 @@ Tagline: A few extra potions never hurt
 Date: 2015-10-12
 Category: roleplaying
 Tags: magic-item, D&D
+Characters: Craka, Aegis, Galthor, Valkyrie, Thrisperios
+Players: Cr4ka, SyC, Rob
+
 
 
 

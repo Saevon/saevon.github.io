@@ -14,7 +14,7 @@ Tags: magic-item, D&D
 
  * Free Action to crush one
  * Dimension Door: *Conjuration (Teleportation)*
- * **Aura**:
+ * **Aura**: Moderate Conjuration
 
 ### Dimension Door
 

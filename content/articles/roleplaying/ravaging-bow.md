@@ -5,7 +5,7 @@ Date: 2015-10-09
 Category: roleplaying
 Tags: magic-item, D&D
 Characters: Craka, Aegis, Galthor, Valkyrie, Sai
-Players: Cr4ka, SyC
+Players: Cr4ka, SyC, Rob
 
 
 
@@ -20,6 +20,7 @@ Don't underestimate its power! Though it targets the user as well, the bow can b
  * Spell Storing 5
  * **Arrow Storm**: Shoots 3 arrows, cloning the arrow type you use
  * **Broken Item**: Shoots an arrow at yourself, and 2 at the enemy (roll 2d20)
+ * **Aura**: Overwhelming Transmutation and Necromancy
 
 
 ### Arrow Storm
@@ -48,7 +49,7 @@ The Ravaging Bow is made to seek out enemies, attempting to behead them if possi
 Though the story is but a small excerpt from a much larger tale, the highlights shall be retold here.
 
 !alert! info
-    All of **Craka**, **Valkyrie**, **Sai**, **Galthor**, and **Aegis** were Player Characters in this schene
+    **Craka**, **Valkyrie**, **Sai**, **Galthor**, and **Aegis** were Player Characters in this scene. **Thrisperios** was an NPC
 !endalert!
 
 **Craka**: a barbarian wielding an artifact of power (*Silvia*), **Valkyrie**: an arcane archer wielding the **Ravaging Bow** and the rest of the party enter a dragon's layer.
@@ -58,7 +59,7 @@ Fighting the dragon (**Sai**) high above a perilous drop, on a huge overhang, wi
 Activiting Backlash Drain (syncing all damage and healing between him and **Sai**, and doing extra damage to both of them). **Valkyrie** takes one last shot, hoping to defeat **Sai** before he finishes her off, and rolls... 2 natural 20's! (after confirming the crit) With **Craka**'s and **Sai**'s health being synced together, a triple beheading occurs as the three of them crash into the ground below.
 
 !alert! success
-    While the rest of the party was not mentioned, that in no way implies their lack of awesomeness, just that they weren't really part of the beheaded trio (In this case **Galthor**, **Aegis**, and **Thrisperios** (An NPC which the **Craka**'s Player took over)
+    While the rest of the party was not mentioned, that in no way implies their lack of awesomeness, just that they weren't really part of the beheaded trio (In this case **Galthor**, **Aegis**, and **Thrisperios** (An NPC which **Craka**'s Player took over)
 !endalert!
 
 !alert! info
