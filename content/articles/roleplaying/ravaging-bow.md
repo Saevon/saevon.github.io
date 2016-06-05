@@ -4,6 +4,8 @@ Tagline: More arrows! More Magic! More Vorpal! A wonderful combination
 Date: 2015-10-09
 Category: roleplaying
 Tags: magic-item, D&D
+Characters: Craka, Aegis, Galthor, Valkyrie, Sai
+Players: Cr4ka, SyC
 
 
 
@@ -15,7 +17,7 @@ Don't underestimate its power! Though it targets the user as well, the bow can b
 
  * +3 Composite Longbow (1d8 Piercing, 125ft range, Vorpal)
     * +4 Maximum Str bonus
- * Spell Storing 3
+ * Spell Storing 5
  * **Arrow Storm**: Shoots 3 arrows, cloning the arrow type you use
  * **Broken Item**: Shoots an arrow at yourself, and 2 at the enemy (roll 2d20)
 
