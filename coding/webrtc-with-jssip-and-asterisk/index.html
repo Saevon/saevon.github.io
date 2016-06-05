@@ -112,7 +112,7 @@
     <footer>
         <small class="center copyright">
             <a href="//blog.saevon.ca/license/">
-                © Saevon 2015
+                © Saevon 2016
             </a>
         </small>
         <small class="center">
@@ -196,14 +196,14 @@
 </li>
 </ul>
 <p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
-    Remember to restart Asterisk once you're done.
+Remember to restart Asterisk once you're done.
 </div></p>
 </section></section><section class="&quot;section section2&quot;" id="jssip"><h2>JsSIP</h2>
 <p>JsSIP <a href="http://jssip.net/" title="JsSip">JsSIP</a> was quite easy to use, however it wasn't without its set of problems. If you want to do a quick test yourself, check out the <a href="https://jssip.tryit.net" title="JsSip Tryit">JsSIP Tryit</a> page.</p>
 <p>My main problem was that their script didn't seem to connect with asterisk properly, though I've already forgotten the reason (will update if I do). To solve this I updated to the dev version of JsSIP, which I download from the <a href="https://jssip.tryit.net" title="JsSip Tryit">JsSIP Tryit</a> page.</p>
 <p>Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.</p>
 <p><div class="alert alert-warning "><i class="fa fa-warning"></i>
-    I've included the patch below, use it at your own risk.
+I've included the patch below, use it at your own risk.
 </div></p>
 <div class="highlight"><pre><span class="gh">Index: /static/js/jssip-devel.js</span>
 <span class="gh">===================================================================</span>

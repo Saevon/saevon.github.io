@@ -29,7 +29,7 @@
 
 &lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="assembly"&gt;&lt;h2&gt;Assembly&lt;/h2&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
-    The code highlighter doesn't support this, but the "@&amp;hellip;" lines are comments in ARM Assembly
+The code highlighter doesn't support this, but the "@&amp;hellip;" lines are comments in ARM Assembly
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;You can see the &lt;code&gt;immed(SYSCALL_ID_CREATE)&lt;/code&gt; doing its job to put the value properly into assembly&lt;/p&gt;
 &lt;div class="no-pre-err"&gt;

@@ -71,6 +71,6 @@ rmvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
-    Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.
+Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.
 &lt;/div&gt;&lt;/p&gt;
 &lt;/section&gt;</summary><category term="python"></category><category term="virtualenv"></category><category term="pip"></category></entry></feed>

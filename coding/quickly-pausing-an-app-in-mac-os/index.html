@@ -112,7 +112,7 @@
     <footer>
         <small class="center copyright">
             <a href="//blog.saevon.ca/license/">
-                © Saevon 2015
+                © Saevon 2016
             </a>
         </small>
         <small class="center">
@@ -142,8 +142,8 @@
           <p>Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.</p>
 <section class="&quot;section section1&quot;" id="overview"><h1>Overview</h1>
 <p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
-    You can see the code in my config file repository, along with my other bash aliases.
-    <a href="bash-pauser">Click here to see the entire pause script</a>
+You can see the code in my config file repository, along with my other bash aliases.
+<a href="bash-pauser">Click here to see the entire pause script</a>
 </div></p>
 <p>I added the following bash functions</p>
 <p><code>pause_process(pid)</code>: nicer kill command that pauses a process (<code>kill -STOP</code>)</p>
@@ -151,8 +151,8 @@
 <p>As well as the opposing functions <code>resume_app()</code> and <code>resume_process()</code> (which use <code>kill -CONT</code>).</p>
 <section class="&quot;section section2&quot;" id="implementation"><h2>Implementation</h2>
 <p><div class="alert alert-info "><i class="fa fa-commenting"></i>
-    I'm not too great at bash, so if there's a better way to do this, do comment!
-    Thanks!
+I'm not too great at bash, so if there's a better way to do this, do comment!
+Thanks!
 </div></p>
 <p>First thing I needed was a nice way to work with lists in bash, so I made a function to map a command on each item.
 Using that I made a function that searches for processes that contain a given string. Then it maps a command on them</p>
@@ -194,8 +194,8 @@ resuming Chrome.app
 
 
 <p><div class="alert alert-warning "><i class="fa fa-warning"></i>
-    <code>pgrep</code> will find more that one app if they contain the same text in the process tag.
-    The best search string is one which contains the entire app name, (or at least the <code>.app</code> prefix)
+<code>pgrep</code> will find more that one app if they contain the same text in the process tag.
+The best search string is one which contains the entire app name, (or at least the <code>.app</code> prefix)
 </div></p>
 </section><section class="&quot;section section2&quot;" id="more-uses"><h2>More Uses</h2>
 <p>I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. <code>pause_all</code> reads a list of app names, mapping the pause script on them all. <code>resume_all</code> does the opposite. You can see it <a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh">here</a></p>

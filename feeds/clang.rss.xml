@@ -3,7 +3,7 @@
 &lt;p&gt;In this article I will discuss a simple solution to this problem.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="intro"&gt;&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
-    Jump straight to the &lt;a href="#solution"&gt;solution&lt;/a&gt;, or read about the situation ahead.
+Jump straight to the &lt;a href="#solution"&gt;solution&lt;/a&gt;, or read about the situation ahead.
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;I was working on a microkernel &lt;code&gt;(CS 452: Real Time Programming)&lt;/code&gt;, and I needed to do my compilations with a custom compiler, assembler and linker, so I could compile for ARM. However this required me to use an older version of gcc without the &lt;code&gt;--with-as=&lt;/code&gt; flag, thus I needed to get the assembler to run as a seperate command.&lt;/p&gt;
 &lt;p&gt;Enter a complication: I needed this to run tests on my local machine (Mac), as well as on those of my partners (Windows running cygwin), I also needed this to compile on a remote Linux server, which could do the necessary cross-compilation.&lt;/p&gt;

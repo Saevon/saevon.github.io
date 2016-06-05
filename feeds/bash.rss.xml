@@ -2,8 +2,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/bash.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 14 Aug 2015 00:00:00 -0400</lastBuildDate><item><title>Quickly pausing an app in Mac-OS</title><link>//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/</link><description>&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
-    You can see the code in my config file repository, along with my other bash aliases.
-    &lt;a href="bash-pauser"&gt;Click here to see the entire pause script&lt;/a&gt;
+You can see the code in my config file repository, along with my other bash aliases.
+&lt;a href="bash-pauser"&gt;Click here to see the entire pause script&lt;/a&gt;
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;I added the following bash functions&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;pause_process(pid)&lt;/code&gt;: nicer kill command that pauses a process (&lt;code&gt;kill -STOP&lt;/code&gt;)&lt;/p&gt;
@@ -11,8 +11,8 @@
 &lt;p&gt;As well as the opposing functions &lt;code&gt;resume_app()&lt;/code&gt; and &lt;code&gt;resume_process()&lt;/code&gt; (which use &lt;code&gt;kill -CONT&lt;/code&gt;).&lt;/p&gt;
 &lt;section class="&amp;quot;section section2&amp;quot;" id="implementation"&gt;&lt;h2&gt;Implementation&lt;/h2&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-commenting"&gt;&lt;/i&gt;
-    I'm not too great at bash, so if there's a better way to do this, do comment!
-    Thanks!
+I'm not too great at bash, so if there's a better way to do this, do comment!
+Thanks!
 &lt;/div&gt;&lt;/p&gt;
 &lt;p&gt;First thing I needed was a nice way to work with lists in bash, so I made a function to map a command on each item.
 Using that I made a function that searches for processes that contain a given string. Then it maps a command on them&lt;/p&gt;
@@ -54,8 +54,8 @@ resuming Chrome.app
 
 
 &lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
-    &lt;code&gt;pgrep&lt;/code&gt; will find more that one app if they contain the same text in the process tag.
-    The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
+&lt;code&gt;pgrep&lt;/code&gt; will find more that one app if they contain the same text in the process tag.
+The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
 &lt;/div&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="more-uses"&gt;&lt;h2&gt;More Uses&lt;/h2&gt;
 &lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it &lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;here&lt;/a&gt;&lt;/p&gt;
