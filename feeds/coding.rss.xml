@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/coding.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 14 Aug 2015 00:00:00 -0400</lastBuildDate><item><title>Quickly pausing an app in Mac-OS</title><link>//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/</link><description>&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+You can see the code in my config file repository, along with my other bash aliases.
+&lt;a href="bash-pauser"&gt;Click here to see the entire pause script&lt;/a&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;I added the following bash functions&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pause_process(pid)&lt;/code&gt;: nicer kill command that pauses a process (&lt;code&gt;kill -STOP&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pause_app(string)&lt;/code&gt;: searches for any proccesses with the given string, pausing them all&lt;/p&gt;
+&lt;p&gt;As well as the opposing functions &lt;code&gt;resume_app()&lt;/code&gt; and &lt;code&gt;resume_process()&lt;/code&gt; (which use &lt;code&gt;kill -CONT&lt;/code&gt;).&lt;/p&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="implementation"&gt;&lt;h2&gt;Implementation&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-commenting"&gt;&lt;/i&gt;
+I'm not too great at bash, so if there's a better way to do this, do comment!
+Thanks!
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;First thing I needed was a nice way to work with lists in bash, so I made a function to map a command on each item.
+Using that I made a function that searches for processes that contain a given string. Then it maps a command on them&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;function &lt;/span&gt;map&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for &lt;/span&gt;pid in &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
+        &lt;span class="nv"&gt;$2&lt;/span&gt; &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;pid&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;;
+    &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="nv"&gt;PGREP_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-U ${USER}&amp;quot;&lt;/span&gt;
+
+&lt;span class="k"&gt;function &lt;/span&gt;search_map&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    map &lt;span class="s2"&gt;&amp;quot;pgrep ${PGREP_FLAGS} -f \&amp;quot;$1\&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="nv"&gt;$2&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using this the &lt;code&gt;pause_app()&lt;/code&gt; command is quite simple, and the resume_app one as well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;function &lt;/span&gt;pause_app&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;echo &lt;/span&gt;pausing &lt;span class="nv"&gt;$1&lt;/span&gt;
+    search_map &lt;span class="s2"&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; pause_process;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="usage"&gt;&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Using this just requires knowing part of the app name:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pause_app Chrome.app
+pausing Chrome.app
+  pausing:  378
+  pausing:  406
+  pausing:  414
+&lt;span class="nv"&gt;$ &lt;/span&gt;resume_app Chrome.app
+resuming Chrome.app
+  resuming:  378
+  resuming:  406
+  resuming:  414
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+&lt;code&gt;pgrep&lt;/code&gt; will find more that one app if they contain the same text in the process tag.
+The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="more-uses"&gt;&lt;h2&gt;More Uses&lt;/h2&gt;
+&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it &lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="reference"&gt;&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser.sh"&gt;The entire pause Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;Pausing a list of apps at once&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 14 Aug 2015 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</guid><category>Mac OSX</category><category>bash</category></item><item><title>Compiling Assembly, Integrating with C</title><link>//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/</link><description>&lt;p&gt;Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
+&lt;p&gt;While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.&lt;/p&gt;
+&lt;p&gt;I also needed to have my user tasks call syscall functions, which ended up being stubs for the &lt;code&gt;swi&lt;/code&gt; ARM assembly command. Thus I needed assembly there too, however it needed to share the &lt;code&gt;syscall_id&lt;/code&gt; value between the kernel syscall handler, and the user syscall stubs.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-create-the-code"&gt;&lt;h1&gt;How to create the code&lt;/h1&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="header-files"&gt;&lt;h2&gt;Header files&lt;/h2&gt;
+&lt;p&gt;First comes the assemble helpers that will let us add immediate values using standard pre-processor constants.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// asm.h&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define immed(val) # ## val&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It simply defines adds a &lt;code&gt;#&lt;/code&gt; in front of the value (since ARM assembly uses a hash sign to mark immediate values)&lt;/p&gt;
+&lt;p&gt;Then define the function headers, so your C compiler knows that the functions will exist when you call the linker later.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// syscall.h&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;priority&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally we have our shared &lt;code&gt;syscall_id&lt;/code&gt; definitions.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define SYSCALL_ID_CREATE    1&lt;/span&gt;
+&lt;span class="cp"&gt;#define SYSCALL_ID_EXIT      12&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="assembly"&gt;&lt;h2&gt;Assembly&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+The code highlighter doesn't support this, but the "@&amp;hellip;" lines are comments in ARM Assembly
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;You can see the &lt;code&gt;immed(SYSCALL_ID_CREATE)&lt;/code&gt; doing its job to put the value properly into assembly&lt;/p&gt;
+&lt;div class="no-pre-err"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;sycall.S&lt;/span&gt;
+
+&lt;span class="c"&gt;#include &amp;lt;machine/asm.h&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;#include &amp;lt;kern/syscall_id.h&amp;gt;&lt;/span&gt;
+
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;span class="na"&gt;.text&lt;/span&gt;
+&lt;span class="na"&gt;.align&lt;/span&gt;  &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="na"&gt;.global&lt;/span&gt; &lt;span class="no"&gt;Create&lt;/span&gt;
+&lt;span class="na"&gt;.type&lt;/span&gt;   &lt;span class="no"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="no"&gt;function&lt;/span&gt;
+&lt;span class="nl"&gt;Create:&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;pretend&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;frame_needed&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;uses_anonymous_args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Push&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;args&lt;/span&gt;
+    &lt;span class="nf"&gt;stmfd&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="no"&gt;r0-r1&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Software&lt;/span&gt; &lt;span class="no"&gt;interrupt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;doing&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;syscall&lt;/span&gt;
+    &lt;span class="nf"&gt;swi&lt;/span&gt; &lt;span class="no"&gt;immed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SYSCALL_ID_CREATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Fix&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;stack&lt;/span&gt; &lt;span class="no"&gt;pointer&lt;/span&gt;
+    &lt;span class="nf"&gt;add&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c"&gt;#8&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt; &lt;span class="no"&gt;back&lt;/span&gt; &lt;span class="no"&gt;to&lt;/span&gt; &lt;span class="no"&gt;previous&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt;
+    &lt;span class="nf"&gt;mov&lt;/span&gt; &lt;span class="no"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;lr&lt;/span&gt;
+&lt;span class="na"&gt;.size&lt;/span&gt;   &lt;span class="no"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;.-Create&lt;/span&gt;
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+
+
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;span class="na"&gt;.text&lt;/span&gt;
+&lt;span class="na"&gt;.align&lt;/span&gt;  &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="na"&gt;.global&lt;/span&gt; &lt;span class="no"&gt;Exit&lt;/span&gt;
+&lt;span class="na"&gt;.type&lt;/span&gt;   &lt;span class="no"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="no"&gt;function&lt;/span&gt;
+&lt;span class="nl"&gt;Exit:&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;pretend&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;frame_needed&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;uses_anonymous_args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Software&lt;/span&gt; &lt;span class="no"&gt;interrupt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;doing&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;syscall&lt;/span&gt;
+    &lt;span class="nf"&gt;swi&lt;/span&gt; &lt;span class="no"&gt;immed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SYSCALL_ID_EXIT&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt; &lt;span class="no"&gt;back&lt;/span&gt; &lt;span class="no"&gt;to&lt;/span&gt; &lt;span class="no"&gt;previous&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt;
+    &lt;span class="nf"&gt;mov&lt;/span&gt; &lt;span class="no"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;lr&lt;/span&gt;
+&lt;span class="na"&gt;.size&lt;/span&gt;   &lt;span class="no"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;.-Exit&lt;/span&gt;
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-set-up-your-makefile"&gt;&lt;h1&gt;How to set-up your Makefile&lt;/h1&gt;
+&lt;p&gt;First we need to find each of the files, remember the &lt;code&gt;*.S&lt;/code&gt; files are your assembly + preproccessor.&lt;/p&gt;
+&lt;p&gt;Then we convert their endings to the resulting files that we want: &lt;code&gt;*.o&lt;/code&gt; files&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Kernel libraries&lt;/span&gt;
+&lt;span class="nv"&gt;ASMLIB&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell find ./kern/asm/ -name &lt;span class="s2"&gt;&amp;quot;*.S&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;CLIB&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell find ./kern/ -name &lt;span class="s2"&gt;&amp;quot;*.c&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;all&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;$(patsubst %.c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;%.o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;$(LIBS)) $(patsubst %.S&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;%.o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;$(ASMLIB))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then we have the actual commands that will compile the files.&lt;/p&gt;
+&lt;p&gt;Notice that the &lt;code&gt;*.S&lt;/code&gt; files only get pre-processed by gcc (using the &lt;code&gt;-E&lt;/code&gt; flag). Then they follow the standard chain to become &lt;code&gt;*.o&lt;/code&gt; files.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.c&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -S &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="nf"&gt;%.o&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.s&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;AS&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ASFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="nf"&gt;kern/asm/%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;kern/asm/%.S&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -E &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -O0 -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2015-08-13:coding/compiling-assembly-integrating-with-c/</guid><category>Real-Time (Trains)</category><category>assembly</category><category>ARM</category></item><item><title>Using the proper Assembler on Mac OSX</title><link>//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/</link><description>&lt;p&gt;The standard compiler &lt;code&gt;gcc&lt;/code&gt; for Mac OSX is actually the &lt;code&gt;clang&lt;/code&gt; compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that "&lt;code&gt;as&lt;/code&gt;" is not the clang assembler however, which causes it to break down.&lt;/p&gt;
+&lt;p&gt;In this article I will discuss a simple solution to this problem.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="intro"&gt;&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+Jump straight to the &lt;a href="#solution"&gt;solution&lt;/a&gt;, or read about the situation ahead.
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;I was working on a microkernel &lt;code&gt;(CS 452: Real Time Programming)&lt;/code&gt;, and I needed to do my compilations with a custom compiler, assembler and linker, so I could compile for ARM. However this required me to use an older version of gcc without the &lt;code&gt;--with-as=&lt;/code&gt; flag, thus I needed to get the assembler to run as a seperate command.&lt;/p&gt;
+&lt;p&gt;Enter a complication: I needed this to run tests on my local machine (Mac), as well as on those of my partners (Windows running cygwin), I also needed this to compile on a remote Linux server, which could do the necessary cross-compilation.&lt;/p&gt;
+&lt;p&gt;My resulting makefile had the following basic structure.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Create the assembly file so that we can use a seperate assembler in the next step&lt;/span&gt;
+&lt;span class="nf"&gt;%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.c&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -S &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Use out assembler to compile an object file&lt;/span&gt;
+&lt;span class="nf"&gt;%.o&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.s&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;AS&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ASFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Combine the object files using the linker&lt;/span&gt;
+&lt;span class="nf"&gt;%.elf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.o&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;LD&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;LDFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -Map &lt;span class="nv"&gt;$*&lt;/span&gt;.map -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$*&lt;/span&gt;.o &lt;span class="k"&gt;$(&lt;/span&gt;INC&lt;span class="k"&gt;)&lt;/span&gt; -lgcc
+    chmod a+r &lt;span class="nv"&gt;$@&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First we generate the assembly files, next we assemble the resulting files into object files. Finally we produce the elf file that will represent my Kernel.&lt;/p&gt;
+&lt;p&gt;This will run properly on the linux machine, however when I try to use the same makefile to generate code locally, it fails.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="solution"&gt;&lt;h1&gt;Solution&lt;/h1&gt;
+&lt;p&gt;The error I get looks like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;test_cbuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Unknown&lt;/span&gt; &lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_startproc&lt;/span&gt;
+&lt;span class="n"&gt;test_cbuf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;Unknown&lt;/span&gt; &lt;span class="n"&gt;pseudo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_def_cfa_offset&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So the assemble results from &lt;code&gt;gcc&lt;/code&gt; can't be read by the assembler?&lt;/p&gt;
+&lt;p&gt;It seems the &lt;code&gt;gcc&lt;/code&gt; and the &lt;code&gt;as&lt;/code&gt; progams that Mac has by default use differing standards.&lt;/p&gt;
+&lt;p&gt;The correct assembler to use uses a command like the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;clang -c -x assembler &lt;span class="nv"&gt;$@&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;Now to solve my situation above:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I can give a different &lt;code&gt;AS = "clang -c -x assembler"&lt;/code&gt; variable to my makefile&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;But then I either need to call it that way always (a pain) or add different instructions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I can add a simple bash script that calls the code above, one that is earlier in my &lt;code&gt;$PATH&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I opted for the second solution, mostly since this seems to be a more common use-case for me.&lt;/p&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 20 Jun 2014 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2014-06-20:coding/using-the-proper-assembler-on-mac-osx/</guid><category>Mac OSX</category><category>assembler</category><category>clang</category><category>Real-Time (Trains)</category></item><item><title>Python Virtual Environments and PIP</title><link>//blog.saevon.ca/coding/python-virtual-environments-and-pip/</link><description>&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="intro"&gt;&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Jump "straight" to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="virtualenvwrapper"&gt;&lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
+&lt;p&gt;This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.&lt;/p&gt;
+&lt;p&gt;I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.&lt;/p&gt;
+&lt;section class="&amp;quot;section section3&amp;quot;" id="changing-environments"&gt;&lt;h3&gt;Changing Environments&lt;/h3&gt;
+&lt;p&gt;To change environments is pretty easy, you just use the &lt;code&gt;workon&lt;/code&gt; command. This works whether you have a currently active environment or not.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;workon &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To deactivate the current environment you use the &lt;code&gt;deactivate&lt;/code&gt; command, just like normal. Though personally I though workoff was more obvious.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;alias &lt;/span&gt;&lt;span class="nv"&gt;workoff&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="tab-completion"&gt;&lt;h3&gt;Tab Completion!&lt;/h3&gt;
+&lt;p&gt;When using the &lt;code&gt;workon&lt;/code&gt; command you can tab complete to see the list of all the environments you have.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="addremove-environments"&gt;&lt;h3&gt;Add/Remove Environments&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Add a new environment&lt;/span&gt;
+mkvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Remove an environment&lt;/span&gt;
+rmvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="syspip"&gt;&lt;h1&gt;Syspip&lt;/h1&gt;
+&lt;p&gt;Heres where stuff gets interesting. To prevent mistakes while installing packages, I've added the following things to my bash startup scripts (&lt;code&gt;.bashrc&lt;/code&gt;, &lt;code&gt;.bash_aliases&lt;/code&gt;, etc.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# .bashrc&lt;/span&gt;
+
+&lt;span class="nb"&gt;source&lt;/span&gt; /usr/local/bin/virtualenvwrapper.sh
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;WORKON_HOME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;/.environments
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;PIP_VIRTUALENV_BASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;WORKON_HOME
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First notice that we set &lt;code&gt;PIP_REQUIRE_VIRTUALENV&lt;/code&gt;, this ensures that pip &lt;em&gt;will not&lt;/em&gt; run without an active virtual environment.&lt;/p&gt;
+&lt;p&gt;Second, do remember to set &lt;code&gt;PIP_VIRTUALENV_BASE&lt;/code&gt;, since that is what pip uses to tell if you have an environment active. (AFAIK)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# .bash_aliases&lt;/span&gt;
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;SYSTEM_PIP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;which pip&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;function &lt;/span&gt;syspip &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt; sudo &lt;span class="nv"&gt;$SYSTEM_PIP&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$@&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we first find which version of pip we use, then add a new way of using the global pip binary. Now you have 2 ways of installing a package, each of which always installs to the expected location.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;To install &lt;strong&gt;only&lt;/strong&gt; for the currently active environment, (or fail if it doesn't find one)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install &lt;span class="nv"&gt;$package&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To install &lt;strong&gt;only&lt;/strong&gt; globally&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;syspip install &lt;span class="nv"&gt;$package&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 12 Jul 2013 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2013-07-12:coding/python-virtual-environments-and-pip/</guid><category>python</category><category>virtualenv</category><category>pip</category></item><item><title>WebRTC with JsSIP and Asterisk</title><link>//blog.saevon.ca/coding/webrtc-with-jssip-and-asterisk/</link><description>&lt;p&gt;Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.&lt;/p&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="browsers"&gt;&lt;h2&gt;Browsers&lt;/h2&gt;
+&lt;p&gt;I've only tried to use chrome so far, though I've read that Firefox is currently WebRTC capable as well.&lt;/p&gt;
+&lt;p&gt;Chrome on OSX seems to work fine (version 27.0.1453.116).&lt;/p&gt;
+&lt;p&gt;Chrome on Ubuntu had problems until I updated to a &lt;a href="http://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-beta"&gt;Beta version&lt;/a&gt; (version 28.0.1500.52 beta)&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="asterisk"&gt;&lt;h2&gt;Asterisk&lt;/h2&gt;
+&lt;p&gt;Asterisk had quite a few requirements before I could get it to work with WebRTC, &lt;a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC"&gt;see this page for details&lt;/a&gt;.&lt;/p&gt;
+&lt;section class="&amp;quot;section section4&amp;quot;" id="building"&gt;&lt;h4&gt;Building&lt;/h4&gt;
+&lt;p&gt;You will likely need to rebuild Asterisk as WebRTC requires a SRTP libraries, which aren't included by default.&lt;/p&gt;
+&lt;p&gt;You will need the following libraries on the machine you use to recompile Asterisk:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;libssl-dev&lt;/li&gt;
+&lt;li&gt;libsrtp0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once you have these libraries installed, you will also need to enable two Asterisk resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;res_srtp.so&lt;/li&gt;
+&lt;li&gt;res_http_websocket.so&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you can recompile.&lt;/p&gt;
+&lt;p&gt;The resulting build might also need a few configuration changes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;asterisk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;modules&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;sip&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;http.conf&lt;/code&gt;
+    Ensure the following options are set&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;bindaddr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;
+&lt;span class="n"&gt;bindport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;8088&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;modules.conf&lt;/code&gt;
+    you must load res_http_websocket.so before chan_sip.so&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sip.conf&lt;/code&gt;
+    Any users that you want to allow WebRTC for you need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;encryption&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;avpf&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;transport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ws&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;wss&lt;/span&gt;
+&lt;span class="n"&gt;icesupport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Adding &lt;strong&gt;encryption=yes&lt;/strong&gt; to any non WebRTC phones might make them break, so be careful.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+Remember to restart Asterisk once you're done.
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="jssip"&gt;&lt;h2&gt;JsSIP&lt;/h2&gt;
+&lt;p&gt;JsSIP &lt;a href="http://jssip.net/" title="JsSip"&gt;JsSIP&lt;/a&gt; was quite easy to use, however it wasn't without its set of problems. If you want to do a quick test yourself, check out the &lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;My main problem was that their script didn't seem to connect with asterisk properly, though I've already forgotten the reason (will update if I do). To solve this I updated to the dev version of JsSIP, which I download from the &lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.&lt;/p&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+I've included the patch below, use it at your own risk.
+&lt;/div&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gh"&gt;Index: /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gh"&gt;===================================================================&lt;/span&gt;
+&lt;span class="gd"&gt;--- /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gi"&gt;+++ /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -3372,5 +3372,10 @@&lt;/span&gt;
+         console.log(LOG_PREFIX +&amp;#39;ICE candidate received: &amp;#39;+ e.candidate.candidate);
+       } else {
+&lt;span class="gd"&gt;-        self.onIceCompleted();&lt;/span&gt;
+&lt;span class="gi"&gt;+       // PATCH: (saevon) Fixes bug with the code crashing at this step.&lt;/span&gt;
+&lt;span class="gi"&gt;+       // since: neither createOffer nor createAnswer get called if you&lt;/span&gt;
+&lt;span class="gi"&gt;+       // had an &amp;quot;Invalid Target&amp;quot;&lt;/span&gt;
+&lt;span class="gi"&gt;+       // Thus the method doesn&amp;#39;t get added yet&lt;/span&gt;
+&lt;span class="gi"&gt;+       if (self.onIceCompleted) {&lt;/span&gt;
+&lt;span class="gi"&gt;+           self.onIceCompleted();&lt;/span&gt;
+&lt;span class="gi"&gt;+       }&lt;/span&gt;
+       }
+     };
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="conclusion"&gt;&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;WebRTC is clearly still a work in progress, and I hope it gets polished up nicely for when I next wish to use it.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="reference"&gt;&lt;h2&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://jssip.net/" title="JsSip"&gt;JsSIP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSip Tryit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC"&gt;Asterisk and WebRTC&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Thu, 04 Jul 2013 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2013-07-04:coding/webrtc-with-jssip-and-asterisk/</guid><category>webrtc</category><category>jssip</category><category>javascript</category><category>asterisk</category></item></channel></rss>

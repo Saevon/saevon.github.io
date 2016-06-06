@@ -1,0 +1,132 @@
+/******************************************/
+/* Re-Usable classes */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+tiny {
+  font-size: 60%;
+}
+.line-group {
+  display: inline-block;
+}
+
+dd {
+  margin-left: 40px;
+}
+
+
+
+/******************************************/
+/* General Layout */
+body {
+  padding: 20px;
+}
+
+.perma-link:hover {
+  text-decoration: none;
+}
+.category-excerpts .page-header small {
+  font-size: 40%;
+}
+
+.page h1,
+.page h2,
+.page h3 {
+  font-weight: bold;
+}
+.tagline {
+  /*
+  Ensures that the text stays on the same line if it will fit,
+  however if it needs to wrap it will go to the next line
+   */
+  display: inline-block;
+}
+
+  /* Main content sizing and positioning */
+  .section-content {
+    max-width: 800px;
+  }
+  .sidenav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+  }
+  .sidenav, .sidenav-placeholder {
+    max-width: 180px;
+  }
+
+  /* Sidenav Small */
+  @media (max-width: 770px) {
+    .sidenav {
+      position: relative;
+      max-width: 100%;
+      width: 100%;
+      padding: 0;
+
+      margin-bottom: 100px;
+    }
+  }
+
+
+
+
+/******************************************/
+/* Paging */
+.paginator .btn {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+
+/********************************************/
+/* Bootstrap Colours (Customized) */
+.alert-success,
+.text-success {
+  color: #468847;
+}
+.alert-info,
+.text-info {
+  color: #3A87AD;
+}
+.alert-warning,
+.text-warning {
+  color: #C09853;
+}
+
+.alert code {
+  background-color: rgba(230, 230, 230, .2);
+  border: solid rgba(180, 180, 180, .5) 1px;
+}
+
+
+/* Fix the difficult to notice links in the info box */
+.alert-info a {
+  text-decoration: underline;
+}
+
+code {
+  background-color: #F8F8F8;
+  font-style: italic;
+  color: #2593C7;
+}
+
+
+
+/*****************************************************/
+/* Bulleted lists */
+p + ul, p + ol {
+  margin-bottom: 10px;
+}
+
+
+
+/******************************************************/
+/* Pygments Customizations */
+.no-pre-err pre .err {
+  border: none;
+}
+
+

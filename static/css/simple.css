@@ -1,0 +1,85 @@
+code {
+    background-color: #F8F8F8;
+    font-style: italic;
+    color: #2593C7;
+}
+
+dt > code {
+    color: inherit;
+    padding: inherit;
+
+    background-color: inherit;
+}
+
+blockquote {
+    font-size: 90%;
+    font-style: italic;
+}
+
+
+dd {
+    padding-bottom: 4px;
+}
+
+dd p:last-child {
+    margin-bottom: 0;
+}
+
+.names-block .names-block-person {
+    display: inline-block;
+
+    min-width: 30%;
+}
+
+
+.spacer {
+    width: 10px;
+    height: 50px;
+}
+
+.md5 pre {
+    font-size: 80%;
+}
+
+
+
+/**************************************************************/
+/* Auto-incrementing headers */
+.article .content {
+    counter-reset: h1counter 0 h2counter 0 h3counter 0;
+}
+.article .content h1 {
+    counter-reset: h2counter 0 h3counter 0;
+}
+.article .content h2 {
+    counter-reset: h3counter 0;
+}
+
+
+.article .content h1:not(.nocount):before {
+    content: counter(h1counter) "\0000a0\0000a0";
+    counter-increment: h1counter;
+}
+.article .content h2:not(.header-nocount):before {
+    content: counter(h1counter) "." counter(h2counter) "\0000a0\0000a0";
+    counter-increment: h2counter;
+}
+.article .content h3:not(.header-nocount):before {
+    content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "\0000a0\0000a0";
+    counter-increment: h3counter;
+}
+
+
+/* Specifically for reports: shrinks the header sizes past the main one */
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h5 {
+    text-decoration: underline;
+}
+
+
+

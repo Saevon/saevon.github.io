@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/webrtc.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2013-07-04T00:00:00-04:00</updated><entry><title>WebRTC with JsSIP and Asterisk</title><link href="//blog.saevon.ca/coding/webrtc-with-jssip-and-asterisk/" rel="alternate"></link><updated>2013-07-04T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2013-07-04:coding/webrtc-with-jssip-and-asterisk/</id><summary type="html">&lt;p&gt;Recently I've been trying to get a web phone up and running, my only real requirement was to use Asterisk. So I decided to go with the following technology stack, JsSIP, Chrome and Asterisk.&lt;/p&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="browsers"&gt;&lt;h2&gt;Browsers&lt;/h2&gt;
+&lt;p&gt;I've only tried to use chrome so far, though I've read that Firefox is currently WebRTC capable as well.&lt;/p&gt;
+&lt;p&gt;Chrome on OSX seems to work fine (version 27.0.1453.116).&lt;/p&gt;
+&lt;p&gt;Chrome on Ubuntu had problems until I updated to a &lt;a href="http://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-beta"&gt;Beta version&lt;/a&gt; (version 28.0.1500.52 beta)&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="asterisk"&gt;&lt;h2&gt;Asterisk&lt;/h2&gt;
+&lt;p&gt;Asterisk had quite a few requirements before I could get it to work with WebRTC, &lt;a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC"&gt;see this page for details&lt;/a&gt;.&lt;/p&gt;
+&lt;section class="&amp;quot;section section4&amp;quot;" id="building"&gt;&lt;h4&gt;Building&lt;/h4&gt;
+&lt;p&gt;You will likely need to rebuild Asterisk as WebRTC requires a SRTP libraries, which aren't included by default.&lt;/p&gt;
+&lt;p&gt;You will need the following libraries on the machine you use to recompile Asterisk:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;libssl-dev&lt;/li&gt;
+&lt;li&gt;libsrtp0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once you have these libraries installed, you will also need to enable two Asterisk resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;res_srtp.so&lt;/li&gt;
+&lt;li&gt;res_http_websocket.so&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you can recompile.&lt;/p&gt;
+&lt;p&gt;The resulting build might also need a few configuration changes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;asterisk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;modules&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+  &lt;span class="o"&gt;|--&lt;/span&gt; &lt;span class="n"&gt;sip&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;http.conf&lt;/code&gt;
+    Ensure the following options are set&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;bindaddr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;
+&lt;span class="n"&gt;bindport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;8088&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;modules.conf&lt;/code&gt;
+    you must load res_http_websocket.so before chan_sip.so&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sip.conf&lt;/code&gt;
+    Any users that you want to allow WebRTC for you need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;encryption&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;avpf&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;span class="n"&gt;transport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ws&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;wss&lt;/span&gt;
+&lt;span class="n"&gt;icesupport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Adding &lt;strong&gt;encryption=yes&lt;/strong&gt; to any non WebRTC phones might make them break, so be careful.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+Remember to restart Asterisk once you're done.
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="jssip"&gt;&lt;h2&gt;JsSIP&lt;/h2&gt;
+&lt;p&gt;JsSIP &lt;a href="http://jssip.net/" title="JsSip"&gt;JsSIP&lt;/a&gt; was quite easy to use, however it wasn't without its set of problems. If you want to do a quick test yourself, check out the &lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;My main problem was that their script didn't seem to connect with asterisk properly, though I've already forgotten the reason (will update if I do). To solve this I updated to the dev version of JsSIP, which I download from the &lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSIP Tryit&lt;/a&gt; page.&lt;/p&gt;
+&lt;p&gt;Afterwards I would also have jssip error out when I tried to type in an invalid target, I patched it quickly removing the potentially erroneous code. I didn't know enough about their side of the problem, so I have no way of knowing if this is a correct fix.&lt;/p&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+I've included the patch below, use it at your own risk.
+&lt;/div&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gh"&gt;Index: /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gh"&gt;===================================================================&lt;/span&gt;
+&lt;span class="gd"&gt;--- /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gi"&gt;+++ /static/js/jssip-devel.js&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -3372,5 +3372,10 @@&lt;/span&gt;
+         console.log(LOG_PREFIX +&amp;#39;ICE candidate received: &amp;#39;+ e.candidate.candidate);
+       } else {
+&lt;span class="gd"&gt;-        self.onIceCompleted();&lt;/span&gt;
+&lt;span class="gi"&gt;+       // PATCH: (saevon) Fixes bug with the code crashing at this step.&lt;/span&gt;
+&lt;span class="gi"&gt;+       // since: neither createOffer nor createAnswer get called if you&lt;/span&gt;
+&lt;span class="gi"&gt;+       // had an &amp;quot;Invalid Target&amp;quot;&lt;/span&gt;
+&lt;span class="gi"&gt;+       // Thus the method doesn&amp;#39;t get added yet&lt;/span&gt;
+&lt;span class="gi"&gt;+       if (self.onIceCompleted) {&lt;/span&gt;
+&lt;span class="gi"&gt;+           self.onIceCompleted();&lt;/span&gt;
+&lt;span class="gi"&gt;+       }&lt;/span&gt;
+       }
+     };
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="conclusion"&gt;&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;WebRTC is clearly still a work in progress, and I hope it gets polished up nicely for when I next wish to use it.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="reference"&gt;&lt;h2&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://jssip.net/" title="JsSip"&gt;JsSIP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://jssip.tryit.net" title="JsSip Tryit"&gt;JsSip Tryit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://wiki.asterisk.org/wiki/display/AST/Asterisk+WebRTC+Support" title="Asterisk and WebRTC"&gt;Asterisk and WebRTC&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</summary><category term="webrtc"></category><category term="jssip"></category><category term="javascript"></category><category term="asterisk"></category></entry></feed>

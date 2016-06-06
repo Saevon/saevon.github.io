@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/pip.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 12 Jul 2013 00:00:00 -0400</lastBuildDate><item><title>Python Virtual Environments and PIP</title><link>//blog.saevon.ca/coding/python-virtual-environments-and-pip/</link><description>&lt;p&gt;virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="intro"&gt;&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Jump "straight" to the &lt;a href="#Syspip"&gt;Syspip&lt;/a&gt; section if you know all about python packaging and virtualenv.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="virtualenvwrapper"&gt;&lt;h1&gt;virtualenvwrapper&lt;/h1&gt;
+&lt;p&gt;This is a really useful tool, even if it adds binaries with amazingly long names. It lets you easily and quickly list, add, and switch to a virtualenv.&lt;/p&gt;
+&lt;p&gt;I don't usually need all the many options this script provides, and would also prefer for it to be easier to combine the virtualenvwrapper's and git's PS1 prompt changes.&lt;/p&gt;
+&lt;section class="&amp;quot;section section3&amp;quot;" id="changing-environments"&gt;&lt;h3&gt;Changing Environments&lt;/h3&gt;
+&lt;p&gt;To change environments is pretty easy, you just use the &lt;code&gt;workon&lt;/code&gt; command. This works whether you have a currently active environment or not.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;workon &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To deactivate the current environment you use the &lt;code&gt;deactivate&lt;/code&gt; command, just like normal. Though personally I though workoff was more obvious.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;alias &lt;/span&gt;&lt;span class="nv"&gt;workoff&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="tab-completion"&gt;&lt;h3&gt;Tab Completion!&lt;/h3&gt;
+&lt;p&gt;When using the &lt;code&gt;workon&lt;/code&gt; command you can tab complete to see the list of all the environments you have.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section3&amp;quot;" id="addremove-environments"&gt;&lt;h3&gt;Add/Remove Environments&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Add a new environment&lt;/span&gt;
+mkvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Remove an environment&lt;/span&gt;
+rmvirtualenv &lt;span class="nv"&gt;$env_name&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="syspip"&gt;&lt;h1&gt;Syspip&lt;/h1&gt;
+&lt;p&gt;Heres where stuff gets interesting. To prevent mistakes while installing packages, I've added the following things to my bash startup scripts (&lt;code&gt;.bashrc&lt;/code&gt;, &lt;code&gt;.bash_aliases&lt;/code&gt;, etc.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# .bashrc&lt;/span&gt;
+
+&lt;span class="nb"&gt;source&lt;/span&gt; /usr/local/bin/virtualenvwrapper.sh
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;WORKON_HOME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;/.environments
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;PIP_VIRTUALENV_BASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;WORKON_HOME
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First notice that we set &lt;code&gt;PIP_REQUIRE_VIRTUALENV&lt;/code&gt;, this ensures that pip &lt;em&gt;will not&lt;/em&gt; run without an active virtual environment.&lt;/p&gt;
+&lt;p&gt;Second, do remember to set &lt;code&gt;PIP_VIRTUALENV_BASE&lt;/code&gt;, since that is what pip uses to tell if you have an environment active. (AFAIK)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# .bash_aliases&lt;/span&gt;
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;SYSTEM_PIP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;which pip&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;function &lt;/span&gt;syspip &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;PIP_REQUIRE_VIRTUALENV&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt; sudo &lt;span class="nv"&gt;$SYSTEM_PIP&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$@&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we first find which version of pip we use, then add a new way of using the global pip binary. Now you have 2 ways of installing a package, each of which always installs to the expected location.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;To install &lt;strong&gt;only&lt;/strong&gt; for the currently active environment, (or fail if it doesn't find one)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install &lt;span class="nv"&gt;$package&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To install &lt;strong&gt;only&lt;/strong&gt; globally&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;syspip install &lt;span class="nv"&gt;$package&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+Don't forget to load &lt;code&gt;.bash_aliases&lt;/code&gt; before you activate any environments, otherwise &lt;code&gt;syspip&lt;/code&gt; might not work as advertised.
+&lt;/div&gt;&lt;/p&gt;
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Fri, 12 Jul 2013 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2013-07-12:coding/python-virtual-environments-and-pip/</guid><category>python</category><category>virtualenv</category><category>pip</category></item></channel></rss>

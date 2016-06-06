@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/assembly.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 13 Aug 2015 00:00:00 -0400</lastBuildDate><item><title>Compiling Assembly, Integrating with C</title><link>//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/</link><description>&lt;p&gt;Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
+&lt;p&gt;While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.&lt;/p&gt;
+&lt;p&gt;I also needed to have my user tasks call syscall functions, which ended up being stubs for the &lt;code&gt;swi&lt;/code&gt; ARM assembly command. Thus I needed assembly there too, however it needed to share the &lt;code&gt;syscall_id&lt;/code&gt; value between the kernel syscall handler, and the user syscall stubs.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-create-the-code"&gt;&lt;h1&gt;How to create the code&lt;/h1&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="header-files"&gt;&lt;h2&gt;Header files&lt;/h2&gt;
+&lt;p&gt;First comes the assemble helpers that will let us add immediate values using standard pre-processor constants.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// asm.h&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define immed(val) # ## val&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It simply defines adds a &lt;code&gt;#&lt;/code&gt; in front of the value (since ARM assembly uses a hash sign to mark immediate values)&lt;/p&gt;
+&lt;p&gt;Then define the function headers, so your C compiler knows that the functions will exist when you call the linker later.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// syscall.h&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;priority&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally we have our shared &lt;code&gt;syscall_id&lt;/code&gt; definitions.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define SYSCALL_ID_CREATE    1&lt;/span&gt;
+&lt;span class="cp"&gt;#define SYSCALL_ID_EXIT      12&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="assembly"&gt;&lt;h2&gt;Assembly&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+The code highlighter doesn't support this, but the "@&amp;hellip;" lines are comments in ARM Assembly
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;You can see the &lt;code&gt;immed(SYSCALL_ID_CREATE)&lt;/code&gt; doing its job to put the value properly into assembly&lt;/p&gt;
+&lt;div class="no-pre-err"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;sycall.S&lt;/span&gt;
+
+&lt;span class="c"&gt;#include &amp;lt;machine/asm.h&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;#include &amp;lt;kern/syscall_id.h&amp;gt;&lt;/span&gt;
+
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;span class="na"&gt;.text&lt;/span&gt;
+&lt;span class="na"&gt;.align&lt;/span&gt;  &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="na"&gt;.global&lt;/span&gt; &lt;span class="no"&gt;Create&lt;/span&gt;
+&lt;span class="na"&gt;.type&lt;/span&gt;   &lt;span class="no"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="no"&gt;function&lt;/span&gt;
+&lt;span class="nl"&gt;Create:&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;pretend&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;frame_needed&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;uses_anonymous_args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Push&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;args&lt;/span&gt;
+    &lt;span class="nf"&gt;stmfd&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="no"&gt;r0-r1&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Software&lt;/span&gt; &lt;span class="no"&gt;interrupt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;doing&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;syscall&lt;/span&gt;
+    &lt;span class="nf"&gt;swi&lt;/span&gt; &lt;span class="no"&gt;immed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SYSCALL_ID_CREATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Fix&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;stack&lt;/span&gt; &lt;span class="no"&gt;pointer&lt;/span&gt;
+    &lt;span class="nf"&gt;add&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;sp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c"&gt;#8&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt; &lt;span class="no"&gt;back&lt;/span&gt; &lt;span class="no"&gt;to&lt;/span&gt; &lt;span class="no"&gt;previous&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt;
+    &lt;span class="nf"&gt;mov&lt;/span&gt; &lt;span class="no"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;lr&lt;/span&gt;
+&lt;span class="na"&gt;.size&lt;/span&gt;   &lt;span class="no"&gt;Create&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;.-Create&lt;/span&gt;
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+
+
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;span class="na"&gt;.text&lt;/span&gt;
+&lt;span class="na"&gt;.align&lt;/span&gt;  &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="na"&gt;.global&lt;/span&gt; &lt;span class="no"&gt;Exit&lt;/span&gt;
+&lt;span class="na"&gt;.type&lt;/span&gt;   &lt;span class="no"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="no"&gt;function&lt;/span&gt;
+&lt;span class="nl"&gt;Exit:&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;pretend&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;frame_needed&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;uses_anonymous_args&lt;/span&gt; &lt;span class="err"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Software&lt;/span&gt; &lt;span class="no"&gt;interrupt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;doing&lt;/span&gt; &lt;span class="no"&gt;the&lt;/span&gt; &lt;span class="no"&gt;syscall&lt;/span&gt;
+    &lt;span class="nf"&gt;swi&lt;/span&gt; &lt;span class="no"&gt;immed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;SYSCALL_ID_EXIT&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="nf"&gt;Exit&lt;/span&gt; &lt;span class="no"&gt;back&lt;/span&gt; &lt;span class="no"&gt;to&lt;/span&gt; &lt;span class="no"&gt;previous&lt;/span&gt; &lt;span class="no"&gt;frame&lt;/span&gt;
+    &lt;span class="nf"&gt;mov&lt;/span&gt; &lt;span class="no"&gt;pc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;lr&lt;/span&gt;
+&lt;span class="na"&gt;.size&lt;/span&gt;   &lt;span class="no"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;.-Exit&lt;/span&gt;
+&lt;span class="err"&gt;@-----------------------------------------------------------&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="how-to-set-up-your-makefile"&gt;&lt;h1&gt;How to set-up your Makefile&lt;/h1&gt;
+&lt;p&gt;First we need to find each of the files, remember the &lt;code&gt;*.S&lt;/code&gt; files are your assembly + preproccessor.&lt;/p&gt;
+&lt;p&gt;Then we convert their endings to the resulting files that we want: &lt;code&gt;*.o&lt;/code&gt; files&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Kernel libraries&lt;/span&gt;
+&lt;span class="nv"&gt;ASMLIB&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell find ./kern/asm/ -name &lt;span class="s2"&gt;&amp;quot;*.S&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;CLIB&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell find ./kern/ -name &lt;span class="s2"&gt;&amp;quot;*.c&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;all&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;$(patsubst %.c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;%.o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;$(LIBS)) $(patsubst %.S&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;%.o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;$(ASMLIB))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then we have the actual commands that will compile the files.&lt;/p&gt;
+&lt;p&gt;Notice that the &lt;code&gt;*.S&lt;/code&gt; files only get pre-processed by gcc (using the &lt;code&gt;-E&lt;/code&gt; flag). Then they follow the standard chain to become &lt;code&gt;*.o&lt;/code&gt; files.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.c&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -S &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="nf"&gt;%.o&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;%.s&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;AS&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ASFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+
+&lt;span class="nf"&gt;kern/asm/%.s&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;kern/asm/%.S&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;CC&lt;span class="k"&gt;)&lt;/span&gt; -E &lt;span class="k"&gt;$(&lt;/span&gt;CFLAGS&lt;span class="k"&gt;)&lt;/span&gt; -O0 -o &lt;span class="nv"&gt;$@&lt;/span&gt; &lt;span class="nv"&gt;$&amp;lt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Saevon</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 -0400</pubDate><guid>tag://blog.saevon.ca,2015-08-13:coding/compiling-assembly-integrating-with-c/</guid><category>Real-Time (Trains)</category><category>assembly</category><category>ARM</category></item></channel></rss>

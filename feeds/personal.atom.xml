@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/personal.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2014-07-03T00:00:00-04:00</updated><entry><title>Psychology ~ Where are you going?</title><link href="//blog.saevon.ca/personal/psychology-walking/" rel="alternate"></link><updated>2014-07-03T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2014-07-03:personal/psychology-walking/</id><summary type="html">&lt;p&gt;How many times have you had to do the "sidewalk dance" where you try to shuffle out of the way of another person? Well there is a pretty simple solution.&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;p&gt;Recently a friend of mine commented about something he read on reddit, people use gaze to figure out which way others are going. Now I'd been using this to avoid crowds, and even to indicate to my friends where to go next. However I realized that not many people know of this.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="psychology"&gt;&lt;h1&gt;Psychology&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+No studies have been found supporting this, so treat this as pure theory and hearsay
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;When a person walks around, they will usually glance in the direction they're going. This can be used to find out where others are going, and most of us do so subconsciously. However, the real utility lies in getting through a crowded area. Anytime there are people going in the opposite direction, you can determinately look in between people, or to thier side, and they'll make room for you.&lt;/p&gt;
+&lt;p&gt;Now one thing you might notice is that people who do a common courtesy (at least where I'm from), and glance into people's eyes, will be at a disadvantage. After all the other person now has no cues to tell where you'll be going.&lt;/p&gt;
+&lt;/section&gt;</summary><category term="psychology"></category></entry><entry><title>Hello World!</title><link href="//blog.saevon.ca/personal/hello-world/" rel="alternate"></link><updated>2013-07-03T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2013-07-03:personal/hello-world/</id><summary type="html">&lt;p&gt;Welcome to my Blog!&lt;/p&gt;
+&lt;p&gt;So I've finally decided to get myself a blog, after seeing a few options I decided to go with Jekyll and Github Pages.&lt;/p&gt;
+&lt;section class="&amp;quot;section section2&amp;quot;" id="purpose"&gt;&lt;h2&gt;Purpose&lt;/h2&gt;
+&lt;p&gt;I feel this blog could combine most of my passions, coding, movies, and anything else I feel like blogging about. To that end my goal is to separate the main page into multiple post groups. Each group would let you see new posts from that category.&lt;/p&gt;
+&lt;p&gt;As I add more topics I will update this post.&lt;/p&gt;
+&lt;section class="&amp;quot;section section4&amp;quot;" id="coding"&gt;&lt;h4&gt;Coding&lt;/h4&gt;
+&lt;p&gt;This would list any CS related topics, and though the title is "Coding" it would include algorithms and other such theoretical topics.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section4&amp;quot;" id="media"&gt;&lt;h4&gt;Media&lt;/h4&gt;
+&lt;p&gt;This would be a conglomeration of any movies, books, and other such topics. Mostly this will compose of reviews.&lt;/p&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section4&amp;quot;" id="rant"&gt;&lt;h4&gt;Rant&lt;/h4&gt;
+&lt;p&gt;Miscellaneous talks will go here&lt;/p&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="conclusion"&gt;&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;&lt;div class="alert alert-success "&gt;&lt;i class="fa fa-noicon"&gt;&lt;/i&gt;
+&lt;strong&gt;Thank you&lt;/strong&gt; for reading this far
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Expect to see many changes for the next months as I customize this blog and personalize as much as I can.&lt;/p&gt;
+&lt;/section&gt;</summary><category term="rant"></category></entry></feed>
