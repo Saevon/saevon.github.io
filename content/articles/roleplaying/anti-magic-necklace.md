@@ -23,6 +23,6 @@ Perfect for those pesky wizards! And great against creatures which eat magic as 
 This acts like the spell **Antimagic Field** and cannot be cast unless worn.
 
 
-### Anti-Kaern
+### Anti-Kaernor
 
-This necklace was made to fight against the Kaern, which eat magic, and spread a magical disease while doing so. Thus while allied abilities are suppressed under the field, no magic eating can occur.
+This necklace was made to fight against the Kaernor, which eat magic, and spread a magical disease while doing so. Thus while allied abilities are suppressed under the field, no magic eating can occur.

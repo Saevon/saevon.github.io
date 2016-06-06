@@ -1,7 +1,7 @@
 Template: article
 Title: Weeping Minds (Horror): 001
 Tagline: Prologue for the Horror Campaign
-Date: 2015-10-09
+Date: 2015-10-16
 Category: roleplaying
 Tags: Weeping Minds, D&D, journal
 Characters: Artix the Uncanny, Zair, Jack

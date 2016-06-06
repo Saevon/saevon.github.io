@@ -1,7 +1,7 @@
 Template: article
 Title: Glove of Storing
 Tagline: A few extra potions never hurt
-Date: 2015-10-12
+Date: 2016-06-06
 Category: roleplaying
 Tags: magic-item, D&D
 Characters: Craka, Aegis, Galthor, Valkyrie, Thrisperios

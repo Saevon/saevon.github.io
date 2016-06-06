@@ -1,7 +1,7 @@
 Template: article
 Title: Teleportation Vial
 Tagline: Teleport around your enemies, Teleport around your friends!
-Date: 2015-10-12
+Date: 2016-06-06
 Category: roleplaying
 Tags: magic-item, D&D
 

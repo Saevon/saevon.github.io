@@ -54,10 +54,12 @@ This ability is also affected by the owner's thoughts. Thus if an animated item 
 
 This ability manifests as the blade passing through opponents, and causing them to feel more and more exhausted, or . Thus the blade is still used to slash or stab, but passes through the opponents instead, seemingly turning into a pale blue ghostly blade. Against creatures immune to subdual damage, it works like normal.
 
+Originally named after Lord Kaern, who also created the original "Kaern" (magitech items)
+
 
 ### Description
 
-Kaern's Blade is a True Chaotic intelligent magic item, it does not speak, or act in any way by itself, lying dormant most of the time. The blade's refusal to kill and Magic absorbtion are a facet of its personality, as it was originally made to destroy wards and other magical defenses.
+Kaern's Blade is a True Chaotic intelligent magic item, it does not speak, or act in any way by itself, lying dormant most of the time. The blade's refusal to kill and Magic absorption are a facet of its personality, as it was originally made to destroy wards and other magical defenses.
 
 The blade is a pale silver colour, with glowing sky blue symbols along the length.
 

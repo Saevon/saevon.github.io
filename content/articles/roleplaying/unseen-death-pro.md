@@ -1,10 +1,12 @@
 Template: article
 Title: Unseen Death (One-Shot)
 Tagline: My Intro Campaign
-Date: 2015-09-25
+Date: 2015-10-25
 Category: roleplaying
 Tags: Unseen Death, D&D, journal
 Players: Syc, Cr4ka
+
+A story about a Kobold Tax Crew, looking for mithral.
 
 
 ## Cast
