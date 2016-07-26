@@ -94,6 +94,6 @@ I've also made a bash script that freezes all the processes I consider extraneou
 * [The entire pause Script][bash-pauser]
 * [Pausing a list of apps at once][bash-pauser-all]
 
-[bash-pauser]: https://github.com/Saevon/config/blob/master/cbash/pauser.sh
-[bash-pauser-all]: https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh
+[bash-pauser]: https://github.com/Saevon/config/blob/master/bash/pauser.bash
+[bash-pauser-all]: https://github.com/Saevon/config/blob/master/bash/pauser_template.bash
 
