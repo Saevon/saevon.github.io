@@ -21,6 +21,10 @@ function warn {
 	echo -e '\x1b[0;33mWARN:' $@ '\x1b[0;0m' 1>&2
 }
 
+function err {
+	echo -e '\x1b[0;91mERROR:' $@ '\x1b[0;0m' 1>&2
+}
+
 # Warn the user, then ask them if they want to continue
 function ask_warn {
 	warn $@
@@ -43,10 +47,16 @@ output="/tmp/$tmp_prefix-$uuid-site"
 
 
 function cleanup {
+	local status=$?
+
 	echo 'Cleaning Up'
 
 	# Cleanup all tmp folders
 	rm -rf /tmp/$tmp_prefix*
+
+	if [ $status == 0 ]; then
+		exit 0
+	fi
 
 	exit 1
 }
@@ -65,7 +75,7 @@ fi
 mkdir -p $tmp
 cd $tmp
 if [[ `pwd` != $tmp ]]; then
-	echo 'ERROR: Not working in the correct directory'
+	err 'Not working in the correct directory'
 fi
 
 
@@ -77,7 +87,7 @@ git remote add -f origin $URL
 # Create the static site
 git checkout source
 if [[ $? != 0 ]]; then
-	echo "ERROR: Can't checkout master"
+	err "Can't checkout master"
 	exit 1;
 fi
 pelican -s publishconf.py -o $output
@@ -87,7 +97,7 @@ pelican -s publishconf.py -o $output
 while read file; do
 	cp ./content/$file $output/
 	if [[ $? != 0 ]]; then
-		echo "WARNING: File not found $file"
+		warn "File not found $file"
 	fi
 done < .publish-copy
 
@@ -95,7 +105,7 @@ done < .publish-copy
 # Get the latest version of master
 git checkout master
 if [[ $? != 0 ]]; then
-	echo "ERROR: Can't checkout master"
+	err "Can't checkout master"
 	exit 1;
 fi
 
@@ -114,3 +124,6 @@ git add *
 # Update master
 git commit -a -m "Publishes new static content `date`"
 git push -f origin master
+
+# Make sure the cleanup script sees we finished without errors
+exit 0
