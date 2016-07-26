@@ -58,11 +58,11 @@ resuming Chrome.app
 The best search string is one which contains the entire app name, (or at least the &lt;code&gt;.app&lt;/code&gt; prefix)
 &lt;/div&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;section class="&amp;quot;section section2&amp;quot;" id="more-uses"&gt;&lt;h2&gt;More Uses&lt;/h2&gt;
-&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it &lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I've also made a bash script that freezes all the processes I consider extraneous to give my computer some resources during clinch moments. &lt;code&gt;pause_all&lt;/code&gt; reads a list of app names, mapping the pause script on them all. &lt;code&gt;resume_all&lt;/code&gt; does the opposite. You can see it &lt;a href="https://github.com/Saevon/config/blob/master/bash/pauser_template.bash"&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="reference"&gt;&lt;h1&gt;Reference&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser.sh"&gt;The entire pause Script&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/cbash/pauser_template.sh"&gt;Pausing a list of apps at once&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/bash/pauser.bash"&gt;The entire pause Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/config/blob/master/bash/pauser_template.bash"&gt;Pausing a list of apps at once&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/section&gt;</summary><category term="Mac OSX"></category><category term="bash"></category></entry><entry><title>Compiling Assembly, Integrating with C</title><link href="//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" rel="alternate"></link><updated>2015-08-13T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-08-13:coding/compiling-assembly-integrating-with-c/</id><summary type="html">&lt;p&gt;Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
