@@ -21,7 +21,7 @@
 
 
 {% block title %}
-    {{ super() }}: {{ article.title }}
+    {{ super() }} - {{ article.title|file_title_case }}
 {% endblock title %}
 
 
