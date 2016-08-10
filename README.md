@@ -13,7 +13,7 @@ The `master` and `source` branches are different repositories.
 
 ## Usage
 
-### Pubishing
+### Publishing
 
 Luckily there's a script for that
 
@@ -37,20 +37,18 @@ python setup.py develop
 
 The following define the basic article info
 
-<br />`Title`:
-<br />`Tagline`:
-<br />`Date`:
-<br />`Category`:
-<br />`Tags`:
+<br />`Title`
+<br />`Tagline`
+<br />`Date`
+<br />`Category`
+<br />`Tags`
 
-#### Optional Tags
+##### Optional Tags
 
 <br />`status`:   Status of the article: `draft` (not published), `hidden` (not listed), `published`
 <br />`slug`:     what
 <br />`Template`: The html style to use should be `article`
 <br />`Style`:    The css style to use: `simple`, `default`
-
-#### Flags
 
 <br />`IsNumbered`:  Makes headers show numbers
 <br />`NoSidenav`:   Hides the sidebar
