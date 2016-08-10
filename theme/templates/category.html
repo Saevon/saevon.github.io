@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
+{% block title %}
+    {{ super() }}: {{ category|title_case }}
+{% endblock title %}
+
 
 {% block content %}
     <section class="page category">
-        {% set title = category|capitalize %}
+        {% set title = category|title_case %}
         {% set tagline = CATEGORY_TAGLINES[category] %}
         {% set permalink = category.url %}
         {% include 'partial/header.html' %}

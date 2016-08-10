@@ -10,7 +10,6 @@
 
 
 
-
 {% block css %}
     {{ super() }}
 
@@ -18,6 +17,11 @@
         <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/simple.css">
     {% endif %}
 {% endblock %}
+
+
+{% block title %}
+    {{ super() }}: {{ article.title }}
+{% endblock title %}
 
 
 {% block content %}
@@ -46,9 +50,8 @@
     {% if not main.nofooter %}
         <footer>
             <a href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back to {{ article.category }}</a>
+            <hr />
         </footer>
-
-        <hr />
     {% endif %}
 
     {% if not main.nocomments %}

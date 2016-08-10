@@ -20,7 +20,7 @@
         {% for category in categories|tag_remap %}
             <li class="nav-group-item {% if category.url|is_cur_page(or_child=True) %}active{% endif %}">
                 <a href="{{ SITEURL }}/{{ category.url }}">
-                    {{ category|capitalize }}
+                    {{ category|title_case }}
                 </a>
             </li>
         {% endfor %}

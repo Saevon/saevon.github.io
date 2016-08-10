@@ -1,7 +1,7 @@
 <section class="category-excerpts">
     {% set category = categories|find_category(category|lower) %}
 
-    {% set title = category[0]|capitalize %}
+    {% set title = category[0]|title_case %}
     {% set permalink = category[0].url %}
     {% set tagline = 'click to read more from this category' %}
     {% include 'partial/header.html' %}
