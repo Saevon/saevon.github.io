@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<!-- Facebook Share -->
+    <meta property="og:title" content="Running Node-Red flows in the browser" />
+    <meta property="og:description" content="Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js, but there is a way to run it clientside (on a browser).
+" />
+    <meta property="og:url" content="http://blog.saevon.ca/coding/running-node-red-flows-in-the-browser/" />
+    <meta property="og:type" content="article" />
+
+	<meta property="og:site_name" content="Saevon's Blog"/>
+	<meta property="og:image" content="http://blog.saevon.ca/static/images/avatar-facebook.jpg" />
+	<meta property="og:image:secure_url" content="http://blog.saevon.ca/static/images/avatar-facebook.jpg" />
+
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="/static/css/pygments.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/sidenav.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/article.css">
+
+    
+
+
+	<!-- Javascript -->
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+		<title>    Saevon's Blog - Running Node-Red Flows In The Browser
+</title>
+		<meta charset="utf-8" />
+</head>
+<body>
+	<div class="container-fluid"><div class="row">
+		<!-- Section that does nothing but take up space the sidenav needs to be fixed to -->
+		<section class="sidenav-placeholder col-md-3 col-sm-3 col-xs-12"></section>
+			<div class="sidenav col-md-3 col-sm-3 col-xs-12">
+
+<div class="sidenav-avatar">
+    <hr />
+    <a href="/" class="avatar-wrapper perma-link">
+        <img src="/static/images/avatar.jpg" class="center avatar img-rounded" />
+        <h1 class="site-name">Saevon</h1>
+    </a>
+    <hr class="nav-small-hide"/>
+</div>
+
+
+<div class="sidenav-menu">
+    <div class="nav-link nav-group ">
+        <a href="//blog.saevon.ca/">
+            <div class="nav-link-title">
+                Categories
+            </div>
+        </a>
+        <ul class="nav-group-content">
+            <li class="nav-group-item active">
+                <a href="//blog.saevon.ca/coding/">
+                    Coding
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/personal/">
+                    Personal
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/review/">
+                    Review
+                </a>
+            </li>
+            <li class="nav-group-item ">
+                <a href="//blog.saevon.ca/roleplaying/">
+                    Roleplaying
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-link nav-link-single ">
+        <a href="//blog.saevon.ca/tags/">
+            <div class="nav-link-title">
+                Tags
+            </div>
+        </a>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+    <div class="sidenav-acc-links">
+        <hr />
+        <div class="account-links center">
+                <a href="https://github.com/Saevon" class="account-link">
+                    <i class="fa fa-github-square"></i>
+                </a>
+                <a href="https://ca.linkedin.com/in/saevon" class="account-link">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+        </div>
+    </div>
+
+
+
+<div class="sidenav-copyrights">
+    <hr />
+    <footer>
+        <small class="center copyright">
+            <a href="//blog.saevon.ca/license/">
+                © Saevon 2016
+            </a>
+        </small>
+        <small class="center">
+            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+        </small>
+    </footer>
+</div>
+
+<hr class="visible-xs" />
+<hr class="visible-xs" />
+			</div>
+
+		<!-- Content -->
+		<section class="section-content col-md-9 col-sm-9 col-xs-12">
+    <article class="article article-full ">
+<div class="page-header">
+
+        <a href="//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/" rel="bookmark" title="Permalink to Running Node-Red flows in the browser" class="perma-link">
+            <h1>Running Node-Red flows in the browser                    <small class="tagline">a convinient library can now run on the browser.</small>
+            </h1>
+        </a>
+</div>
+        <div class="date">
+          <span>09 August 2016</span>
+        </div>
+        <div class="content">
+          <p>Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js, but there is a way to run it clientside (on a browser).</p>
+<section class="&quot;section section1&quot;" id="situation"><h1>Situation</h1>
+<p>I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, each of which was easy to connect through node-red.</p>
+<p>Thus node-red didn't need any UI, but it did need a way to run the given flows on a browser.
+The following needed to be done:</p>
+<ul>
+<li>Add a route to get node-red configuration for this device<ul>
+<li>flows</li>
+<li>credentials</li>
+</ul>
+</li>
+<li>Removing node-red's filesystem dependancy</li>
+<li>Polyfilling any node.js modules node-red uses (that aren't browser compatible)</li>
+</ul>
+</section><section class="&quot;section section1&quot;" id="node-red"><h1>Node-Red</h1>
+<p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
+Checkout <a href="https://github.com/Saevon/node-red/">my node-red repo</a> to see the changes I had to make in node-red.
+</div></p>
+<p>I didn't have to make too many changes to node-red itself to support this. I simply added a flag: <code>settings.noFileSystem</code>, and made sure any code that auto-loaded data from the filesystem on startup didn't get a chance to run if the flag was on. Thus in the browser, I would add this flag, but on the main node-red server, I would not.</p>
+<p>(see the commit <a href="https://github.com/Saevon/node-red/commit/0da7a1bb740a5aeaabbdfabf01c616f857c3f714#diff-555b375e1a6f534407fe74a7f1322bddR27">here</a>)</p>
+<p><div class="alert alert-warning "><i class="fa fa-warning"></i>
+None of this is release-ready yet, as there's a lot more to examine, add and test before any pull-request
+</div></p>
+<p>Second, you can't set the active flow (since it's supposed to be loaded by the filesystem), so I needed a way to set that up too. This was quite easy as well.</p>
+<div class="highlight"><pre>    <span class="c1">// red/nodes/flows.js</span>
+    <span class="nx">setActiveFlow</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">flow</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">activeFlow</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">;</span>
+    <span class="p">},</span>
+</pre></div>
+
+
+<p>Finally, there was a problem with the credentials requiring way too many</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">needsPermission</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;../api/auth&quot;</span><span class="p">).</span><span class="nx">needsPermission</span><span class="p">;</span>
+</pre></div>
+
+
+<p>While I was at it, I realize it would be nice to be able to use inject nodes in the browser as well, so I added an easy function to do so.
+(see the commit <a href="https://github.com/Saevon/node-red/commit/0f8bf91a75718a58517186c49a04732967554e6d">here</a>)</p>
+<div class="highlight"><pre>    <span class="c1">// Usage:</span>
+    <span class="nx">nodeRedInject</span><span class="p">(</span><span class="s1">&#39;node-name&#39;</span><span class="p">);</span>
+</pre></div>
+
+
+</section><section class="&quot;section section1&quot;" id="browser-usage"><h1>Browser Usage</h1>
+<p>To use node-red in the browser I needed to get the configuration, this basically means a bunch of flows to run.</p>
+<p>Getting each flow was easy enough, added a route to the server, and do an Ajax call</p>
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Gets a subflow</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param flowId</span>
+<span class="cm"> * @param callback</span>
+<span class="cm"> * @returns subflow</span>
+<span class="cm"> */</span>
+<span class="k">function</span> <span class="n">getSubflow</span><span class="p">(</span><span class="n">flowId</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">jQuery</span><span class="p">.</span><span class="n">ajax</span><span class="p">(&#39;</span><span class="c1">//&#39; + window.location.hostname + &#39;/subflow/&#39; + flowId, {</span>
+        <span class="nl">data:</span> <span class="p">{},</span>
+    <span class="p">}).</span><span class="n">error</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">xhr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">callback</span><span class="p">(</span><span class="s">&quot;Server Error: &quot;</span> <span class="o">+</span> <span class="n">xhr</span><span class="p">.</span><span class="n">status</span> <span class="o">+</span> <span class="s">&quot;. Can&#39;t get subflow(&quot;</span> <span class="o">+</span> <span class="n">flowId</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="p">);</span>
+    <span class="p">}).</span><span class="n">done</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">subflow</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_</span><span class="p">.</span><span class="n">isArray</span><span class="p">(</span><span class="n">subflow</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">callback</span><span class="p">(</span><span class="s">&quot;Server Error: Invalid return&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">callback</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">subflow</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Of course we can load more than one flow, so this waits for all the data to come back, and merges them all into one flow.</p>
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Loads the given subflow Ids</span>
+<span class="cm"> * @param flowIds</span>
+<span class="cm"> */</span>
+<span class="k">function</span> <span class="n">initSubflows</span><span class="p">(</span><span class="n">flowIds</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="n">syncs</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">var</span> <span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">flowIds</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="n">flowId</span> <span class="o">=</span> <span class="n">flowIds</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">var</span> <span class="n">defer</span> <span class="o">=</span> <span class="n">jQuery</span><span class="p">.</span><span class="n">Deferred</span><span class="p">();</span>
+        <span class="p">(</span><span class="k">function</span> <span class="n">scope</span><span class="p">(</span><span class="n">defer</span><span class="p">,</span> <span class="n">flowId</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">getSubflow</span><span class="p">(</span><span class="n">flowId</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">subflow</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">defer</span><span class="p">.</span><span class="n">resolve</span><span class="p">([]);</span>
+                    <span class="k">return</span> <span class="n">console</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="n">defer</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">subflow</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">})(</span><span class="n">defer</span><span class="p">,</span> <span class="n">flowId</span><span class="p">);</span>
+
+        <span class="n">syncs</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">defer</span><span class="p">.</span><span class="n">promise</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="n">jQuery</span><span class="p">.</span><span class="n">when</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">syncs</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="n">flowData</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="c1">// Merge the subflows</span>
+        <span class="k">var</span> <span class="n">args</span> <span class="o">=</span> <span class="n">Array</span><span class="p">.</span><span class="n">prototype</span><span class="p">.</span><span class="n">slice</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="n">arguments</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">var</span> <span class="n">i</span> <span class="n">in</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">flowData</span> <span class="o">=</span> <span class="n">flowData</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="n">callback</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">flowData</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Finally here is the way the entire thing is called. Note that the last callback is the one that loads the flows into node-red itself, starting it.</p>
+<div class="highlight"><pre>    <span class="c1">// Load the flows that we need</span>
+    <span class="kd">var</span> <span class="nx">flowIds</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">flows</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">flowIds</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">flowIds</span> <span class="o">=</span> <span class="nx">flowIds</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">);</span>
+        <span class="nx">initSubflows</span><span class="p">(</span><span class="nx">flowIds</span><span class="p">,</span>  <span class="kd">function</span> <span class="nx">onSubflowData</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">flowData</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">RED</span><span class="p">.</span><span class="nx">loadFlowData</span><span class="p">(</span><span class="nx">flowData</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<section class="&quot;section section2&quot;"><h2></h2>
+</section></section><section class="&quot;section section1&quot;" id="reference"><h1>Reference</h1>
+<ul>
+<li><a href="https://github.com/Saevon/node-red/">My Node-Red Repo</a></li>
+</ul>
+</section>
+        </div>
+
+        <hr />
+
+    <ul class="tag-box">
+      <li><i class="fa fa-tags"> </i></li>
+      <li>
+        <a href="//blog.saevon.ca/coding/" class="tag-box-item">
+          category: coding
+            <span class="tag-count">6</span>
+        </a>
+      </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/browser/" class="tag-box-item">browser<span class="tag-count">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/javascript/" class="tag-box-item">javascript<span class="tag-count">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="//blog.saevon.ca/tags/node-red/" class="tag-box-item">node-red<span class="tag-count">1</span>
+          </a>
+        </li>
+    </ul>
+
+            <hr />
+    </article>
+
+        <footer>
+            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <hr />
+        </footer>
+
+        <div id="comments">
+<div id="disqus_thread"></div>
+
+<script type="text/javascript" id="disqus-config">
+    var disqus_shortname = 'blog-saevon';
+
+    var disqus_identifier = 'running-node-red-flows-in-the-browser';
+    var disqus_title = 'Running Node-Red flows in the browser';
+
+        var disqus_url = window.location.protocol + '//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/';
+</script>
+
+<script type="text/javascript" async src="//blog-saevon.disqus.com/embed.js"></script>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                <noscript>Please enable JavaScript to view the comments</noscript>
+        </div>
+		</section>
+	</div></div>
+
+</body>
+</html>

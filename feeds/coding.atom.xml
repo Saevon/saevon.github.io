@@ -1,5 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/coding.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2015-08-14T00:00:00-04:00</updated><entry><title>Quickly pausing an app in Mac-OS</title><link href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="alternate"></link><updated>2015-08-14T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</id><summary type="html">&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Saevon.ca</title><link href="//blog.saevon.ca/" rel="alternate"></link><link href="/feeds/coding.atom.xml" rel="self"></link><id>//blog.saevon.ca/</id><updated>2016-08-09T00:00:00-04:00</updated><entry><title>Running Node-Red flows in the browser</title><link href="//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/" rel="alternate"></link><updated>2016-08-09T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2016-08-09:coding/running-node-red-flows-in-the-browser/</id><summary type="html">&lt;p&gt;Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js, but there is a way to run it clientside (on a browser).&lt;/p&gt;
+&lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
+&lt;p&gt;I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, each of which was easy to connect through node-red.&lt;/p&gt;
+&lt;p&gt;Thus node-red didn't need any UI, but it did need a way to run the given flows on a browser.
+The following needed to be done:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add a route to get node-red configuration for this device&lt;ul&gt;
+&lt;li&gt;flows&lt;/li&gt;
+&lt;li&gt;credentials&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Removing node-red's filesystem dependancy&lt;/li&gt;
+&lt;li&gt;Polyfilling any node.js modules node-red uses (that aren't browser compatible)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="node-red"&gt;&lt;h1&gt;Node-Red&lt;/h1&gt;
+&lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
+Checkout &lt;a href="https://github.com/Saevon/node-red/"&gt;my node-red repo&lt;/a&gt; to see the changes I had to make in node-red.
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;I didn't have to make too many changes to node-red itself to support this. I simply added a flag: &lt;code&gt;settings.noFileSystem&lt;/code&gt;, and made sure any code that auto-loaded data from the filesystem on startup didn't get a chance to run if the flag was on. Thus in the browser, I would add this flag, but on the main node-red server, I would not.&lt;/p&gt;
+&lt;p&gt;(see the commit &lt;a href="https://github.com/Saevon/node-red/commit/0da7a1bb740a5aeaabbdfabf01c616f857c3f714#diff-555b375e1a6f534407fe74a7f1322bddR27"&gt;here&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;div class="alert alert-warning "&gt;&lt;i class="fa fa-warning"&gt;&lt;/i&gt;
+None of this is release-ready yet, as there's a lot more to examine, add and test before any pull-request
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Second, you can't set the active flow (since it's supposed to be loaded by the filesystem), so I needed a way to set that up too. This was quite easy as well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="c1"&gt;// red/nodes/flows.js&lt;/span&gt;
+    &lt;span class="nx"&gt;setActiveFlow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;flow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;activeFlow&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;flow&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally, there was a problem with the credentials requiring way too many&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;needsPermission&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;../api/auth&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;needsPermission&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;While I was at it, I realize it would be nice to be able to use inject nodes in the browser as well, so I added an easy function to do so.
+(see the commit &lt;a href="https://github.com/Saevon/node-red/commit/0f8bf91a75718a58517186c49a04732967554e6d"&gt;here&lt;/a&gt;)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="c1"&gt;// Usage:&lt;/span&gt;
+    &lt;span class="nx"&gt;nodeRedInject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;node-name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="browser-usage"&gt;&lt;h1&gt;Browser Usage&lt;/h1&gt;
+&lt;p&gt;To use node-red in the browser I needed to get the configuration, this basically means a bunch of flows to run.&lt;/p&gt;
+&lt;p&gt;Getting each flow was easy enough, added a route to the server, and do an Ajax call&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;span class="cm"&gt; * Gets a subflow&lt;/span&gt;
+&lt;span class="cm"&gt; *&lt;/span&gt;
+&lt;span class="cm"&gt; * @param flowId&lt;/span&gt;
+&lt;span class="cm"&gt; * @param callback&lt;/span&gt;
+&lt;span class="cm"&gt; * @returns subflow&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="n"&gt;getSubflow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flowId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;jQuery&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ajax&lt;/span&gt;&lt;span class="p"&gt;(&amp;#39;&lt;/span&gt;&lt;span class="c1"&gt;//&amp;#39; + window.location.hostname + &amp;#39;/subflow/&amp;#39; + flowId, {&lt;/span&gt;
+        &lt;span class="nl"&gt;data:&lt;/span&gt; &lt;span class="p"&gt;{},&lt;/span&gt;
+    &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;xhr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Server Error: &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;xhr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;. Can&amp;#39;t get subflow(&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;flowId&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;subflow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;subflow&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Server Error: Invalid return&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;subflow&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course we can load more than one flow, so this waits for all the data to come back, and merges them all into one flow.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;span class="cm"&gt; * Loads the given subflow Ids&lt;/span&gt;
+&lt;span class="cm"&gt; * @param flowIds&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="n"&gt;initSubflows&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;syncs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[];&lt;/span&gt;
+
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;flowId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;defer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;jQuery&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Deferred&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="n"&gt;scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;defer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flowId&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;getSubflow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flowId&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;subflow&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                    &lt;span class="n"&gt;defer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resolve&lt;/span&gt;&lt;span class="p"&gt;([]);&lt;/span&gt;
+                    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="p"&gt;}&lt;/span&gt;
+
+                &lt;span class="n"&gt;defer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resolve&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;subflow&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;});&lt;/span&gt;
+        &lt;span class="p"&gt;})(&lt;/span&gt;&lt;span class="n"&gt;defer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flowId&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="n"&gt;syncs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;defer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;promise&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;jQuery&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;when&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apply&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;syncs&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;flowData&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[];&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Merge the subflows&lt;/span&gt;
+        &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Array&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;prototype&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;slice&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arguments&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;flowData&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;flowData&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flowData&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally here is the way the entire thing is called. Note that the last callback is the one that loads the flows into node-red itself, starting it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="c1"&gt;// Load the flows that we need&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;flowIds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;params&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;flows&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;flowIds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;,&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="nx"&gt;initSubflows&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;flowIds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;onSubflowData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;flowData&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;RED&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;loadFlowData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;flowData&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;});&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;section class="&amp;quot;section section2&amp;quot;"&gt;&lt;h2&gt;&lt;/h2&gt;
+&lt;/section&gt;&lt;/section&gt;&lt;section class="&amp;quot;section section1&amp;quot;" id="reference"&gt;&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Saevon/node-red/"&gt;My Node-Red Repo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</summary><category term="node-red"></category><category term="javascript"></category><category term="browser"></category></entry><entry><title>Quickly pausing an app in Mac-OS</title><link href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="alternate"></link><updated>2015-08-14T00:00:00-04:00</updated><author><name>Saevon</name></author><id>tag://blog.saevon.ca,2015-08-14:coding/quickly-pausing-an-app-in-mac-os/</id><summary type="html">&lt;p&gt;Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="overview"&gt;&lt;h1&gt;Overview&lt;/h1&gt;
 &lt;p&gt;&lt;div class="alert alert-info "&gt;&lt;i class="fa fa-info-circle"&gt;&lt;/i&gt;
 You can see the code in my config file repository, along with my other bash aliases.
