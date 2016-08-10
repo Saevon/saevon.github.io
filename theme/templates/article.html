@@ -21,7 +21,7 @@
 
 
 {% block content %}
-    <article class="article article-full">
+    <article class="article article-full {% if article.isnumbered %}article-numbered{% endif %}">
         {% set title = article.title %}
         {% set tagline = article.tagline %}
         {% set permalink = article.url %}
