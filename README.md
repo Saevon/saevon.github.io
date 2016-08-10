@@ -60,6 +60,14 @@ The following define the basic article info
 
 ### Markdown
 
+##### Markdown in HTML
+
+```
+<div markdown="1">
+    **bolded**
+</div>
+```
+
 
 #### Plugins
 
