@@ -36,7 +36,6 @@ python setup.py develop
 ### Article Customization
 
 The following define the basic article info
-
 <br />`Title`
 <br />`Tagline`
 <br />`Date`
@@ -44,7 +43,6 @@ The following define the basic article info
 <br />`Tags`
 
 ##### Optional Tags
-
 <br />`status`:   Status of the article: `draft` (not published), `hidden` (not listed), `published`
 <br />`slug`:     what
 <br />`Template`: The html style to use should be `article`
