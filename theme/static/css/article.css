@@ -57,71 +57,75 @@
     margin-bottom: 10px;
 }
 
-    /* Header */
-    .article-title {
-        margin: 5px 0 0 5px;
-    }
 
-    /* Body */
-    .article-body {
-        display: -moz-box;
-        display: -webkit-flex;
-        display: flex;
+/****************************************/
+/* Parts */
 
-        margin-bottom: 10px;
-    }
-    .article-date, .article-short {
-        height: 6em;
-        display: inline-block;
-    }
-    .article-short {
-        margin-left: 1em;
-        overflow: hidden;
+/* Header */
+.article-title {
+    margin: 5px 0 0 5px;
+}
 
-        line-height: 1.5em;
-    }
-    .article-short p {
-        /* This makes paragraphs look like they're all one paragraph */
-        margin-bottom: .1em;
-    }
+/* Body */
+.article-body {
+    display: -moz-box;
+    display: -webkit-flex;
+    display: flex;
 
+    margin-bottom: 10px;
+}
+.article-date, .article-short {
+    height: 6em;
+    display: inline-block;
+}
+.article-short {
+    margin-left: 1em;
+    overflow: hidden;
 
-    /* Date */
-    .article-date {
-        min-width: 4em;
-        border-right: solid 1px #3AC7EB;
-        padding: 5px 5px;
-    }
-    .article-year, .article-day, .article-month {
-        text-align: center;
-    }
-    .article-month, .article-year {
-        font-size:  1em;
-        font-weight: bolder;
-    }
-    .article-day {
-        font-size: 2em;
-        margin-top: -8px;
-        margin-bottom: -8px;
-    }
+    line-height: 1.5em;
+}
+.article-short p {
+    /* This makes paragraphs look like they're all one paragraph */
+    margin-bottom: .1em;
+}
 
 
-    /* Footer */
-    .article-footer {
-        display: -moz-box;
-        display: -webkit-flex;
-        display: flex;
-    }
-    .article-tags {
-        -moz-flex: 1;
-        -webkit-flex:1;
-        flex: 1;
-    }
-    .article-more {
-        margin: auto;
-        width: 85px;
-    }
-    .article-tags ul {
-        padding-left: 15px;
-    }
+/* Date */
+.article-date {
+    min-width: 4em;
+    border-right: solid 1px #3AC7EB;
+    padding: 5px 5px;
+}
+.article-year, .article-day, .article-month {
+    text-align: center;
+}
+.article-month, .article-year {
+    font-size:  1em;
+    font-weight: bolder;
+}
+.article-day {
+    font-size: 2em;
+    margin-top: -8px;
+    margin-bottom: -8px;
+}
+
+
+/* Footer */
+.article-footer {
+    display: -moz-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.article-tags {
+    -moz-flex: 1;
+    -webkit-flex:1;
+    flex: 1;
+}
+.article-more {
+    margin: auto;
+    width: 85px;
+}
+.article-tags ul {
+    padding-left: 15px;
+}
 

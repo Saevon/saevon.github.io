@@ -1,4 +1,11 @@
 /******************************************/
+/* Fonts */
+@font-face {
+  font-family: "Bazin";
+  src: url("font/Bazin.ttf");
+}
+
+/******************************************/
 /* Re-Usable classes */
 .center {
   display: block;
@@ -45,30 +52,31 @@ body {
   display: inline-block;
 }
 
-  /* Main content sizing and positioning */
-  .section-content {
-    max-width: 800px;
-  }
+/* Main content sizing and positioning */
+.section-content {
+  max-width: 800px;
+}
+.sidenav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+.sidenav, .sidenav-placeholder {
+  max-width: 180px;
+}
+
+/* Sidenav Small */
+@media (max-width: 770px) {
   .sidenav {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-  }
-  .sidenav, .sidenav-placeholder {
-    max-width: 180px;
-  }
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
 
-  /* Sidenav Small */
-  @media (max-width: 770px) {
-    .sidenav {
-      position: relative;
-      max-width: 100%;
-      width: 100%;
-      padding: 0;
-
-      margin-bottom: 100px;
-    }
+    margin-bottom: 100px;
   }
+}
+
 
 
 
