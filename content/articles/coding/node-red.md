@@ -6,12 +6,13 @@ Category: coding
 Tags: node-red, javascript, browser
 
 
-Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js, but there is a way to run it clientside (on a browser).
+Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js.
+Here is a way to run it clientside (on a browser) for those things that aren't allowed to run node.js.
 
 
 # Situation
 
-I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, each of which was easy to connect through node-red.
+I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, this other hardware was easiest to connect through node-red.
 
 Thus node-red didn't need any UI, but it did need a way to run the given flows on a browser.
 The following needed to be done:
