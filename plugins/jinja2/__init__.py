@@ -11,6 +11,8 @@ from plugins.jinja2.nav import is_cur_page, get_main
 from plugins.jinja2.summary import summary, summary_raw
 from plugins.jinja2.tags import update_count, tag_remap, tag_sort, tag_ratios
 from plugins.jinja2.date import date_to_xmlschema
+from plugins.jinja2.string import title_case
+
 from datetime import datetime
 
 
@@ -35,6 +37,9 @@ JINJA_FILTERS = {
     # DEBUG
     'dump': dump,
     'dump_all': dump_all,
+
+    # String
+    'title_case': title_case,
 }
 
 JINJA_FUNCTIONS = {
