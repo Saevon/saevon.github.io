@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/coding.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 09 Aug 2016 00:00:00 -0400</lastBuildDate><item><title>Running Node-Red flows in the browser</title><link>//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/</link><description>&lt;p&gt;Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js, but there is a way to run it clientside (on a browser).&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Saevon.ca</title><link>//blog.saevon.ca/</link><description></description><atom:link href="/feeds/coding.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 09 Aug 2016 00:00:00 -0400</lastBuildDate><item><title>Running Node-Red flows in the browser</title><link>//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/</link><description>&lt;p&gt;Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js.
+Here is a way to run it clientside (on a browser) for those things that aren't allowed to run node.js.&lt;/p&gt;
 &lt;section class="&amp;quot;section section1&amp;quot;" id="situation"&gt;&lt;h1&gt;Situation&lt;/h1&gt;
-&lt;p&gt;I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, each of which was easy to connect through node-red.&lt;/p&gt;
+&lt;p&gt;I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, this other hardware was easiest to connect through node-red.&lt;/p&gt;
 &lt;p&gt;Thus node-red didn't need any UI, but it did need a way to run the given flows on a browser.
 The following needed to be done:&lt;/p&gt;
 &lt;ul&gt;
