@@ -26,6 +26,7 @@ MD_EXTENSIONS = (
     'alerts',
 
     # Allows you to have strikeout and insertions (del/ins tags)
+    # TODO: broken
     'del_ins',
 
     # Forces headers to also wrap the resulting HTML in a <section> tag

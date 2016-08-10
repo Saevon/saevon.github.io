@@ -68,9 +68,6 @@ The following define the basic article info
 </div>
 ```
 
-
-#### Plugins
-
 ##### Definition Lists
 
 ```
@@ -130,7 +127,7 @@ This is important[^1], this isn't[^other]
 [TOC]
 ```
 
-##### mdx_del_ins
+##### Diffs (del_ins)
 
 Adds diffs (del, ins tags)
 
