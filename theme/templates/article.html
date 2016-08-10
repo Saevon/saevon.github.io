@@ -15,6 +15,7 @@
 
     {% if article.style == 'simple' %}
         <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/simple.css">
+    {% elif article.style == 'default' %}
     {% endif %}
 {% endblock %}
 

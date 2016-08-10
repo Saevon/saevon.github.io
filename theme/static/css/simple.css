@@ -1,14 +1,8 @@
+pre,
 code {
     background-color: #F8F8F8;
     font-style: italic;
     color: #2593C7;
-}
-
-dt > code {
-    color: inherit;
-    padding: inherit;
-
-    background-color: inherit;
 }
 
 blockquote {
@@ -16,6 +10,16 @@ blockquote {
     font-style: italic;
 }
 
+
+/* When using `` in the definition list header, don't render it wierdly */
+dt > pre,
+dt > code
+{
+    color: inherit;
+    padding: inherit;
+
+    background-color: inherit;
+}
 
 dd {
     padding-bottom: 4px;
@@ -25,6 +29,8 @@ dd p:last-child {
     margin-bottom: 0;
 }
 
+
+/* Section for the names of each person */
 .names-block .names-block-person {
     display: inline-block;
 
@@ -32,16 +38,20 @@ dd p:last-child {
 }
 
 
+/* Makes page breaking nicer for reports */
 .spacer {
     width: 10px;
     height: 50px;
 }
 
+
+/* MD5 */
 .md5 pre {
     font-size: 80%;
 }
 
 
+/************************************************************************/
 /* Specifically for reports: shrinks the header sizes past the main one */
 h2 {
     font-size: 24px;
