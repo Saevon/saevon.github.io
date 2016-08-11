@@ -2,8 +2,50 @@
 /* Fonts */
 @font-face {
   font-family: "Bazin";
-  src: url("font/Bazin.ttf");
+  src: url("../font/Bazin.ttf");
 }
+
+@font-face {
+  font-family: "Fleurons";
+  src: url("../font/fleurons.ttf");
+}
+
+@font-face {
+  font-family: "Angelique-Rose";
+  src: url("../font/angelique-rose/Angelique-Rose.ttf");
+}
+
+@font-face {
+  font-family: "Kurnia";
+  src: url("../font/Kurnia.ttf");
+}
+
+
+@font-face {
+  font-family: "Garineldo";
+  src: url("../font/garineldo/Garineldo.otf");
+}
+
+@font-face {
+  font-family: "GarineldoNo01";
+  src: url("../font/garineldo/GarineldoNo01.otf");
+}
+
+@font-face {
+  font-family: "GarineldoNo02";
+  src: url("../font/garineldo/GarineldoNo02.otf");
+}
+
+/* Fonts: ensure the bazin characters can be displayed */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+}
+
+blockquote {
+  font-weight: bolder;
+  font-family: "Garineldo", "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+}
+
 
 /******************************************/
 /* Re-Usable classes */
