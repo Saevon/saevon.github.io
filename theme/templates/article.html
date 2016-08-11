@@ -13,9 +13,20 @@
 {% block css %}
     {{ super() }}
 
-    {% if article.style == 'simple' %}
+    {% set style = article.style %}
+
+    <!-- style: {{ style }} -->
+    {% if "report" in style %}
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/report.css">
+    {% endif %}
+    {% if 'simple' in style %}
         <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/simple.css">
-    {% elif article.style == 'default' %}
+    {% endif %}
+    {% if 'cursive' in style %}
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/cursive.css">
+    {% endif %}
+    {% if 'small-headers' in style %}
+        <link rel="stylesheet" type="text/css" href="/{{ STATIC_DIR }}/css/small_headers.css">
     {% endif %}
 {% endblock %}
 

@@ -33,6 +33,21 @@ I use the my alerts plugins, and if you want to develop the alerts plugin at the
 python setup.py develop
 ```
 
+### Custom
+
+<br />`tiny`: Makes the text very small
+<br />`.print-only`: Shows this when printing
+<br />`.paragraph`: Makes the element style similar to the `<p>` tag
+
+
+#### Article Styles:
+
+<br />`report`: `small-headers`, `simple`
+<br />`cursive`: Currently nothing, but this would give the article a hand-written feel
+<br />`small-headers`: Shrinks the headers at a faster progression to make it more noticable
+<br />`simple`: Tries to hide a bunch of the fancy styling
+
+
 ### Article Customization
 
 The following define the basic article info
@@ -46,7 +61,7 @@ The following define the basic article info
 <br />`status`:   Status of the article: `draft` (not published), `hidden` (not listed), `published`
 <br />`slug`:     what
 <br />`Template`: The html style to use should be `article`
-<br />`Style`:    The css style to use: `simple`, `default`
+<br />`Style`:    The css styles to use: `simple`, `small-headers`, `report`, `cursive`
 
 **Flags**:
 <br />`IsNumbered`:  Makes headers show numbers

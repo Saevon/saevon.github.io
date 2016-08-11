@@ -3,7 +3,7 @@ Title: Ryuutama Role: Artist
 Date: 2016-08-09
 Category: Roleplaying
 Tags: Ryuutama, Ryuutama-Role
-Style: simple
+Style: small-headers
 
 
 

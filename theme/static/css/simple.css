@@ -1,5 +1,5 @@
-pre,
-code {
+/* Reports have faded code elements*/
+pre {
     background-color: #F8F8F8;
     font-style: italic;
     color: #2593C7;
@@ -47,21 +47,13 @@ dd p:last-child {
 
 /* MD5 */
 .md5 pre {
+    color: darkcyan;
     font-size: 80%;
 }
+.md5 span {
+    color: inherit;
+}
 
-
-/************************************************************************/
-/* Specifically for reports: shrinks the header sizes past the main one */
-h2 {
-    font-size: 24px;
-}
-h3 {
-    font-size: 18px;
-}
-h5 {
-    text-decoration: underline;
-}
 
 
 
