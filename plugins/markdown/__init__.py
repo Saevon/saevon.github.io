@@ -25,6 +25,9 @@ MD_EXTENSIONS = (
     # Adds bootstrap style alerts
     'alerts',
 
+    # Adds my defn tables
+    'defn_table',
+
     # Allows you to have strikeout and insertions (del/ins tags)
     # TODO: broken
     'del_ins',

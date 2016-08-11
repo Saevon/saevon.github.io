@@ -17,8 +17,8 @@ Chrome has always annoyed me when my battery is low, or when I'm low on memory. 
 
 I added the following bash functions
 
+!defn_table!
 `pause_process(pid)`: nicer kill command that pauses a process (`kill -STOP`)
-
 `pause_app(string)`: searches for any proccesses with the given string, pausing them all
 
 As well as the opposing functions `resume_app()` and `resume_process()` (which use `kill -CONT`).

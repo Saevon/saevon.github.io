@@ -16,6 +16,10 @@
 tiny {
   font-size: 60%;
 }
+/* should reflect the <p> tag */
+.paragraph {
+  margin-bottom: 10px;
+}
 .line-group {
   display: inline-block;
 }
@@ -25,6 +29,27 @@ dd {
 }
 
 
+/*******************************************/
+/* Defn list extension*/
+.defn-table {
+  margin-left: 20px;
+}
+.defn-table td:last-child {
+  padding-right: 15px;
+}
+.defn-table td:first-child {
+  padding-left: 15px;
+
+  font-weight: bold;
+  padding-right: 10px;
+  vertical-align: top;
+}
+.defn-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+.defn-table code {
+  font-weight: normal;
+}
 
 /******************************************/
 /* General Layout */

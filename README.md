@@ -78,6 +78,18 @@ Orange
 : Orange Fruit
 ```
 
+##### Definition Tables
+
+```
+!defn_table!
+Apple: Red fruit
+Orange: Orange Fruit
+
+!defn_table!
+`DEBUG`:   Debugs the app
+`LOGGING`: Enables logging
+```
+
 ##### Abbreviations
 
 ```
