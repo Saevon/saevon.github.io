@@ -10,7 +10,7 @@
 
 
 <div class="sidenav-menu">
-    <div class="nav-link nav-group {% if 'index'|is_cur_page %}active{% endif %}">
+    <div class="nav-link nav-group {% if CATEGORIES_URL|is_cur_page(or_child=True) %}active{% endif %}">
         <a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">
             <div class="nav-link-title">
                 Categories

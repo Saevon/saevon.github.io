@@ -159,8 +159,8 @@ ARTICLE_URL = '{category}/{slug}/'
 
 # No need for a categories page, as the index page already does that
 # But any links to it should head to the right place
-CATEGORIES_SAVE_AS = False
-CATEGORIES_URL = ''
+CATEGORIES_SAVE_AS = 'categories/index.html'
+CATEGORIES_URL = 'categories'
 
 # The tags page is actually for tags and categories
 TAGS_SAVE_AS = 'tags/index.html'

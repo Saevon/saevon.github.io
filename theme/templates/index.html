@@ -2,18 +2,17 @@
 
 
 {% block content %}
-    {% set category = 'coding' %}
-    {% include 'partial/category_excerpts.html' %}
+    <section class="category-excerpts">
+        {% set title = 'Recent Posts' %}
+        {% set permalink = '' %}
+        {% set tagline = False %}
+        {% include 'partial/header.html' %}
 
 
-    {% set category = 'review' %}
-    {% include 'partial/category_excerpts.html' %}
-
-
-    {% set category = 'roleplaying' %}
-    {% include 'partial/category_excerpts.html' %}
-
-
-    {% set category = 'personal' %}
-    {% include 'partial/category_excerpts.html' %}
+        <ul class="category-articles">
+            {% for article in articles|category_preview_articles(5) %}
+                {% include 'partial/article_excerpt.html' %}
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock content %}

@@ -22,8 +22,7 @@ def mark(items, type):
 
     return items
 
-def category_preview_articles(category, num=None):
-    articles = category[1]
+def category_preview_articles(articles, num=None):
     articles = sorted(articles, key=lambda val: val.date, reverse=True)
 
     if num is not None:
