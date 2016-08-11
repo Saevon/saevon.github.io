@@ -111,6 +111,12 @@ body {
   }
 }
 
+@media not print {
+  .print-only {
+    display: none;
+  }
+}
+
 
 
 

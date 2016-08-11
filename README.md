@@ -195,6 +195,7 @@ The following is my todo list for this site, feel free to ignore this, unless yo
 * [ ] Publish script needs to checkout the full repository including the assets folder, which is annoying
 * [ ] Merge markdown Alerts and admonitions?
 * [ ] Header Permalinks need to be enabled
+* [ ] `.print-only` is broken. Fix it, then have the sitename appear in articles when printing (but not in the pdf name)
 
 
 ## License
