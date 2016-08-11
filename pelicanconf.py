@@ -81,6 +81,9 @@ DISQUS_SITENAME = "dev-blog-saevon"
 # Facebook
 FACEBOOK_LINK_PROTOCOL = "http"
 
+# Whether to show the powered by pelicaon logo
+INCLUDE_PELICAN_LINK = False
+
 
 ############################
 # Coding

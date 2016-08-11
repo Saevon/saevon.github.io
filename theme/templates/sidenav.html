@@ -70,9 +70,11 @@
                 © Saevon {{ today().year }}
             </a>
         </small>
-        <small class="center">
-            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
-        </small>
+        {% if INCLUDE_PELICAN_LINK %}
+            <small class="center">
+                Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
+            </small>
+        {% endif %}
     </footer>
 </div>
 
