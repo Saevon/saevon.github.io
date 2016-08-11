@@ -151,6 +151,15 @@ body {
   .sidenav {
     display: none !important;
   }
+
+  /* This would fix the font embedding issue (by avoiding it when possible) */
+  /*
+  blockquote {
+    font-weight: lighter;
+    font-style: italic;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+  }
+  */
 }
 
 @media not print {

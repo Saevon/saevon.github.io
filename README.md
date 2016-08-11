@@ -196,6 +196,7 @@ The following is my todo list for this site, feel free to ignore this, unless yo
 * [ ] Merge markdown Alerts and admonitions?
 * [ ] Header Permalinks need to be enabled
 * [ ] `.print-only` is broken. Fix it, then have the sitename appear in articles when printing (but not in the pdf name)
+* [ ] Webfonts don't get embedded when printing?
 
 
 ## License
