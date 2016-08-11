@@ -40,11 +40,11 @@
     <div class="sidenav-acc-links">
         <hr />
         <div class="account-links center">
-            {% for icon, url in ACCOUNTS %}
+            {% for icon, url, enabled in ACCOUNTS %}{% if enabled %}
                 <a href="{{ url }}" class="account-link">
                     <i class="fa fa-{{ icon }}"></i>
                 </a>
-            {% endfor %}
+            {% endif %}{% endfor %}
         </div>
     </div>
 {% endif %}
@@ -55,9 +55,9 @@
         <hr />
         <div class="blog-links center">
             <h4>External Links</h4>
-            {% for name, link in LINKS %}
+            {% for name, link, enabled in LINKS %}{% if enabled %}
                 <div><a href="{{ link }}">{{ name }}</a></div>
-            {% endfor %}
+            {%endif %}{% endfor %}
         </div>
     </div>
 {% endif %}

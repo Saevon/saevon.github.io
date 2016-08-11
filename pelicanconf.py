@@ -150,14 +150,15 @@ TAG_URL = 'tags/{slug}/'
 
 # Blog Links
 LINKS =  (
-    # (Menu Name, url),
+    # (Menu Name, url, enabled),
 )
 
 # My Account Links
 ACCOUNTS = (
-    # (icon, url),
-    ('github-square', 'https://github.com/Saevon'),
-    ('linkedin-square', 'https://ca.linkedin.com/in/saevon'),
+    # (icon, url, enabled),
+
+    ('github-square', 'https://github.com/Saevon', True),
+    ('linkedin-square', 'https://ca.linkedin.com/in/saevon', True),
 )
 
 
