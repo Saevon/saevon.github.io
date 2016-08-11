@@ -59,21 +59,7 @@ LICENSE_FILE = '../LICENSE.md'
 LICENSE_SAVE_AS = 'license/index.html'
 LICENSE_URL = 'license/'
 
-# Sitemap file
-SITEMAP_SAVE_AS = "sitemap.xml"
 
-
-# Feed generation is usually not desired when developing
-# FEED_ATOM = ('atom.xml')
-FEED_ATOM = None
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
-CATEGORY_FEED_RSS = None
-TAG_FEED_ATOM = None
-TAG_FEED_RSS = None
-
-FEED_DOMAIN = SITEURL
-TRANSLATION_FEED = None
 
 # Comments
 DISQUS_SITENAME = "dev-blog-saevon"
@@ -102,6 +88,10 @@ DELETE_OUTPUT_DIRECTORY = True
 
 ######################################
 # Sitemap
+#   Used by robots to rank your site
+
+# Sitemap file
+SITEMAP_SAVE_AS = "sitemap.xml"
 
 # My custom sitemap data
 # Not for use with the pelican sitemap plugin
@@ -116,6 +106,43 @@ SITEMAP = {
         'changefreq': 'monthly',
     },
 }
+
+###########################
+# Feeds
+
+# Feed generation is usually not desired when developing
+FEED_DOMAIN = SITEURL
+
+ENABLE_ATOM = False
+if ENABLE_ATOM:
+    FEED_ATOM = 'atom.xml'
+    FEED_ALL_ATOM = 'feeds/all.atom.xml'
+    AUTHOR_FEED_ATOM = None
+    CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
+    TAG_FEED_ATOM = 'feeds/%s.atom.xml'
+else:
+    FEED_ATOM = None
+    FEED_ALL_ATOM = None
+    AUTHOR_FEED_ATOM = None
+    CATEGORY_FEED_ATOM = None
+    TAG_FEED_ATOM = None
+    TRANSLATION_FEED_ATOM = None
+
+
+ENABLE_RSS = False
+if ENABLE_RSS:
+    FEED_RSS = 'rss.xml'
+    AUTHOR_FEED_RSS = None
+    FEED_ALL_RSS = 'feeds/all.rss.xml'
+    CATEGORY_FEED_RSS = 'feeds/%s.rss.xml'
+    TAG_FEED_RSS = 'feeds/%s.rss.xml'
+else:
+    FEED_RSS = None
+    FEED_ALL_RSS = None
+    AUTHOR_FEED_RSS = None
+    CATEGORY_FEED_RSS = None
+    TAG_FEED_RSS = None
+    TRANSLATION_FEED_RSS = None
 
 
 
@@ -157,6 +184,8 @@ LINKS =  (
 ACCOUNTS = (
     # (icon, url, enabled),
 
+    ('rss-square', FEED_RSS, ENABLE_RSS),
+    ('rss-square', FEED_ATOM, not ENABLE_RSS and ENABLE_ATOM),
     ('github-square', 'https://github.com/Saevon', True),
     ('linkedin-square', 'https://ca.linkedin.com/in/saevon', True),
 )
