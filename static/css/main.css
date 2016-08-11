@@ -2,8 +2,50 @@
 /* Fonts */
 @font-face {
   font-family: "Bazin";
-  src: url("font/Bazin.ttf");
+  src: url("../font/Bazin.ttf");
 }
+
+@font-face {
+  font-family: "Fleurons";
+  src: url("../font/fleurons.ttf");
+}
+
+@font-face {
+  font-family: "Angelique-Rose";
+  src: url("../font/angelique-rose/Angelique-Rose.ttf");
+}
+
+@font-face {
+  font-family: "Kurnia";
+  src: url("../font/Kurnia.ttf");
+}
+
+
+@font-face {
+  font-family: "Garineldo";
+  src: url("../font/garineldo/Garineldo.otf");
+}
+
+@font-face {
+  font-family: "GarineldoNo01";
+  src: url("../font/garineldo/GarineldoNo01.otf");
+}
+
+@font-face {
+  font-family: "GarineldoNo02";
+  src: url("../font/garineldo/GarineldoNo02.otf");
+}
+
+/* Fonts: ensure the bazin characters can be displayed */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+}
+
+blockquote {
+  font-weight: bolder;
+  font-family: "Garineldo", "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+}
+
 
 /******************************************/
 /* Re-Usable classes */
@@ -16,6 +58,10 @@
 tiny {
   font-size: 60%;
 }
+/* should reflect the <p> tag */
+.paragraph {
+  margin-bottom: 10px;
+}
 .line-group {
   display: inline-block;
 }
@@ -25,6 +71,27 @@ dd {
 }
 
 
+/*******************************************/
+/* Defn list extension*/
+.defn-table {
+  margin-left: 20px;
+}
+.defn-table td:last-child {
+  padding-right: 15px;
+}
+.defn-table td:first-child {
+  padding-left: 15px;
+
+  font-weight: bold;
+  padding-right: 10px;
+  vertical-align: top;
+}
+.defn-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+.defn-table code {
+  font-weight: normal;
+}
 
 /******************************************/
 /* General Layout */
@@ -83,6 +150,21 @@ body {
   #comments,
   .sidenav {
     display: none !important;
+  }
+
+  /* This would fix the font embedding issue (by avoiding it when possible) */
+  /*
+  blockquote {
+    font-weight: lighter;
+    font-style: italic;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Bazin", "Fleurons";
+  }
+  */
+}
+
+@media not print {
+  .print-only {
+    display: none;
   }
 }
 

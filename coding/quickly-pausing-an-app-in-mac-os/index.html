@@ -28,6 +28,8 @@
     
 
 
+    <!-- style:  -->
+
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -116,9 +118,6 @@
                 © Saevon 2016
             </a>
         </small>
-        <small class="center">
-            Powered by <a href="http://pelican.notmyidea.org/">Pelican</a>
-        </small>
     </footer>
 </div>
 
@@ -147,8 +146,26 @@ You can see the code in my config file repository, along with my other bash alia
 <a href="bash-pauser">Click here to see the entire pause script</a>
 </div></p>
 <p>I added the following bash functions</p>
-<p><code>pause_process(pid)</code>: nicer kill command that pauses a process (<code>kill -STOP</code>)</p>
-<p><code>pause_app(string)</code>: searches for any proccesses with the given string, pausing them all</p>
+<div class="paragraph defn-table">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pause_process(pid)</code></td>
+<td>nicer kill command that pauses a process (<code>kill -STOP</code>)</td>
+</tr>
+<tr>
+<td><code>pause_app(string)</code></td>
+<td>searches for any proccesses with the given string, pausing them all</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>As well as the opposing functions <code>resume_app()</code> and <code>resume_process()</code> (which use <code>kill -CONT</code>).</p>
 <section class="&quot;section section2&quot;" id="implementation"><h2>Implementation</h2>
 <p><div class="alert alert-info "><i class="fa fa-commenting"></i>
