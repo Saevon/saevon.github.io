@@ -87,7 +87,7 @@ fi
 # Set-up the git repo
 section "Setup..."
 git init
-git remote add -f origin $URL
+git remote add --fetch origin $URL
 
 
 # Create the static site
