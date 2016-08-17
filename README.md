@@ -33,11 +33,12 @@ I use the my alerts plugins, and if you want to develop the alerts plugin at the
 python setup.py develop
 ```
 
-### Custom
+### Custom HTML
 
 <br />`tiny`: Makes the text very small
 <br />`.print-only`: Shows this when printing
 <br />`.paragraph`: Makes the element style similar to the `<p>` tag
+<br />`.back-link`: Makes the `<a>` tag href go back in history
 
 
 #### Article Styles:
@@ -70,7 +71,6 @@ The following define the basic article info
 <br />`NoTags`:      Hides the tags section
 <br />`NoComments`:  Hides the comments section
 <br />`NoPermalink`: Makes the header not be a link to itself
-
 
 
 ### Markdown

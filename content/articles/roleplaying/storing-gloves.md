@@ -48,7 +48,7 @@ Though the story is but a small excerpt from a much larger tale, the highlights 
 Their new team was fleshed out with **Galthor** and **Valkyrie** joining them, and their job was to find the 2nd Prince of the Land, **Thrisperios**.
 
 !alert! info
-    Timeskip! The [Chaos Party]({filename}dice-chaos.md) happened during this timeskip.
+    Timeskip! The [Chaos Party](/untold.html)<!-- ({filename}dice-chaos.md) --> happened during this timeskip.
 !endalert!
 
 Having followed **Silvia**'s directions, and having excavated a strange doorway, the party found that it was a portal to the Ethreal Plane. Travel in the Ethreal Plane is quite difficult, and the **Prince** was underground. So deciding to use the connection between the two planes, they dug a hole in the Material Plane, then used that passage in the Ethreal Plane to get to the **Prince**.
