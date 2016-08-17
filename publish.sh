@@ -21,6 +21,11 @@ function warn {
 	echo -e '\x1b[0;33mWARN:' $@ '\x1b[0;0m' 1>&2
 }
 
+function section {
+	echo -e '\n\x1b[38;5;33m' $@ '\x1b[0;0m' 1>&2
+}
+
+
 function err {
 	echo -e '\x1b[0;91mERROR:' $@ '\x1b[0;0m' 1>&2
 }
@@ -49,7 +54,7 @@ output="/tmp/$tmp_prefix-$uuid-site"
 function cleanup {
 	local status=$?
 
-	echo 'Cleaning Up'
+	section "Cleanup..."
 
 	# Cleanup all tmp folders
 	rm -rf /tmp/$tmp_prefix*
@@ -80,11 +85,13 @@ fi
 
 
 # Set-up the git repo
+section "Setup..."
 git init
 git remote add -f origin $URL
 
 
 # Create the static site
+section "Generating..."
 git checkout source
 if [[ $? != 0 ]]; then
 	err "Can't checkout master"
@@ -106,6 +113,7 @@ done < .publish-copy
 
 
 # Get the latest version of master
+section "Updating..."
 git checkout master
 if [[ $? != 0 ]]; then
 	err "Can't checkout master"
@@ -125,6 +133,7 @@ cp -R $output/ $tmp
 git add *
 
 # Update master
+section "Pushing..."
 git commit -a -m "Publishes new static content `date`"
 git push -f origin master
 
