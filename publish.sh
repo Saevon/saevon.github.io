@@ -92,6 +92,9 @@ if [[ $? != 0 ]]; then
 fi
 pelican -s publishconf.py -o $output
 
+# Cleanup all the .pyc files
+find . -name '*.pyc' | xargs rm
+
 
 # Get all the extra files files from the source branch
 while read file; do
