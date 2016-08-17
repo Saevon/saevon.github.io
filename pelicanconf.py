@@ -39,7 +39,7 @@ PATH = 'content'
 ARTICLE_DIR = 'articles'
 
 # Templates that make a page, rather than being a layout
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'license', 'sitemap')
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'license', 'sitemap')
 
 # Articles per page
 DEFAULT_PAGINATION = 5
