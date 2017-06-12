@@ -37,7 +37,7 @@
 
 {% if ACCOUNTS|count %}
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
             {% for icon, url, enabled in ACCOUNTS %}{% if enabled %}
                 <a href="{{ url }}" class="account-link">
@@ -77,6 +77,5 @@
     </footer>
 </div>
 
-<hr class="visible-xs" />
 <hr class="visible-xs" />
 

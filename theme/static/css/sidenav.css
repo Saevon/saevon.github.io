@@ -146,10 +146,6 @@
     float: left;
   }
 
-  .nav-small-hide {
-    display: none;
-  }
-
   .account-link {
     font-size: 80px;
   }
@@ -159,18 +155,6 @@
   }
 }
 
-@media (min-width: 770px) {
-  .nav-small-show {
-    display: none;
-  }
-}
-
-
-/******************************************************/
-/* The text size needs to decrement for the site name */
-
-/**********************************************/
-/* We should also vary the avatar positioning */
 @media (max-width: 650px) {
   .sidenav-menu {
     width: 65%;
@@ -184,6 +168,65 @@
 @media (max-width: 475px) {
   .sidenav-menu {
     width: 45%;
+  }
+}
+
+@media (max-width: 405px) {
+  /* After this point the menu is linear (vertically) */
+  .avatar-wrapper {
+    width: 100%;
+    margin-right: 0;
+  }
+  .sidenav-menu {
+    width: 100%;
+  }
+  .site-name {
+    font-size: 120%;
+  }
+  .sidenav-menu,
+  .nav-group-item {
+    font-size: 120%;
+  }
+}
+
+
+/* Helper classes for sizing */
+@media (max-width: 405px) {
+  /* Linear */
+  .nav-linear-hide {
+    display: none;
+  }
+}
+@media (min-width: 406px) and (max-width: 770px) {
+  /* Beside one another */
+  .nav-linear-show {
+    display: none;
+  }
+}
+@media (min-width: 770px) {
+  /* Linear */
+  .nav-linear-hide {
+    display: none;
+  }
+}
+
+
+/******************************************************/
+/* Extra Spacing */
+@media (max-width: 770px) {
+  body {
+    padding: 0;
+  }
+
+  /* Don't indent articles in a linear Style */
+  .category-articles {
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+    -webkit-padding-start: 0;
+    -khtml-padding-start: 0;
+    -o-padding-start: 0;
+    padding-start: 0;
+    padding-left: 0;
   }
 }
 
