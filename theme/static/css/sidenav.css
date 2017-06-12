@@ -2,7 +2,7 @@
 /*************/
 /* Side Nav */
 .sidenav {
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 20px;
 }
 .avatar-wrapper {
@@ -181,7 +181,7 @@
     width: 55%;
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 475px) {
   .sidenav-menu {
     width: 45%;
   }
