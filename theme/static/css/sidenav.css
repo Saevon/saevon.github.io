@@ -143,7 +143,7 @@
 
 /*****************/
 /* Sidenav Small */
-@media (max-width: 770px) {
+@media (max-width: 48em) {
   .avatar-wrapper {
     width: 150px;
     margin-right: 20px;
@@ -163,23 +163,23 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 40em) {
   .sidenav-menu {
     width: 65%;
   }
 }
-@media (max-width: 570px) {
+@media (max-width: 35em) {
   .sidenav-menu {
     width: 55%;
   }
 }
-@media (max-width: 475px) {
+@media (max-width: 30em) {
   .sidenav-menu {
     width: 45%;
   }
 }
 
-@media (max-width: 405px) {
+@media (max-width: 25em) {
   /* After this point the menu is linear (vertically) */
   .avatar-wrapper {
     width: 100%;
@@ -196,19 +196,19 @@
 
 
 /* Helper classes for sizing */
-@media (max-width: 405px) {
+@media (max-width: 25em) {
   /* Linear */
   .nav-linear-hide {
     display: none;
   }
 }
-@media (min-width: 406px) and (max-width: 770px) {
+@media (min-width: 25em) and (max-width: 48em) {
   /* Beside one another */
   .nav-linear-show {
     display: none;
   }
 }
-@media (min-width: 770px) {
+@media (min-width: 48em) {
   /* Linear */
   .nav-linear-hide {
     display: none;
@@ -218,7 +218,7 @@
 
 /******************************************************/
 /* Extra Spacing */
-@media (max-width: 770px) {
+@media (max-width: 48em) {
   body {
     padding: 0;
   }
