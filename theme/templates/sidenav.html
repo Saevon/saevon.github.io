@@ -5,7 +5,6 @@
         <img src="/{{ STATIC_DIR }}/images/avatar.jpg" class="center avatar img-rounded" />
         <h1 class="site-name">{{ AUTHOR }}</h1>
     </a>
-    <hr class="nav-small-hide"/>
 </div>
 
 
@@ -38,7 +37,7 @@
 
 {% if ACCOUNTS|count %}
     <div class="sidenav-acc-links">
-        <hr />
+        <hr class="nav-small-show" />
         <div class="account-links center">
             {% for icon, url, enabled in ACCOUNTS %}{% if enabled %}
                 <a href="{{ url }}" class="account-link">
