@@ -33,23 +33,31 @@
   font-size: 150%;
   font-weight: bold;
 }
+.nav-group {
+  margin-bottom: 10px;
+}
 .nav-group .nav-link-title {
   border-bottom: 1px solid transparent;
   margin-bottom: 5px;
 }
 .nav-group-content {
-  padding-left: 25px;
-  padding-right: 10px;
+  padding-left: 20px;
+  margin-bottom: 0;
+
   list-style: none;
 }
 .nav-group-item {
   font-size: 120%;
   border: 1px solid transparent;
   border-top-color: #EEE;
+
+  /* Padding should be on the block element */
+  padding: 2px 5px;
 }
 .nav-group-item a {
-  display: block;
-  padding: 2px 5px;
+  /* Ensure long menu items work */
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .nav-group-item:first-child {
@@ -70,8 +78,23 @@
   }
   .nav-group-item.active {
     background-color: #EEF;
+
     border-radius: 5px;
   }
+
+  /* Remove Rounded borders when outer borders are visible */
+  .nav-group:hover .nav-group-item {
+    border-top-right-radius: 0;
+    border-right-width: 0;
+  }
+  .nav-group:hover .nav-group-item:not(:last-child) {
+    border-bottom-right-radius: 0;
+  }
+  .nav-group:hover .nav-group-item:last-child {
+    border-bottom-color: transparent;
+  }
+  /* -------------- */
+
   .nav-link.active,
   .nav-link.active .nav-link-title {
     border-radius: 10px;
@@ -91,6 +114,7 @@
   .nav-group-item:hover + .nav-group-item {
     border-top-color: transparent;
   }
+
 
 
 
@@ -132,6 +156,12 @@
 
   .page-header {
     text-align: center
+  }
+}
+
+@media (min-width: 770px) {
+  .nav-small-show {
+    display: none;
   }
 }
 
