@@ -51,13 +51,16 @@
   border: 1px solid transparent;
   border-top-color: #EEE;
 
-  /* Padding should be on the block element */
-  padding: 2px 5px;
 }
 .nav-group-item a {
   /* Ensure long menu items work */
   word-wrap: break-word;
   hyphens: auto;
+
+  /* Padding should be on the block element */
+  display: inline-block;
+  width: 100%;
+  padding: 2px 5px;
 }
 
 .nav-group-item:first-child {
