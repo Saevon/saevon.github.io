@@ -19,6 +19,13 @@ RELATIVE_URLS = False
 
 
 ########################################
+# Features
+
+# Hide Untold Stories
+SHOW_UNTOLD = True
+
+
+########################################
 # Feeds
 
 

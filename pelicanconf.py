@@ -46,6 +46,9 @@ DIRECT_TEMPLATES.append('history_map_js')
 HISTORY_MAP_JS_SAVE_AS = "static/js/history_map.js"
 ENABLE_HISTORY_LINKS = True
 
+# Show the Untold Story page (off for Dev)
+SHOW_UNTOLD = False
+
 # Articles per page
 DEFAULT_PAGINATION = 5
 
