@@ -98,6 +98,11 @@ if [[ $? != 0 ]]; then
 	exit 1;
 fi
 pelican -s publishconf.py -o $output
+if [[ $? != 0 ]]; then
+	err "Can't Generate blog"
+	exit 1;
+fi
+
 
 # Cleanup all the .pyc files
 find . -name '*.pyc' | xargs rm
