@@ -11,9 +11,7 @@
 
         <ul class="category-articles">
             {% for article in articles|category_preview_articles(5) %}
-                {% if not article|is_untold %}
-                    {% include 'partial/article_excerpt.html' %}
-                {% endif %}
+                {% include 'partial/article_excerpt.html' %}
             {% endfor %}
         </ul>
     </section>
