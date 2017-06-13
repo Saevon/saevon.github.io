@@ -28,13 +28,13 @@ Here is a way to run it clientside (on a browser) for those things that aren't a
 
     
 
-
     <!-- style:  -->
 
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+	<script src="/static/js/history_map.js"></script>
 	<script src="/static/js/main.js"></script>
 
 
@@ -99,7 +99,7 @@ Here is a way to run it clientside (on a browser) for those things that aren't a
 <div class="clearfix"></div>
 
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
                 <a href="https://github.com/Saevon" class="account-link">
                     <i class="fa fa-github-square"></i>
@@ -124,12 +124,12 @@ Here is a way to run it clientside (on a browser) for those things that aren't a
 </div>
 
 <hr class="visible-xs" />
-<hr class="visible-xs" />
 			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full ">
+
 <div class="page-header">
 
         <a href="//blog.saevon.ca/coding/running-node-red-flows-in-the-browser/" rel="bookmark" title="Permalink to Running Node-Red flows in the browser" class="perma-link">
@@ -137,11 +137,11 @@ Here is a way to run it clientside (on a browser) for those things that aren't a
             </h1>
         </a>
 </div>
-        <div class="date">
-          <span>09 August 2016</span>
-        </div>
-        <div class="content">
-          <p>Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js.
+            <div class="date">
+              <span>09 August 2016</span>
+            </div>
+            <div class="content">
+              <p>Node-Red is pretty useful for wiring together IOF (Internet of Things) devices, but its currently tied to node.js.
 Here is a way to run it clientside (on a browser) for those things that aren't allowed to run node.js.</p>
 <section class="&quot;section section1&quot;" id="situation"><h1>Situation</h1>
 <p>I had devices that could only run JS through a chrome-like browser. Yet I needed a way to quickly deploy similar workflows to these devices. Each device would also act as a hub for other hardware on the system, this other hardware was easiest to connect through node-red.</p>
@@ -268,9 +268,9 @@ None of this is release-ready yet, as there's a lot more to examine, add and tes
 <li><a href="https://github.com/Saevon/node-red/">My Node-Red Repo</a></li>
 </ul>
 </section>
-        </div>
+            </div>
 
-        <hr />
+            <hr />
 
     <ul class="tag-box">
       <li><i class="fa fa-tags"> </i></li>
@@ -294,11 +294,12 @@ None of this is release-ready yet, as there's a lot more to examine, add and tes
         </li>
     </ul>
 
-            <hr />
+                <hr />
+
     </article>
 
         <footer>
-            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <a class="back-link" href="//blog.saevon.ca/coding/">&larr; Back <span class="back-link-name">to coding</span></a>
             <hr />
         </footer>
 

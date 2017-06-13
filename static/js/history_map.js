@@ -1,0 +1,35 @@
+
+window.enable_history = true;
+window.history_mapping = {
+  "": "Saevon.ca",
+
+      "roleplaying/the-vile-world/": "The Vile World",
+      "roleplaying/dice-of-chaos/": "Dice of Chaos",
+      "roleplaying/ryuutama-scenario-midsummer-road-of-grandile/": "Ryuutama Scenario: Midsummer Road of Grandile",
+      "coding/running-node-red-flows-in-the-browser/": "Running Node-Red flows in the browser",
+      "roleplaying/ryuutama-role-artist/": "Ryuutama Role: Artist",
+      "roleplaying/engagement-rings/": "Engagement Rings",
+      "roleplaying/glove-of-storing/": "Glove of Storing",
+      "roleplaying/teleportation-vial/": "Teleportation Vial",
+      "roleplaying/weeping-minds-horror-011/": "Weeping Minds (Horror): 011",
+      "roleplaying/unseen-death-one-shot/": "Unseen Death (One-Shot)",
+      "roleplaying/weeping-minds-horror-001/": "Weeping Minds (Horror): 001",
+      "roleplaying/hell-spider-staff/": "Hell Spider Staff",
+      "roleplaying/kaerns-blade/": "Kaern's Blade",
+      "roleplaying/necklace-of-anti-magic/": "Necklace of Anti-Magic",
+      "roleplaying/vampiric-blade/": "Vampiric Blade",
+      "roleplaying/ravaging-bow/": "Ravaging Bow",
+      "coding/quickly-pausing-an-app-in-mac-os/": "Quickly pausing an app in Mac-OS",
+      "coding/compiling-assembly-integrating-with-c/": "Compiling Assembly, Integrating with C",
+      "personal/psychology-walking/": "Psychology ~ Where are you going?",
+      "coding/using-the-proper-assembler-on-mac-osx/": "Using the proper Assembler on Mac OSX",
+      "review/review-prison-architect/": "Review: Prison Architect",
+      "roleplaying/mystic-eye-collection-goggles/": "Mystic Eye Collection Goggles",
+      "review/review-game-dev-tycoon/": "Review: Game Dev Tycoon",
+      "coding/python-virtual-environments-and-pip/": "Python Virtual Environments and PIP",
+      "review/review-alex-rider/": "Review: Alex Rider",
+      "coding/webrtc-with-jssip-and-asterisk/": "WebRTC with JsSIP and Asterisk",
+      "personal/hello-world/": "Hello World!",
+
+      "": "404: Unmapped Territory",
+};

@@ -133,7 +133,7 @@ body {
 }
 
 /* Sidenav Small */
-@media (max-width: 770px) {
+@media (max-width: 48em) {
   .sidenav {
     position: relative;
     max-width: 100%;

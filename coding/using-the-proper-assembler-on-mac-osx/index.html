@@ -28,13 +28,13 @@ In this article I will discuss a simple solution to this problem.
 
     
 
-
     <!-- style:  -->
 
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+	<script src="/static/js/history_map.js"></script>
 	<script src="/static/js/main.js"></script>
 
 
@@ -99,7 +99,7 @@ In this article I will discuss a simple solution to this problem.
 <div class="clearfix"></div>
 
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
                 <a href="https://github.com/Saevon" class="account-link">
                     <i class="fa fa-github-square"></i>
@@ -124,12 +124,12 @@ In this article I will discuss a simple solution to this problem.
 </div>
 
 <hr class="visible-xs" />
-<hr class="visible-xs" />
 			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full ">
+
 <div class="page-header">
 
         <a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/" rel="bookmark" title="Permalink to Using the proper Assembler on Mac OSX" class="perma-link">
@@ -137,11 +137,11 @@ In this article I will discuss a simple solution to this problem.
             </h1>
         </a>
 </div>
-        <div class="date">
-          <span>20 June 2014</span>
-        </div>
-        <div class="content">
-          <p>The standard compiler <code>gcc</code> for Mac OSX is actually the <code>clang</code> compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that "<code>as</code>" is not the clang assembler however, which causes it to break down.</p>
+            <div class="date">
+              <span>20 June 2014</span>
+            </div>
+            <div class="content">
+              <p>The standard compiler <code>gcc</code> for Mac OSX is actually the <code>clang</code> compiler, this means that you need to use its assembler and linker as well. If you try to do the compilation in steps, you will notice that "<code>as</code>" is not the clang assembler however, which causes it to break down.</p>
 <p>In this article I will discuss a simple solution to this problem.</p>
 <section class="&quot;section section1&quot;" id="intro"><h1>Intro</h1>
 <p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
@@ -196,9 +196,9 @@ Jump straight to the <a href="#solution">solution</a>, or read about the situati
 </ul>
 <p>I opted for the second solution, mostly since this seems to be a more common use-case for me.</p>
 </section>
-        </div>
+            </div>
 
-        <hr />
+            <hr />
 
     <ul class="tag-box">
       <li><i class="fa fa-tags"> </i></li>
@@ -226,11 +226,12 @@ Jump straight to the <a href="#solution">solution</a>, or read about the situati
         </li>
     </ul>
 
-            <hr />
+                <hr />
+
     </article>
 
         <footer>
-            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <a class="back-link" href="//blog.saevon.ca/coding/">&larr; Back <span class="back-link-name">to coding</span></a>
             <hr />
         </footer>
 

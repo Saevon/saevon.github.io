@@ -27,13 +27,13 @@
 
     
 
-
     <!-- style:  -->
 
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+	<script src="/static/js/history_map.js"></script>
 	<script src="/static/js/main.js"></script>
 
 
@@ -98,7 +98,7 @@
 <div class="clearfix"></div>
 
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
                 <a href="https://github.com/Saevon" class="account-link">
                     <i class="fa fa-github-square"></i>
@@ -123,12 +123,12 @@
 </div>
 
 <hr class="visible-xs" />
-<hr class="visible-xs" />
 			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full ">
+
 <div class="page-header">
 
         <a href="//blog.saevon.ca/coding/compiling-assembly-integrating-with-c/" rel="bookmark" title="Permalink to Compiling Assembly, Integrating with C" class="perma-link">
@@ -136,11 +136,11 @@
             </h1>
         </a>
 </div>
-        <div class="date">
-          <span>13 August 2015</span>
-        </div>
-        <div class="content">
-          <p>Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.</p>
+            <div class="date">
+              <span>13 August 2015</span>
+            </div>
+            <div class="content">
+              <p>Compiling assembly with C is actually pretty easy, you can even get pre-processor commands into your assembly so you can re-use constants between the two.</p>
 <section class="&quot;section section1&quot;" id="situation"><h1>Situation</h1>
 <p>While writing my microkernel, it was necessary to add a machine specific context switch, for the ARM-920T processor. This meant I needed to add assembly to my C code.</p>
 <p>I also needed to have my user tasks call syscall functions, which ended up being stubs for the <code>swi</code> ARM assembly command. Thus I needed assembly there too, however it needed to share the <code>syscall_id</code> value between the kernel syscall handler, and the user syscall stubs.</p>
@@ -247,10 +247,17 @@ The code highlighter doesn't support this, but the "@&hellip;" lines are comment
 </pre></div>
 
 
+<p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
+If you're using a mac (check out how to ensure the assembler is properly set up)<a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/">mac-assembler</a>
+</div></p>
+</section><section class="&quot;section section1&quot;" id="reference"><h1>Reference</h1>
+<ul>
+<li><a href="//blog.saevon.ca/coding/using-the-proper-assembler-on-mac-osx/">Using the Proper Mac Assembler</a></li>
+</ul>
 </section>
-        </div>
+            </div>
 
-        <hr />
+            <hr />
 
     <ul class="tag-box">
       <li><i class="fa fa-tags"> </i></li>
@@ -274,11 +281,12 @@ The code highlighter doesn't support this, but the "@&hellip;" lines are comment
         </li>
     </ul>
 
-            <hr />
+                <hr />
+
     </article>
 
         <footer>
-            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <a class="back-link" href="//blog.saevon.ca/coding/">&larr; Back <span class="back-link-name">to coding</span></a>
             <hr />
         </footer>
 

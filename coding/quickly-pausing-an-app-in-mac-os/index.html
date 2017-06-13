@@ -27,13 +27,13 @@
 
     
 
-
     <!-- style:  -->
 
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+	<script src="/static/js/history_map.js"></script>
 	<script src="/static/js/main.js"></script>
 
 
@@ -98,7 +98,7 @@
 <div class="clearfix"></div>
 
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
                 <a href="https://github.com/Saevon" class="account-link">
                     <i class="fa fa-github-square"></i>
@@ -123,12 +123,12 @@
 </div>
 
 <hr class="visible-xs" />
-<hr class="visible-xs" />
 			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full ">
+
 <div class="page-header">
 
         <a href="//blog.saevon.ca/coding/quickly-pausing-an-app-in-mac-os/" rel="bookmark" title="Permalink to Quickly pausing an app in Mac-OS" class="perma-link">
@@ -136,11 +136,11 @@
             </h1>
         </a>
 </div>
-        <div class="date">
-          <span>14 August 2015</span>
-        </div>
-        <div class="content">
-          <p>Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.</p>
+            <div class="date">
+              <span>14 August 2015</span>
+            </div>
+            <div class="content">
+              <p>Chrome has always annoyed me when my battery is low, or when I'm low on memory. So I made a quick terminal command that freezes its processes. Of course I use this for pausing any of my apps.</p>
 <section class="&quot;section section1&quot;" id="overview"><h1>Overview</h1>
 <p><div class="alert alert-info "><i class="fa fa-info-circle"></i>
 You can see the code in my config file repository, along with my other bash aliases.
@@ -224,9 +224,9 @@ The best search string is one which contains the entire app name, (or at least t
 <li><a href="https://github.com/Saevon/config/blob/master/bash/pauser_template.bash">Pausing a list of apps at once</a></li>
 </ul>
 </section>
-        </div>
+            </div>
 
-        <hr />
+            <hr />
 
     <ul class="tag-box">
       <li><i class="fa fa-tags"> </i></li>
@@ -246,11 +246,12 @@ The best search string is one which contains the entire app name, (or at least t
         </li>
     </ul>
 
-            <hr />
+                <hr />
+
     </article>
 
         <footer>
-            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <a class="back-link" href="//blog.saevon.ca/coding/">&larr; Back <span class="back-link-name">to coding</span></a>
             <hr />
         </footer>
 

@@ -27,13 +27,13 @@
 
     
 
-
     <!-- style:  -->
 
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+	<script src="/static/js/history_map.js"></script>
 	<script src="/static/js/main.js"></script>
 
 
@@ -98,7 +98,7 @@
 <div class="clearfix"></div>
 
     <div class="sidenav-acc-links">
-        <hr class="nav-small-show" />
+        <hr class="nav-linear-hide" />
         <div class="account-links center">
                 <a href="https://github.com/Saevon" class="account-link">
                     <i class="fa fa-github-square"></i>
@@ -123,12 +123,12 @@
 </div>
 
 <hr class="visible-xs" />
-<hr class="visible-xs" />
 			</div>
 
 		<!-- Content -->
 		<section class="section-content col-md-9 col-sm-9 col-xs-12">
     <article class="article article-full ">
+
 <div class="page-header">
 
         <a href="//blog.saevon.ca/coding/python-virtual-environments-and-pip/" rel="bookmark" title="Permalink to Python Virtual Environments and PIP" class="perma-link">
@@ -136,11 +136,11 @@
             </h1>
         </a>
 </div>
-        <div class="date">
-          <span>12 July 2013</span>
-        </div>
-        <div class="content">
-          <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
+            <div class="date">
+              <span>12 July 2013</span>
+            </div>
+            <div class="content">
+              <p>virtualenv is a pretty awesome tool for any python user, however it is often too easy to accidentally install new packages into the wrong place. Here I show you how to separate your system packages and that of your project environments.</p>
 <section class="&quot;section section1&quot;" id="intro"><h1>Intro</h1>
 <p>Jump "straight" to the <a href="#Syspip">Syspip</a> section if you know all about python packaging and virtualenv.</p>
 </section><section class="&quot;section section1&quot;" id="virtualenvwrapper"><h1>virtualenvwrapper</h1>
@@ -215,9 +215,9 @@ rmvirtualenv <span class="nv">$env_name</span>
 Don't forget to load <code>.bash_aliases</code> before you activate any environments, otherwise <code>syspip</code> might not work as advertised.
 </div></p>
 </section>
-        </div>
+            </div>
 
-        <hr />
+            <hr />
 
     <ul class="tag-box">
       <li><i class="fa fa-tags"> </i></li>
@@ -241,11 +241,12 @@ Don't forget to load <code>.bash_aliases</code> before you activate any environm
         </li>
     </ul>
 
-            <hr />
+                <hr />
+
     </article>
 
         <footer>
-            <a href="//blog.saevon.ca/coding/">&larr; Back to coding</a>
+            <a class="back-link" href="//blog.saevon.ca/coding/">&larr; Back <span class="back-link-name">to coding</span></a>
             <hr />
         </footer>
 
