@@ -53,10 +53,8 @@
 
         {% if article|is_untold %}
             <div class="content">
-                <div class="alert alert-warning" role="alert">
-                    <i class="fa fa-warning"></i>
-                    This story is not yet told, come back to the storyteller another day.
-                </div>
+                <strong>{{ article.title }}</strong>
+                is a story that has not yet been told, come back to the storyteller another day.
             </div>
 
             <hr />
