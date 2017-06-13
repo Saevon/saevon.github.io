@@ -59,6 +59,9 @@ PAGINATED_DIRECT_TEMPLATES = ()
 USE_FOLDER_AS_CATEGORY = True
 DEFAULT_CATEGORY = 'personal'
 
+# The author page doesn't exist yet
+AUTHOR_SAVE_AS = False
+AUTHOR_URL = False
 # Disable the authors list page (as there is only one author)
 AUTHORS_SAVE_AS = False
 
