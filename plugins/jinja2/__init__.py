@@ -7,6 +7,7 @@ from itertools import chain
 
 from plugins.jinja2.debug_dump import dump, dump_all, dump_file, dump_url
 from plugins.jinja2.category import find_category, category_preview_articles, mark
+from plugins.jinja2.article import is_untold
 from plugins.jinja2.nav import is_cur_page, get_main
 from plugins.jinja2.summary import summary, summary_raw
 from plugins.jinja2.tags import update_count, tag_remap, tag_sort, tag_ratios
@@ -20,6 +21,8 @@ JINJA_FILTERS = {
     'find_category': find_category,
     'category_preview_articles': category_preview_articles,
     'mark': mark,
+
+    'is_untold': is_untold,
 
     'update_count': update_count,
     'tag_remap': tag_remap,

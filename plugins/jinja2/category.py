@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import unicode_literals
+from .article import is_untold
 
 
 def find_category(categories, name):
@@ -23,6 +24,7 @@ def mark(items, type):
     return items
 
 def category_preview_articles(articles, num=None):
+    articles = filter(lambda article: not is_untold(article), articles)
     articles = sorted(articles, key=lambda val: val.date, reverse=True)
 
     if num is not None:

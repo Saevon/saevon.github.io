@@ -10,11 +10,12 @@
 
 
 
-{% set style = article.style %}
-{% set is_untold = "untold" in style and SHOW_UNTOLD %}
+
 
 {% block css %}
     {{ super() }}
+
+    {% set style = article.style %}
 
     <!-- style: {{ style }} -->
     {% if "report" in style %}
@@ -39,7 +40,7 @@
 
 {% block content %}
     <article class="article article-full {% if article.isnumbered %}article-numbered{% endif %}">
-        {% if is_untold %}
+        {% if article|is_untold %}
             {% set title = "Storytellers Rest" %}
             {% set tagline = "Some stories are lost... others are just waiting to be found" %}
         {% else %}
@@ -50,7 +51,7 @@
         {% set permalink = article.url %}
         {% include 'partial/header.html' %}
 
-        {% if is_untold %}
+        {% if article|is_untold %}
             <div class="content">
                 <div class="alert alert-warning" role="alert">
                     <i class="fa fa-warning"></i>
@@ -85,7 +86,7 @@
         </footer>
     {% endif %}
 
-    {% if not main.nocomments and not is_untold %}
+    {% if not main.nocomments and not article|is_untold %}
         <div id="comments">
             {# If none of the comment engines are enabled, this will be turned off #}
             {% set comments_enabled = true %}

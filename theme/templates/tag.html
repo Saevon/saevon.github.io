@@ -14,7 +14,9 @@
         {% include 'partial/header.html' %}
 
         {% for article in articles_page.object_list %}
-            {% include 'partial/article_excerpt.html' %}
+            {% if not article|is_untold %}
+                {% include 'partial/article_excerpt.html' %}
+            {% endif %}
         {% endfor %}
 
         <hr />
