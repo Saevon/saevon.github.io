@@ -47,7 +47,7 @@
   {% endfor %}
 
   {% for page in pages %}
-    {% if page.sitemap and not page.nositemap %}
+    {% if not page.nositemap %}
       <url>
         <loc>{{ SITEURL }}/{{ page.url }}</loc>
 

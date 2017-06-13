@@ -61,7 +61,7 @@
 
     {% if not main.nofooter %}
         <footer>
-            <a href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back to {{ article.category }}</a>
+            <a class="back-link" href="{{ SITEURL }}/{{ article.category.url }}">&larr; Back <span class="back-link-name">to {{ article.category }}</span></a>
             <hr />
         </footer>
     {% endif %}

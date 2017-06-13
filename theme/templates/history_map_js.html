@@ -1,0 +1,18 @@
+{% set save_as="history_map.js" %}
+
+window.enable_history = {{ ENABLE_HISTORY_LINKS|tojson|safe }};
+window.history_mapping = {
+  "": "{{ SITENAME }}",
+
+  {% for article in articles %}
+    {% if not article.nositemap %}
+      "{{ article.url }}": "{{ article.title }}",
+    {% endif %}
+  {% endfor %}
+
+  {% for page in pages %}
+    {% if not page.nositemap %}
+      "{{ page.url }}": "{{ page.title }}",
+    {% endif %}
+  {% endfor %}
+};

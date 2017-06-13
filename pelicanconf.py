@@ -39,7 +39,12 @@ PATH = 'content'
 ARTICLE_DIR = 'articles'
 
 # Templates that make a page, rather than being a layout
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'license', 'sitemap')
+DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'license', 'sitemap']
+
+# Mapping of URL to title, for history
+DIRECT_TEMPLATES.append('history_map_js')
+HISTORY_MAP_JS_SAVE_AS = "static/js/history_map.js"
+ENABLE_HISTORY_LINKS = True
 
 # Articles per page
 DEFAULT_PAGINATION = 5
