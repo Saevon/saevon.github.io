@@ -149,4 +149,18 @@ kern/asm/%.s: kern/asm/%.S
 ```
 
 
+!alert! info
+    If you're using a mac (check out how to ensure the assembler is properly set up)[mac-assembler]
+!endalert!
+
+
+
+
+# Reference
+
+* [Using the Proper Mac Assembler][mac-assembler]
+
+[mac-assembler]: {filename}/articles/coding/mac-assembler.md
+
+
 
